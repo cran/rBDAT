@@ -1,7 +1,7 @@
-2feeedb11694e65db458b58aae7c40a2 *DESCRIPTION
+81f1fd193128749820978551cabd5854 *DESCRIPTION
 ca5fbeb3224c82cbbf886b1ca2af8cd6 *LICENSE
 0365593e13f86836b36b275084550c61 *NAMESPACE
-6578aa85b04d5e4a76ca5a237d623256 *NEWS.md
+4101f289a3a6e4e8fc10fa48d6db880e *NEWS.md
 68ada8c931929f25861e423170a0410d *R/BDAT20.R
 c69fe70271ac7451075edfee1a3dfb1d *R/BDATBIOMASSE.R
 4a680aa175693001b948ff0328c18a6c *R/BDATDMRHX.R
@@ -28,9 +28,9 @@ b3ba5c833ce59d52955325457bcbde4d *R/updateBdatNamespace.R
 01ba2fcf5d712f5fa630f75bb70a9576 *R/zzz.R
 9e457ce2f7078edd66a936c5712184d9 *README.md
 00a033e6373450db98aca7ea89804e44 *build/vignette.rds
-206a99ef52cc5c6c6695a938394fcf4d *inst/NEWS.rd
+55696d02b5ed44c8078df577ac2c17f1 *inst/NEWS.rd
 02f13fabeef75afacbb720088771e9ce *inst/doc/rbdat.R
-c316795d033cb698d14e10a2e6078614 *inst/doc/rbdat.html
+705738ab4bcb56ab0a892b9ffc5ec6bf *inst/doc/rbdat.html
 7bfc4643aaa8d23335b905357d6fc180 *inst/doc/rbdat.rmd
 2bfb775a4d675ad0126652c68f0a4949 *inst/runit_tests/runit-throw.R
 32b5a6a8562b30b56619e472fbe2a43d *man/BDAT20.Rd
@@ -58,8 +58,8 @@ a66eaf8e3f6419e834f4f05a0b9f2f38 *man/transformBDAT20.Rd
 89ae75978af0bf63b941480d29e82e6d *man/updateBdatNamespace.Rd
 2078111337057af8acb13d4faf730eac *src/BDATpro.f
 7aef48fefeb8dc6d4525e7015749c9c3 *src/FormTarife.f
-7ea65c7f52dbfab9d17d2fa127ad7067 *src/Koeff.f
-2fdb57ce38021c4ab8c117ddcd3d2717 *src/rBDAT_init.c
+3b41921f0c23528f90e23df0b92bc391 *src/Koeff.f
+8408815f303850533790a62b6119dacf *src/rBDAT_init.c
 f5156995f9c3e8c04ffd08a11fb9467b *src/vBDATpro.f
 3052d3cb6c4f8ed70ee7bdf81bf8fcd3 *tests/runit.R
 d36084153aeb1e2c3a695e0829d1e5ff *tests/testthat.R

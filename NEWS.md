@@ -1,6 +1,23 @@
+# rBDAT 0.9.7
+
+* modifications to avoid warnings in LTO (link time optimization of gcc, option
+  -flto=10), especially in rBDAT_init.c
+* in Fortran function FnBiomass, use explicit declaration and corrected passing
+  of variables with required type
+
+# rBDAT  0.9.6
+
+* added doi of citation in Description file
+* corrected par() re-setting in plot.datBDAT examples
+
+# rBDAT 0.9.5
+
+* improved examples in several functions
+
 # rBDAT 0.9.4
 
-* remove BDAT docs from package; now available at the gitlab repo
+* remove BDAT docs from package; now available at
+  https://gitlab.com/vochr/rbdat/-/blob/master/bdatdocs//
 * small updates in vignette and package info
 
 # rBDAT 0.9.3

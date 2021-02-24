@@ -160,7 +160,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3>Getting started</h3>
 <p>In BDAT, a tree is specified at its minimum by its species code, dbh (diameter in breast height, i.e. 1.3m) and height. Implicitly, this defines a second diameter in 30% of three height according to the “Masse-Tafeln” (Volume-Tables) from Grundner und Schwappach (1921). For the possibility of more precisely specifying taper form see further below.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rBDAT)</span></code></pre></div>
-<pre><code>## This is rBDAT 0.9.6</code></pre>
+<pre><code>## This is rBDAT 0.9.7</code></pre>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>tree <span class="ot">&lt;-</span> <span class="fu">buildTree</span>(<span class="at">tree =</span> <span class="fu">list</span>(<span class="at">spp=</span><span class="dv">1</span>, <span class="at">D1=</span><span class="dv">30</span>, <span class="at">H=</span><span class="dv">27</span>))</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(tree)</span></code></pre></div>
 <pre><code>## Classes &#39;datBDAT&#39; and &#39;data.frame&#39;:  1 obs. of  6 variables:

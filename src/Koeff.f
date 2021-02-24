@@ -16,18 +16,22 @@ c*******************************************************************************
 
 !dec$ ATTRIBUTES  DLLEXPORT :: FNBiomasse
 c         =======================================================
+      implicit none
       INTEGER BdatBart
       real D13,D2,H2,H
       real erg
-      INTEGER ba_nr
+      INTEGER ba_nr, i
       real d13_us
       real xFNBDATDmRHx
+      real fHoehenTarif
 
       real b0_h(1:18), b1_h(1:18), Bo(1:18), B_us(1:18)
       real b3_poly(1:18), b0(1:18), b1(1:18), b2(1:18)
       real b3(1:18), k1(1:18), k2(1:18), d13_os(1:18)
       real c0(1:18), c1(1:18), a(1:18), b(1:18)
       INTEGER bio_bagr(300),iErr
+
+      real B_os, d03, d03_os, h_os
 
       data d13_us /10/
 
@@ -147,8 +151,7 @@ c
           d2=0
           H2=50
       endif
-      d03=xFNBDATDmRHx(BdatBart, d13, 0, d2, H2,
-     1    H,H*0.3, IErr, d03)
+      d03=xFNBDATDmRHx(BdatBart, d13, 0.0, d2, H2, H, H*0.3, IErr, d03)
 
 
       d03_os= d03 + c0(ba_nr) * d13_os(ba_nr)**c1(ba_nr) -
@@ -198,7 +201,8 @@ c*******************************************************************************
 
 
       real function fHoehenTarif(a, b, d13)
+      implicit none
       real a,b,d13
 
           fHoehenTarif= 1.3 + 1 / (a + b / d13)**3
-      end function
+      end function fHoehenTarif

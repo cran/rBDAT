@@ -1,9 +1,32 @@
 \name{NEWS}
 \title{NEWS}
 
+\section{Changes in version 0.9.7}{
+\itemize{
+\item modifications to avoid warnings in LTO (link time optimization of gcc, option
+-flto=10), especially in rBDAT_init.c
+\item in Fortran function FnBiomass, use explicit declaration and corrected passing
+of variables with required type
+}
+}
+
+\section{Changes in version 0.9.6}{
+\itemize{
+\item added doi of citation in Description file
+\item corrected par() re-setting in plot.datBDAT examples
+}
+}
+
+\section{Changes in version 0.9.5}{
+\itemize{
+\item improved examples in several functions
+}
+}
+
 \section{Changes in version 0.9.4}{
 \itemize{
-\item remove BDAT docs from package; now available at the gitlab repo
+\item remove BDAT docs from package; now available at
+https://gitlab.com/vochr/rbdat/-/blob/master/bdatdocs//
 \item small updates in vignette and package info
 }
 }
