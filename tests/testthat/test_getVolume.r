@@ -1,7 +1,11 @@
 if (interactive()) pkgload::load_all()
 context("getVolume")
 
-test_that("test volume bark", {
+# Fails on CRAN running stale versions under windows and r-devel on new M1-mac
+# hence allow some tolerance on comparison
+test_equal <- function(...) testthat::expect_equal(..., tolerance =  1e-06)
+
+test_that("test getVolume incl. bark", {
   result <- getVolume(
     tree = list(spp = 1, D1 = 30, H = 25),
     AB = list(A = 1, B = 2, sl = 0.1),
@@ -13,10 +17,10 @@ test_that("test volume bark", {
     dump("result")
   }
   expectation <- 0.0686297789216042
-  testthat::expect_equal(result, expectation)
+  test_equal(result, expectation)
 })
 
-test_that("test volume no bark", {
+test_that("test getVolume excl. bark", {
   result <- getVolume(
     tree = list(spp = 1, D1 = 30, H = 25),
     AB = list(A = 1, B = 2, sl = 0.1),
@@ -28,10 +32,10 @@ test_that("test volume no bark", {
     dump("result")
   }
   expectation <- 0.0615232065320015
-  testthat::expect_equal(result, expectation)
+  test_equal(result, expectation)
 })
 
-test_that("test volume no bark", {
+test_that("test getAssortment", {
   result <- getAssortment(tree = list(spp = 1, D1 = 30, H = 25))
   if (FALSE) {
     dump("result")
@@ -48,5 +52,5 @@ test_that("test volume no bark", {
   ),
   row.names = c(NA, 5L), class = "data.frame"
   )
-  testthat::expect_equal(result, expectation)
+  test_equal(result, expectation)
 })

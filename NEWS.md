@@ -1,3 +1,7 @@
+# rBDAT 0.9.8
+
+* added more tolerance for tests on CRAN windows old-rel
+
 # rBDAT 0.9.7
 
 * modifications to avoid warnings in LTO (link time optimization of gcc, option
@@ -26,25 +30,24 @@
 * update of Fortran Code to remove compile warnings
 * small updates in vignette
 
-# rBDAT 0.9.2.9000
+# rBDAT 0.9.2
 
 * call of getDiameter via S3-methods dispatch
 
-# rBDAT 0.9.1.9000
+# rBDAT 0.9.1
 
 * added function to easily update R-scripts: use 'rBDAT' instead of 'rBDATPRO'
 * added startup message
 * added .onUnload to detach .so/.dll
 
-# rBDAT 0.9.0.9000
+# rBDAT 0.9.0
 
 * This is a clone of https://gitlab.com/vochr/rbdatpro, hence, a rename of 
   R-Package 'rBDATPRO' v0.8.1.9000. With that, the package is named more
   appropriately (as BDATPRO was a specific version of BDAT), shorter and this 
   is the canonical name of the provided functionality.
 
-# rBDATPRO 0.8.1.9000
-
+## in the devel version of rBDATPRO
 * Problems when calling getBiomass with very small trees: internal call to 
   getDiameter(, Hx=0.3*H, ) returns NA and hence getBiomass stops with error.
   As first measure the precalculation of D03 inside getBiomass is stopped and
