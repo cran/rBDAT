@@ -1,3 +1,31 @@
+# rBDAT 0.10.0
+
+* added information and example about 'inv=0' in getForm to return volume tables
+  (so-called 'Massetafeln' of Grundner und Schwappach, 1921) equivalent form
+* coerce 'bark'-parameter in getDiameter, getVolume and getHeight into logical 
+  of length one.
+* removed LazyData entry in Description file.
+* updated buildTree(, check="biomass") to calculate D13 and D03 for correct 
+  evaluation of the biomass function. It is now possible to hand over a 
+  percentile of the D03-distribution with D2=0 and H2=]0,100[. Consequently, 
+  the default behaviour has changed in case no D2 information is given: formerly
+  NFI1-form was assumed but now volume table-equivalence is assumed. This is now
+  coherent to all other functions in BDAT.
+* The consequence of allowing D1=0 in building the data set for evaluating 
+  biomass for small trees, are wrong estimates for those small trees with 
+  respect to taper curve evaluation and, hence, to other characteristics like
+  volume, double bark thickness and diameter. Now, those small trees correctly
+  return zero in those cases.
+* added PACKAGE argument to all .Fortran() calls
+
+# rBDAT 0.9.9
+
+* now the error indication of subroutine BDAT20 is evaluated and respective 
+  trees get treated accordingly, ie. set to NA
+* now allow for D1 = 0 and 0 < H1 < 2.5 so that very small trees can be 
+  evaluated for biomass as indeed implemented. 
+* Added citation for biomass functions.
+
 # rBDAT 0.9.8
 
 * added more tolerance for tests on CRAN windows old-rel

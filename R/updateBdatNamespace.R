@@ -63,7 +63,7 @@ updateBdatNamespace <- function(inpath=file.choose(), outpath=NULL){
   }
   if(!dir.exists(dirname(outpath))){
     de <- try(dir.create(dirname(outpath)), silent = TRUE) # dir exists
-    if(class(de) == "try-error"){
+    if(inherits(de, "try-error")){
       stop("'outpath' not available!")
     }
   } else if(!grepl(".r", tolower(basename(outpath)))) {

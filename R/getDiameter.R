@@ -8,7 +8,8 @@
 #' @param Hx height in tree for which diameter over or under bark is required;
 #' defaults to NULL
 #' @param bark logical, if TRUE returned diameter \code{Dx} is over bark,
-#' if FALSE returned diameter is under bark.
+#' if FALSE returned diameter is under bark. Coerced to logical by
+#' \code{\link{as.logical}(bark[1])}.
 #' @param mapping mapping of variable names in case a data.frame is given into
 #' parameter \code{tree} between colnames(\code{tree}) and required parameter
 #' names. See details.
@@ -68,6 +69,8 @@ getDiameter.datBDAT <- function(tree, Hx = NULL, bark = TRUE,
     tree <- buildTree(tree, check = "diameter", vars = Hx, mapping = mapping)
   }
 
+  bark <- as.logical(bark[1])
+
   nc <- ifelse(!is.null(Hx), length(Hx), 1) # number of columns for final matrix
   nr <- nrow(tree) / nc # number of rows for final matrix
 
@@ -87,9 +90,11 @@ getDiameter.datBDAT <- function(tree, Hx = NULL, bark = TRUE,
           vHges = as.single(tree$H),
           vHx = as.single(tree$Hx),
           vIErr = as.integer(rep(0, n)),
-          vdmrhx = as.single(rep(0, n))
+          vdmrhx = as.single(rep(0, n)),
+          PACKAGE = "rBDAT"
         )$vdmrhx
       )
+      res <- ifelse(tree$D1 <= 0, 0, res)
     }
     else {
       res <- as.vector(
@@ -103,16 +108,16 @@ getDiameter.datBDAT <- function(tree, Hx = NULL, bark = TRUE,
           vHges = as.single(tree$H),
           vHx = as.single(tree$Hx),
           vIErr = as.integer(rep(0, n)),
-          vdorhx = as.single(rep(0, n))
+          vdorhx = as.single(rep(0, n)),
+          PACKAGE = "rBDAT"
         )$vdorhx
       )
+      res <- ifelse(tree$D1 <= 0, 0, res)
     }
   }
   else {
     stop("data not of appropriate class!")
   }
-
-
 
   return(matrix(res, nrow = nr, ncol = nc)[, , drop = TRUE])
 }

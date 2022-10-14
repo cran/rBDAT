@@ -24,7 +24,9 @@ decribe a tree, i.e. spp, D1, H, and optionally H1, D2, H2. See
 \item{...}{passing arguments to methods.}
 
 \item{inv}{integer, indicator for which inventory the form factor should be
-returned; defaults to 1 (=NFI1, 2=NSoG, 3=IS08, 4=NFI3)}
+returned; defaults to 1 (0=volume tables of Grundner-Schwappach 1921,
+1=NFI1, 2=NSoG, 3=IS08, 4=NFI3).
+Any other value is silently set back to \code{inv=1}.}
 
 \item{mapping}{mapping of variable names in case a data.frame is given into
 parameter \code{tree} between colnames(\code{tree}) and required parameter
@@ -64,7 +66,8 @@ getDiameter(tree, Hx=1.3)).
 tree <- data.frame(spp = c(1, 1), D1 = c(30, 25), H = c(25, 25))
 tree <- buildTree(tree, check = "form", vars = list(inv = 1))
 str(tree)
-getForm(tree)
+getForm(tree) # default is 'inv=1'
+getForm(tree, inv = 0) # taper form of BDAT from model fit
 getForm(tree, inv = 1) # NFI 1 (without NSoG)
 getForm(tree, inv = 2) # NSoG = New States of Germany
 getForm(tree, inv = 3) # carbon inventory 2008

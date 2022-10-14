@@ -168,12 +168,19 @@ getAssortment.datBDAT <- function(tree, sort = NULL, mapping = NULL,
     ))), # FIX
     NMaxFixLng = as.integer(tree$fixN),
     FixLng = as.single(rep(0, 180 * n)), # Fixlaengen /AUS/
-    NFixLng = as.integer(rep(0, n)) # Anzahl Fixlaengen /AUS/
+    NFixLng = as.integer(rep(0, n)), # Anzahl Fixlaengen /AUS/
+    PACKAGE = "rBDAT"
   )
+
+  ## error code interception
+  errInd <- which(res$Ifeh > 0)
+  em <- errormessage(res$Ifeh)
+  res <- clearError(res)
 
   if (value %in% c("Skl", "Vol", "LDSort", "FixLng")) {
     res <- matrix(res[[value]], nrow = n, byrow = T)
     res <- transformBDAT20(assort = res, value = value)
+
   } else if (identical(value, "merge")) {
     r1 <- matrix(res[["Vol"]], nrow = n, byrow = T)
     r1 <- transformBDAT20(assort = r1, value = "Vol")
@@ -194,6 +201,7 @@ getAssortment.datBDAT <- function(tree, sort = NULL, mapping = NULL,
       "tree", "No", "Sort", "height", "length",
       "midD", "topD", "Vol"
     )]
+
   } else if (identical(value, "raw")) {
 
     ## do nothing in case value is 'raw'
@@ -203,5 +211,12 @@ getAssortment.datBDAT <- function(tree, sort = NULL, mapping = NULL,
     tmp <- paste0(rep(1:nr, each = nas), ".", rep(1:nas, nr))
     attr(res, "tree-sort-mapping") <- tmp
   }
+
+
+  if(length(errInd)>0 & !identical(value, "raw")){
+    warning("error indication in subroutine BDAT20:\n",
+            paste0("tree ", errInd, ": ", em[errInd], "\n"))
+  }
+
   return(res)
 }

@@ -288,9 +288,9 @@ buildTree <- function(tree, check = NULL, vars = NULL, mapping = NULL) {
     if (!is.numeric(tree$spp)) stop("spp must be numeric!")
     if (any(tree$spp < 1) | any(tree$spp > 36)) stop("spp must be >=1 and <= 36!")
     if (!is.numeric(tree$D1)) stop("D1 must be numeric!")
-    if (any(tree$D1 <= 0)) stop("D1 must be > 0!")
+    if (any(tree$D1 < 0)) stop("D1 must be >= 0!")
     if (!is.numeric(tree$H1)) stop("H1 must be numeric!")
-    if (any(tree$H1 < 0) | any(tree$H1 > tree$H)) stop("H1 must be >= 0 and <= H!")
+    if (any(tree$H1 < 0) | any(tree$H1 > 2.5)) stop("H1 must be >= 0 and <= 2.5!")
     if (!is.numeric(tree$D2)) stop("D2 must be numeric!")
     if (!is.numeric(tree$H2)) stop("H2 must be numeric!")
     if (any(tree$H2 < 0)) stop("H2 must be >= 0!")
@@ -450,7 +450,25 @@ buildTree <- function(tree, check = NULL, vars = NULL, mapping = NULL) {
       }
     }
     else {
-      ## nothing, yet. (D13 is given.)
+      ## nothing, yet. (D13 is given)
+    }
+    if (!("D03" %in% colnames(tree))) {
+      ## if D03 is NOT already available
+      if (any(abs((tree$H2) - (0.3 * tree$H)) > 0.01)) {
+        ## if difference in given H2 and 30% of tree height is bigger than 1cm
+        tree$Hx <- 0.3*tree$H
+        tree$D03 <- getDiameter(tree, bark = TRUE, mapping = NULL)
+        tree$Hx <- NULL
+        # in case of non-merchantable trees, see Riedel & Kändler 2017, p. 35
+        # D03 not necessary and eventually wrong.
+        tree$D03 <- ifelse(tree$D13 < 10, 0, tree$D03)
+      } else {
+        # if H2 = 0.3 * H
+        tree$D03 <- tree$D2
+      }
+    }
+    else {
+      ## nothing, yet. (D03 is given)
     }
   }
   else if (identical(check, "form")) {

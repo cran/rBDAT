@@ -90,3 +90,8 @@ fq <- getForm(list(spp = 1, D1 = 30, H = 25), inv = 1:4)
 tree <- data.frame(spp = 1, D1 = 30, D2 = -fq, H = 25)
 getBiomass(tree) # biomass of an average tree according to different inventories
 }
+\references{
+Riedel, T. and G. Kaendler (2017). "Nationale
+Treibhausgasberichterstattung: Neue Funktionen zur Schätzung der
+oberirdischen Biomasse am Einzelbaum." Forstarchiv 88(2): 31-38.
+}

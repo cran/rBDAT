@@ -14,7 +14,8 @@
 #'  Could be of length one or two, depending on whether A and B are both height
 #'  or diameter variables or not. See examples.
 #' @param bark boolean of length one indicator for whether required volume should
-#' include bark volume or not. Defaults to TRUE.
+#' include bark volume or not. Defaults to TRUE. Coerced to logical by
+#' \code{\link{as.logical}(bark[1])}.
 #' @param mapping mapping of variable names in case a data.frame is given into
 #' parameter \code{tree} between colnames(\code{tree}) and required parameter
 #' names. See details.
@@ -170,6 +171,8 @@ getVolume.datBDAT <- function(tree, AB = NULL, iAB = "H", bark = TRUE,
     tree <- buildTree(tree, check = "volume", vars = AB, mapping = mapping)
   }
 
+  bark <- as.logical(bark[1])
+
   nc <- ifelse(!is.null(AB), max(c(length(AB$A), length(AB$B))), 1) # number of columns for final matrix
   nr <- nrow(tree) / nc # number of rows for final matrix
 
@@ -198,7 +201,8 @@ getVolume.datBDAT <- function(tree, AB = NULL, iAB = "H", bark = TRUE,
               vH = as.single(tree$H),
               vDx = as.single(tree$tmp),
               vHx = as.single(rep(0, n)),
-              vIErr = as.integer(rep(0, n))
+              vIErr = as.integer(rep(0, n)),
+              PACKAGE = "rBDAT"
             )$vHx
           )
         } else if (identical(tolower(iAB[i]), "dub")) {
@@ -213,7 +217,8 @@ getVolume.datBDAT <- function(tree, AB = NULL, iAB = "H", bark = TRUE,
               vH = as.single(tree$H),
               vDx = as.single(tree$tmp),
               vHxor = as.single(rep(0, n)),
-              vIErr = as.integer(rep(0, n))
+              vIErr = as.integer(rep(0, n)),
+              PACKAGE = "rBDAT"
             )$vHxor
           )
         } else {
@@ -225,7 +230,9 @@ getVolume.datBDAT <- function(tree, AB = NULL, iAB = "H", bark = TRUE,
       tree$tmp <- NULL
     }
 
-
+    ## correct A and B for D1 == 0 (D1 < 0 caught in buildTree)
+    tree$A <- ifelse(tree$D1 <= 0, 0, tree$A)
+    tree$B <- ifelse(tree$D1 <= 0, 0, tree$B)
 
     ## check that A <= B, in case: switch
     tree$tmp <- ifelse(tree$A > tree$B, tree$B, tree$A)
@@ -249,7 +256,8 @@ getVolume.datBDAT <- function(tree, AB = NULL, iAB = "H", bark = TRUE,
           vB = as.single(tree$B),
           vSekLng = as.single(tree$sl),
           vIErr = as.integer(rep(0, n)),
-          vVolABmr = as.single(rep(0, n))
+          vVolABmr = as.single(rep(0, n)),
+          PACKAGE = "rBDAT"
         )$vVolABmr
       )
     }
@@ -267,7 +275,8 @@ getVolume.datBDAT <- function(tree, AB = NULL, iAB = "H", bark = TRUE,
           vB = as.single(tree$B),
           vSekLng = as.single(tree$sl),
           vIErr = as.integer(rep(0, n)),
-          vVolABor = as.single(rep(0, n))
+          vVolABor = as.single(rep(0, n)),
+          PACKAGE = "rBDAT"
         )$vVolABor
       )
     }

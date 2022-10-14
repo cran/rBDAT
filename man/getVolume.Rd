@@ -33,7 +33,8 @@ the segment length over which the integral should be calculated. See details.}
  or diameter variables or not. See examples.}
 
 \item{bark}{boolean of length one indicator for whether required volume should
-include bark volume or not. Defaults to TRUE.}
+include bark volume or not. Defaults to TRUE. Coerced to logical by
+\code{\link{as.logical}(bark[1])}.}
 
 \item{mapping}{mapping of variable names in case a data.frame is given into
 parameter \code{tree} between colnames(\code{tree}) and required parameter

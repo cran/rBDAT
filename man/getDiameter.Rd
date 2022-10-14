@@ -27,7 +27,8 @@ optionally H1, D2, H2. See \code{\link{buildTree}} for details and parameter
 defaults to NULL}
 
 \item{bark}{logical, if TRUE returned diameter \code{Dx} is over bark,
-if FALSE returned diameter is under bark.}
+if FALSE returned diameter is under bark. Coerced to logical by
+\code{\link{as.logical}(bark[1])}.}
 
 \item{mapping}{mapping of variable names in case a data.frame is given into
 parameter \code{tree} between colnames(\code{tree}) and required parameter

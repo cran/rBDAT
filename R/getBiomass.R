@@ -29,6 +29,9 @@
 #' 99th-quantile of the data and (iv) dbh above.
 #'
 #' @return vector of total aboveground biomass
+#' @references Riedel, T. and G. Kaendler (2017). "Nationale
+#' Treibhausgasberichterstattung: Neue Funktionen zur Schätzung der
+#' oberirdischen Biomasse am Einzelbaum." Forstarchiv 88(2): 31-38.
 #' @examples
 #' tree <- data.frame(spp = c(1, 1), D1 = c(30, 25), H = c(25, 25))
 #' getBiomass(tree)
@@ -86,7 +89,7 @@ getBiomass.list <- function(tree, mapping = NULL, ...){
 #' @export
 
 getBiomass.datBDAT <- function(tree, mapping = NULL, ...) {
-  if (!("datBDAT.biomass" %in% class(tree))) {
+  if (!("datBDAT.biomass" %in% class(tree)) | is.null(tree$D13) | is.null(tree$D03)) {
     tree <- buildTree(tree,
       check = "biomass", vars = NULL,
       mapping = mapping
@@ -100,16 +103,17 @@ getBiomass.datBDAT <- function(tree, mapping = NULL, ...) {
 
   if ("datBDAT.biomass" %in% class(tree)) {
 
-    ## get total aboveground biomass
+    ## get total above-ground biomass
     res <- as.vector(
       .Fortran("vbiomasse",
         n = as.integer(nrow(tree)), # length of data
         as.integer(tree$spp), # BDAT-species-code
-        as.single(tree$D1), # D13
-        as.single(tree$D2), # real D03
-        as.single(tree$H2), # real Height of D03
+        as.single(tree$D13), # real D13
+        as.single(tree$D03), # real D03
+        as.single(0.3 * tree$H), # real Height of D03
         as.single(tree$H), # H
-        vBiom = as.single(rep(0, nrow(tree))) # Biomasse
+        vBiom = as.single(rep(0, nrow(tree))), # Biomasse
+        PACKAGE = "rBDAT"
       )$vBiom
     )
   }

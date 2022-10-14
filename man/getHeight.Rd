@@ -26,7 +26,8 @@ decribe a tree, i.e. spp, D1, H, and optionally H1, D2, H2. See
 \item{Dx}{diameter of tree for which height is required; defaults to NULL}
 
 \item{bark}{logical, if TRUE given diameter \code{Dx} is considered over
-bark, if FALSE diameter is considered to be under bark.}
+bark, if FALSE diameter is considered to be under bark. Coerced to logical by
+\code{\link{as.logical}(bark[1])}.}
 
 \item{mapping}{mapping of variable names in case a data.frame is given into
 parameter \code{tree} between colnames(\code{tree}) and required parameter

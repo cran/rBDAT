@@ -7,7 +7,8 @@
 #'  mapping of variable names
 #' @param Dx diameter of tree for which height is required; defaults to NULL
 #' @param bark logical, if TRUE given diameter \code{Dx} is considered over
-#' bark, if FALSE diameter is considered to be under bark.
+#' bark, if FALSE diameter is considered to be under bark. Coerced to logical by
+#' \code{\link{as.logical}(bark[1])}.
 #' @param mapping mapping of variable names in case a data.frame is given into
 #' parameter \code{tree} between colnames(\code{tree}) and required parameter
 #' names.
@@ -68,6 +69,8 @@ getHeight.datBDAT <- function(tree, Dx = NULL, bark = TRUE,
     tree <- buildTree(tree, check = "height", vars = Dx, mapping = mapping)
   }
 
+  bark <- as.logical(bark[1])
+
   nc <- ifelse(!is.null(Dx), length(Dx), 1) # number of columns for final matrix
   nr <- nrow(tree) / nc # number of rows for final matrix
 
@@ -87,9 +90,11 @@ getHeight.datBDAT <- function(tree, Dx = NULL, bark = TRUE,
           vH = as.single(tree$H),
           vDx = as.single(tree$Dx),
           vHx = as.single(rep(0, n)),
-          vIErr = as.integer(rep(0, n))
+          vIErr = as.integer(rep(0, n)),
+          PACKAGE = "rBDAT"
         )$vHx
       )
+      res <- ifelse(tree$D1 <= 0, 0, res)
     }
     else {
       res <- as.vector(
@@ -103,9 +108,11 @@ getHeight.datBDAT <- function(tree, Dx = NULL, bark = TRUE,
           vH = as.single(tree$H),
           vDx = as.single(tree$Dx),
           vHxor = as.single(rep(0, n)),
-          vIErr = as.integer(rep(0, n))
+          vIErr = as.integer(rep(0, n)),
+          PACKAGE = "rBDAT"
         )$vHxor
       )
+      res <- ifelse(tree$D1 <= 0, 0, res)
     }
   }
   return(matrix(res, nrow = nr, ncol = nc)[, , drop = TRUE])

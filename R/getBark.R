@@ -82,9 +82,11 @@ getBark.datBDAT <- function(tree, Hx = NULL, mapping = NULL, ...) {
         vHges = as.single(tree$H),
         vHx = as.single(tree$Hx),
         vIErr = as.integer(rep(0, n)),
-        vRINDE2Hx = as.single(rep(0, n))
+        vRINDE2Hx = as.single(rep(0, n)),
+        PACKAGE = "rBDAT"
       )$vRINDE2Hx
     )
+    res <- ifelse(tree$D1 <= 0, 0, res)
   }
 
   return(matrix(res, nrow = nr, ncol = nc)[, , drop = TRUE])
