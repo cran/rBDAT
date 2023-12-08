@@ -55,15 +55,15 @@ height below 1.3m, (ii) dbh below 10cm, (iii) dbh between 10cm and the
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{data.frame}: transforming \code{data.frame} before calling
+\item \code{getBiomass(data.frame)}: transforming \code{data.frame} before calling
 \code{getBiomass} using \code{buildTree}
 
-\item \code{list}: transforming \code{list} before calling
+\item \code{getBiomass(list)}: transforming \code{list} before calling
 \code{getBiomass} using \code{buildTree}
 
-\item \code{datBDAT}: class method for class \code{datBDAT}
+\item \code{getBiomass(datBDAT)}: class method for class \code{datBDAT}
+
 }}
-
 \examples{
 tree <- data.frame(spp = c(1, 1), D1 = c(30, 25), H = c(25, 25))
 getBiomass(tree)

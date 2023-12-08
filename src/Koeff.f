@@ -1,21 +1,19 @@
 
       SUBROUTINE Biomasse(BdatBart,D13,D2,H2,H,Biom)
-!dec$ ATTRIBUTES  DLLEXPORT :: Biomasse
       INTEGER BdatBart
       real D13,D2,H2,H,Biom
-c         ====================================================
+!         ====================================================
 
 
       Biom=FnBiomasse(BdatBart,D13,D2,H2,H)
       End SUBROUTINE Biomasse
 
 
-c**************************************************************************************************
+!**************************************************************************************************
 
       real Function FNBiomasse(BdatBart,D13,D2,H2,H)
 
-!dec$ ATTRIBUTES  DLLEXPORT :: FNBiomasse
-c         =======================================================
+!         =======================================================
       implicit none
       INTEGER BdatBart
       real D13,D2,H2,H
@@ -132,14 +130,12 @@ c         =======================================================
      1    1.490083, 1.292453, 1.575659, 1.496584, 2.402878, 1.695635
      1    /
 
-c		Transformation BDatbaumart in Biomassebaumart
+! 	Transformation BDatbaumart in Biomassebaumart
       data( bio_bagr(i),i=1,36)  /
      1    1,1,2,2,4,4,4,3,5,5,5,1,1,1,6,9,7,7,17,17,8,10,10,11,10,15,
      1    12,16,6,14,13,6,6,18,6,6/
 
 
-
-c
 
       if(BdatBart .le.0 .or. BdatBart .gt.36)then
           Bdatbart=1
@@ -175,9 +171,9 @@ c
 
       else
 
-c		e1=exp(b1(ba_nr) * d13_os(ba_nr) / (d13 + k1(ba_nr)))
-c		e2=exp(b2(ba_nr) * d03_os / (d03_os + k2(ba_nr)))
-c		h3=h_os** b3(ba_nr)
+! 	e1=exp(b1(ba_nr) * d13_os(ba_nr) / (d13 + k1(ba_nr)))
+! 	e2=exp(b2(ba_nr) * d03_os / (d03_os + k2(ba_nr)))
+! 	h3=h_os** b3(ba_nr)
 
           B_os=b0(ba_nr) *
      1    exp(b1(ba_nr) * d13_os(ba_nr)/(d13_os(ba_nr)+k1(ba_nr)))
@@ -197,7 +193,7 @@ c		h3=h_os** b3(ba_nr)
 
       end function FNBiomasse
 
-c****************************************************************************************
+!****************************************************************************************
 
 
       real function fHoehenTarif(a, b, d13)

@@ -224,6 +224,9 @@ buildTree <- function(tree, check = NULL, vars = NULL, mapping = NULL) {
   if (!is.null(vars) & is.null(check)) {
     stop("'vars' is given, but 'check' is NULL! Bad combination!")
   }
+  if(any(sapply(vars, is.null))){
+    stop("'vars' is named but some elements are NULL")
+  }
 
   if ("datBDAT" %in% class(tree)) {
     if (!all(c("spp", "D1", "H1", "D2", "H2", "H") %in% colnames(tree))) {
@@ -239,8 +242,7 @@ buildTree <- function(tree, check = NULL, vars = NULL, mapping = NULL) {
     if (identical(class(tree), "list")) {
       if (!is.null(names(tree))) {
         tree <- as.data.frame(tree)
-      }
-      else {
+      } else {
         stop("'tree' must be provided as *named* list!")
       }
     }
@@ -253,8 +255,7 @@ buildTree <- function(tree, check = NULL, vars = NULL, mapping = NULL) {
           # tree <- cbind(tree[slct], as.data.frame(vars))
           tree <- merge(tree[slct], as.data.frame(vars))
           vars <- NULL ## destroy, so its clear it has been added into 'tree'
-        }
-        else {
+        } else {
           stop("'vars' must be provided as *named* list!")
         }
       }
@@ -268,8 +269,7 @@ buildTree <- function(tree, check = NULL, vars = NULL, mapping = NULL) {
         if (!all(c("spp", "D1", "H1", "D2", "H2", "H") %in% colnames(tree))) {
           stop("either provide 'mapping' or name parameter 'tree' appropriately!")
         }
-      }
-      else {
+      } else {
         if (!(is.character(mapping) && length(mapping) > 0)) {
           stop("'mapping' is not of type character or is not of appropriate length!")
         }
@@ -473,7 +473,11 @@ buildTree <- function(tree, check = NULL, vars = NULL, mapping = NULL) {
   }
   else if (identical(check, "form")) {
 
-    ## check if vars is given
+    ## check if vars is NULL
+    if(is.null(vars)){
+      vars <- 1 # NULL needs to be replaced
+    }
+    ## check if vars can further be used
     if (!is.list(vars) & is.numeric(vars)) {
       vars <- list(inv = vars)
     } else if (identical(class(vars), "data.frame")) {
@@ -485,6 +489,10 @@ buildTree <- function(tree, check = NULL, vars = NULL, mapping = NULL) {
       slct <- which(!(names(tree) %in% names(vars)))
       tree <- merge(tree[slct], as.data.frame(vars))
     }
+
+    ## check if given values for 'inv' are inside [0, 4]
+    tree$inv[tree$inv < 0 | tree$inv > 4] <- 1
+
     ## check for D13
     if (!("D13" %in% colnames(tree))) {
       ## if D13 is NOT already available

@@ -48,15 +48,15 @@ or to take a named list.
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{data.frame}: transforming \code{data.frame} before calling
+\item \code{getBark(data.frame)}: transforming \code{data.frame} before calling
 \code{getBark} using \code{buildTree}
 
-\item \code{list}: transforming \code{list} before calling
+\item \code{getBark(list)}: transforming \code{list} before calling
 \code{getBark} using \code{buildTree}
 
-\item \code{datBDAT}: class method for class \code{datBDAT}
+\item \code{getBark(datBDAT)}: class method for class \code{datBDAT}
+
 }}
-
 \examples{
 tree <- data.frame(spp = c(1, 1), D1 = c(30, 25), H = c(25, 25), Hx = c(1.3, 22.248))
 getBark(tree)

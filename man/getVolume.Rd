@@ -61,15 +61,15 @@ iAB="dub".
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{data.frame}: transforming \code{data.frame} before calling
+\item \code{getVolume(data.frame)}: transforming \code{data.frame} before calling
 \code{getVolume} using \code{buildTree}
 
-\item \code{list}: transforming \code{data.frame} before calling
+\item \code{getVolume(list)}: transforming \code{data.frame} before calling
 \code{getVolume} using \code{buildTree}
 
-\item \code{datBDAT}: class method for class \code{datBDAT}
+\item \code{getVolume(datBDAT)}: class method for class \code{datBDAT}
+
 }}
-
 \examples{
 ## default return with just one or several trees given is total coarse wood
 ## volume over bark, i.e. stock volume (in german: Vfm m.R.)

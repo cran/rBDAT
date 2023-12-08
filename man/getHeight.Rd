@@ -48,15 +48,15 @@ see \code{\link{buildTree}} for how to specify a tree object
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{data.frame}: transforming \code{data.frame} before calling
+\item \code{getHeight(data.frame)}: transforming \code{data.frame} before calling
 \code{getHeight} using \code{buildTree}
 
-\item \code{list}: transforming \code{list} before calling
+\item \code{getHeight(list)}: transforming \code{list} before calling
 \code{getHeight} using \code{buildTree}
 
-\item \code{datBDAT}: class method for class \code{datBDAT}
+\item \code{getHeight(datBDAT)}: class method for class \code{datBDAT}
+
 }}
-
 \examples{
 tree <- data.frame(spp = c(1, 1), D1 = c(30, 25), H = c(25, 20), Dx = c(7, 7))
 getHeight(tree, bark = TRUE)

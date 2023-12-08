@@ -1,21 +1,18 @@
 
-c     ##################################################################
+!     ##################################################################
       SUBROUTINE BDAT20(BDATBArtNr, D1, H1, D2, H2, H,
      1    Hx, Hkz, Skz, Az, Hsh, Zsh, Zab, Sokz,
      2    Skl, Vol, LDSort, Bhd, Ifeh,
      3    FixLngDef,NMaxFixLng,FixLng,NFixLng)
-c     ##################################################################
+!     ##################################################################
 
-!dec$ ATTRIBUTES  DLLEXPORT :: BDAT20
-c!cdec$ declare
-
-c  Aenderung <<22.09.03>> :--------------------------------------------------------------
+!  Aenderung <<22.09.03>> :--------------------------------------------------------------
 
        parameter (NParFixLngDef=4, NParFixLng=6, MMaxFixLng=30)
        parameter (MFixLng=NParFixLng*MMaxFixLng)
        parameter (StammFussPrz =1)
 
-c    implicit logical (a-z)
+!    implicit logical (a-z)
 
        INTEGER BDATBArtNr
        REAL   D1
@@ -24,7 +21,7 @@ c    implicit logical (a-z)
        REAL   H2
        REAL   H
 
-c  Aenderung <<03.11.05>> :--------------------------------------------------------------
+!  Aenderung <<03.11.05>> :--------------------------------------------------------------
        REAL   Hx
        INTEGER Hkz
        INTEGER Skz
@@ -44,7 +41,7 @@ c  Aenderung <<03.11.05>> :-----------------------------------------------------
        REAL   FixLng(1:NParFixLng*MMaxFixLng)
        INTEGER NFixLng
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
        INTEGER wBDATBArtNr
        REAL   wD1
@@ -60,7 +57,7 @@ c ------------------------------------------------------------------------------
        REAL   wHsh
        REAL   wZsh,wwZsh
 
-c  Aenderung <<03.11.05>> :--------------------------------------------------------------
+!  Aenderung <<03.11.05>> :--------------------------------------------------------------
 
        REAL   wZab
        INTEGER wSokz
@@ -75,7 +72,7 @@ c  Aenderung <<03.11.05>> :-----------------------------------------------------
        INTEGER wNMaxFixLng
        REAL   wFixLng(1:MMaxFixLng, 1:NParFixLng)
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
        INTEGER i,j,ij, IErr
        REAL   Hges, H0FixLng, HMaxFixLng
@@ -89,7 +86,7 @@ c ------------------------------------------------------------------------------
        DATA FixLngZ/7/, FixLngM/2/, FixLngZugPrz/0/, FixLngZugCm/0/
        REAL  Pi
        DATA Pi/3.14159E0/
-c ---------------------------------------------------------------------------------------
+! ---------------------------------------------------------------------------------------
 
        REAL   wHAz
        DATA    wHAz    /0/ !   Hoehe Aufarbeitungszopf
@@ -100,16 +97,16 @@ c ------------------------------------------------------------------------------
        REAL   wSekLng
        DATA    wSekLng    /2/ !   SektionsL?ngen VolBerechnung
 
-c ---------------------------------------------------------------------------------------
+! ---------------------------------------------------------------------------------------
 
-c  Aenderung <<22.09.03>> :--------------------------------------------------------------
+!  Aenderung <<22.09.03>> :--------------------------------------------------------------
 
        REAL   A,B,SekLng,VolABmR,VolDHmR
        REAL   wH0FixLng
 
-c ---------------------------------------------------------------------------------------
+! ---------------------------------------------------------------------------------------
 
-c ...<<18.09.03>> : Aenderung :.......................................................
+! ...<<18.09.03>> : Aenderung :.......................................................
 
        REAL   HStockEnde
        REAL   HStHAnfang
@@ -123,7 +120,7 @@ c ...<<18.09.03>> : Aenderung :.................................................
      1     , HBDATGes
        COMMON /glLDSort/ glLSort, glDSort ! christian vonderach, 23.07.2018
 
-c ...<<26.10.05>> : Aenderung :.......................................................
+! ...<<26.10.05>> : Aenderung :.......................................................
 
        wHAz = H
        if (Az.gt.0) then
@@ -142,7 +139,7 @@ c ...<<26.10.05>> : Aenderung :.................................................
      2  wHDHGrz,wDHGrz,IErr)
        end if
 
-c ...<<03.11.05>> : Aenderung :.......................................................
+! ...<<03.11.05>> : Aenderung :.......................................................
 
        If (Hsh.gt.0) then
         wHsh=MIN(Hsh,H,wHAz,wHDHGrz)
@@ -154,12 +151,12 @@ c ...<<03.11.05>> : Aenderung :.................................................
        wZsh= xFNBDATDoRHx (BDATBArtNr,D1, H1, D2, H2,
      1        H, wHsh, IErr, wZsh)
 
-c  Aenderung <<05.11.05>> :--------------------------------------------------------------
+!  Aenderung <<05.11.05>> :--------------------------------------------------------------
        wZsh=xFNBDATDxFoRu(wZsh)
 
-c  Kontrolle DmoR
-c  Hx=xFNBDATHxDxoRFoRu(BDATBArtNr,D1,H1,D2,H2,H,
-c 2        Hx,wZsh,IErr)
+!  Kontrolle DmoR
+!  Hx=xFNBDATHxDxoRFoRu(BDATBArtNr,D1,H1,D2,H2,H,
+! 2        Hx,wZsh,IErr)
 
        if(Zsh.gt.0) then
         wwZsh=MAX(Zsh,wZsh)
@@ -168,9 +165,9 @@ c 2        Hx,wZsh,IErr)
        end if
 
 
-c   Zsh=MAX(Az,Zsh,wDHGrz)
+!   Zsh=MAX(Az,Zsh,wDHGrz)
 
-c ...<<18.09.03>> : Aenderung :.......................................................
+! ...<<18.09.03>> : Aenderung :.......................................................
 
        wBDATBArtNr=BDATBArtNr
        wD1=D1
@@ -194,10 +191,10 @@ c ...<<18.09.03>> : Aenderung :.................................................
 
        if (FixLngM<2) FixLngM=2
 
-c  if (FixLngZugPrz*0.01*FixLngM*0.01>FixLngZugCm)
-c 1  FixLngZugCm=FixLngZugPrz*0.01*FixLngM*0.01
+!  if (FixLngZugPrz*0.01*FixLngM*0.01>FixLngZugCm)
+! 1  FixLngZugCm=FixLngZugPrz*0.01*FixLngM*0.01
 
-c ...<<10.06.05> : Aenderung :------------------------------------------------------------
+! ...<<10.06.05> : Aenderung :------------------------------------------------------------
 
        if (FixLngZugPrz*FixLngM>FixLngZugCm)
      1  FixLngZugCm=FixLngZugPrz*FixLngM
@@ -208,12 +205,12 @@ c ...<<10.06.05> : Aenderung :--------------------------------------------------
        do i=1,7
         wVol(i)=-1
        end do
-c ...Initialisierung glDSort(1:5), glLSort(1:5) / christian Vonderach 23.07.2018
+! ...Initialisierung glDSort(1:5), glLSort(1:5) / christian Vonderach 23.07.2018
        do i=1,5
         glDSort(i) = 0
         glLSort(i) = 0
        end do
-c ...Initialisierung LDSort(1:20) / christian vonderach, 24.07.2018
+! ...Initialisierung LDSort(1:20) / christian vonderach, 24.07.2018
        do i=1,20
         LDSort(i)=0
        end do
@@ -223,9 +220,9 @@ c ...Initialisierung LDSort(1:20) / christian vonderach, 24.07.2018
        wBhd=0
        wIfeh=0
 
-c ...<<17.01.03>> : Aenderung :------------------------------------------------------------
+! ...<<17.01.03>> : Aenderung :------------------------------------------------------------
 
-c ...StammHoehe Hges = H(Hkz) :........................................................
+! ...StammHoehe Hges = H(Hkz) :........................................................
 
        if (Hkz.eq.1) then
         Hges=H+2
@@ -244,27 +241,27 @@ c ...StammHoehe Hges = H(Hkz) :.................................................
        HStockEnde=Hges*StammFussPrz*0.01
        HStockEnde=MIN(HStockEnde,H)
 
-c  BDAT 1.0 - X-Holz:------------------------------------------------------------------
+!  BDAT 1.0 - X-Holz:------------------------------------------------------------------
 
-c ...<<17.01.03>> : Aenderung :------------------------------------------------------------
+! ...<<17.01.03>> : Aenderung :------------------------------------------------------------
 
        call xBDATD2H2Trans (wBDATBArtNr,wD1,wH1,wD2,wH2,Hges)
-c  call xBDATD2H2Trans (wBDATBArtNr,wD1,wH1,wD2,wH2,wH)
+!  call xBDATD2H2Trans (wBDATBArtNr,wD1,wH1,wD2,wH2,wH)
 
-c  write (*,*)
-c   write (*,*) " BDAT2.0 --> BDAT (X-Holz):"
-c   write (*,*)
+!  write (*,*)
+!   write (*,*) " BDAT2.0 --> BDAT (X-Holz):"
+!   write (*,*)
 
        Call BDAT(wBDATBArtNr,wD1,wH1,wD2,wH2,wH,wHx,wHkz,
      1    wSkz,wAz,wHsh,wZsh,wZab,wSokz,
      2    wSkl(1),wVol(1),wBhd,wIfeh)
 
-c  X-HolzVolumen (Efm oR) :.............................................................
+!  X-HolzVolumen (Efm oR) :.............................................................
 
        Vol(2) = wVol(2)
        Skl(1) = wSkl(1)
        Skl(2) = wSkl(2)
-c ...X-Holz am Stammfuß, Christian Vonderach, 24.01.2019
+! ...X-Holz am Stammfuß, Christian Vonderach, 24.01.2019
        LDSort(1) = 0.01*wH ! Fussposition im Stamm
        LDSort(2) = Hx ! Laenge des Sortiments [m]: Eingabe
        if(Hx.gt.0.001) then
@@ -275,7 +272,7 @@ c ...X-Holz am Stammfuß, Christian Vonderach, 24.01.2019
      1     LDSort(1) + LDSort(2), iErr, tmp) ! Zopfdurchmesser
          LDSort(4) = Rund(LDSort(4))
        end if
-c ...ende x-holz Ergaenzung
+! ...ende x-holz Ergaenzung
 
        BHD  = wBHD
 
@@ -283,15 +280,15 @@ c ...ende x-holz Ergaenzung
 
        SuVoloR = Vol(2)
 
-c  Aenderung <<16.08.02>> :--------------------------------------------------------------
+!  Aenderung <<16.08.02>> :--------------------------------------------------------------
 
-c  DerbHolzVolumen (Vfm mR) :...........................................................
+!  DerbHolzVolumen (Vfm mR) :...........................................................
 
-c  Vol(1) = wVol(1)
-c  vol(1)  = xFNBDATVolDHmR(wBDATBArtNr,wD1,wH1,wD2,wH2,wH,
-c       wDHGrz,wHDHGrz,wSekLng,wIfeh,wVolDHmR)
+!  Vol(1) = wVol(1)
+!  vol(1)  = xFNBDATVolDHmR(wBDATBArtNr,wD1,wH1,wD2,wH2,wH,
+!       wDHGrz,wHDHGrz,wSekLng,wIfeh,wVolDHmR)
 
-c  Aenderung <<22.09.03>> :--------------------------------------------------------------
+!  Aenderung <<22.09.03>> :--------------------------------------------------------------
 
        wHDHGrz = xFNBDATHxDx(BDATBArtNr,D1,H1,D2,H2,Hges,
      2 wHDHGrz,wDHGrz,IErr)
@@ -304,19 +301,19 @@ c  Aenderung <<22.09.03>> :-----------------------------------------------------
        VolDHmR = xFNBDATVolABmR(BDATBArtNr,D1,H1,D2,H2,Hges,
      2       A,B,SekLng,IErr,VolABmR)
 
-c  Aenderung <<22.09.03>> :--------------------------------------------------------------
+!  Aenderung <<22.09.03>> :--------------------------------------------------------------
 
 
-c   vol(1)  = xFNBDATVolDHmR(wBDATBArtNr,wD1,wH1,wD2,wH2,Hges,
-c 2       wDHGrz,wHDHGrz,wSekLng,wIfeh,wVolDHmR)
+!   vol(1)  = xFNBDATVolDHmR(wBDATBArtNr,wD1,wH1,wD2,wH2,Hges,
+! 2       wDHGrz,wHDHGrz,wSekLng,wIfeh,wVolDHmR)
 
        vol(1) = VolDHmR
 
-c  Aenderung <<22.09.03>> :--------------------------------------------------------------
+!  Aenderung <<22.09.03>> :--------------------------------------------------------------
 
        if((0<Ifeh).and.(Ifeh<5)) return
 
-c  BDAT 2.0 - FixL?ngen:---------------------------------------------------------------
+!  BDAT 2.0 - FixL?ngen:---------------------------------------------------------------
 
        wBDATBArtNr=BDATBArtNr
        wD1=D1
@@ -330,7 +327,7 @@ c  BDAT 2.0 - FixL?ngen:--------------------------------------------------------
        wAz=Az
        wHsh=Hsh
 
-c  Aenderung <<05.11.05>> :--------------------------------------------------------------
+!  Aenderung <<05.11.05>> :--------------------------------------------------------------
        wZsh=wwZsh
        wZab=Zab
        wSokz=Sokz
@@ -351,15 +348,15 @@ c  Aenderung <<05.11.05>> :-----------------------------------------------------
         end do
        end do
 
-c  Aenderung <<22.09.03>> :--------------------------------------------------------------
+!  Aenderung <<22.09.03>> :--------------------------------------------------------------
 
-c  ...Aufarbeitungsgrenze HFixLngMax  = H( Hges, Skz) ! Hges bei BruchHoehen falsch:....
+!  ...Aufarbeitungsgrenze HFixLngMax  = H( Hges, Skz) ! Hges bei BruchHoehen falsch:....
 
        if  (Skz.eq.0) then
               HMaxFixLng=H
        elseif (Skz.eq.1) then
 
-c ...<<10.05.03>> : Aenderung :............................................................
+! ...<<10.05.03>> : Aenderung :............................................................
 
         if (BDATBArtNr.gt.14) then
               HMaxFixLng = H*0.7
@@ -378,9 +375,9 @@ c ...<<10.05.03>> : Aenderung :.................................................
               HMaxFixLng = 0
        end if
 
-c  Aenderung <<22.09.03>> :--------------------------------------------------------------
+!  Aenderung <<22.09.03>> :--------------------------------------------------------------
 
-c  ...Fixl?ngenaushaltung nur im Stammholzbereich :...............................
+!  ...Fixl?ngenaushaltung nur im Stammholzbereich :...............................
 
        if ((wHsh>0).and.(HMaxFixLng>wHsh)) then
         HMaxFixLng=wHsh
@@ -404,17 +401,17 @@ c  ...Fixl?ngenaushaltung nur im Stammholzbereich :.............................
      2   + FixLngZugCm*0.01
 
 
-c   wHx = wH0FixLng
-c 1   + FixLngM
-c 2   + FixLngZugCm
-c
+!   wHx = wH0FixLng
+! 1   + FixLngM
+! 2   + FixLngZugCm
+!
 
        if (HMaxFixLng<wHx)
      1 goto 100
 
         wHx = wH0FixLng+FixLngM
 
-c   ...Zopfdurchmesser o.R. (stat. Erwartungswert gerundet) pr?fen :................
+!   ...Zopfdurchmesser o.R. (stat. Erwartungswert gerundet) pr?fen :................
 
         DZoR=xFNBDATDoRHx(wBDATBArtNr,wD1,wH1,wD2,wH2,Hges,
      1      wHx, iErr,DZoR)
@@ -424,14 +421,14 @@ c   ...Zopfdurchmesser o.R. (stat. Erwartungswert gerundet) pr?fen :............
        if (DZoR<FixLngZ)
      1 goto 100
 
-c  ...Fixl?ngenaushaltung nur im Stammholzbereich :...............................
+!  ...Fixl?ngenaushaltung nur im Stammholzbereich :...............................
 
        if ((wZsh>0).and.(DZoR<wZsh))
      1 goto 100
 
         NFixLng = NFixLng + 1
 
-c   ...MittenDurchmesser o.R. Fixl?nge (stat. Erwartungswert gerundet) :............
+!   ...MittenDurchmesser o.R. Fixl?nge (stat. Erwartungswert gerundet) :............
 
         wHx = wH0FixLng+FixLngM*0.5
 
@@ -444,19 +441,19 @@ c   ...MittenDurchmesser o.R. Fixl?nge (stat. Erwartungswert gerundet) :........
          DMoR=DMoR-0.75
         end if
 
-c   ...Volumen o.R. Fixl?nge (stat. Erwartungswert gerundet) :......................
+!   ...Volumen o.R. Fixl?nge (stat. Erwartungswert gerundet) :......................
 
         wDx = DMoR * 0.01
         VoloR = Pi * 0.25 * wDx * wDx * FixLngM
 
-c   --------------------------------------------------------------------------------
+!   --------------------------------------------------------------------------------
         wFixLng(NFixLng,1) = NFixLng
         wFixLng(NFixLng,2) = wH0FixLng
         wFixLng(NFixLng,3) = FixLngM
         wFixLng(NFixLng,4) = DMoR
         wFixLng(NFixLng,5) = DZoR
         wFixLng(NFixLng,6) = VoloR
-c   --------------------------------------------------------------------------------
+!   --------------------------------------------------------------------------------
 
         wH0FixLng = wH0FixLng
      1     + FixLngM
@@ -478,7 +475,7 @@ c   ----------------------------------------------------------------------------
         end do
        end do
 
-c  BDAT 1.0 - Sortierung StammHolz IndustrieHolz :-------------------------------------
+!  BDAT 1.0 - Sortierung StammHolz IndustrieHolz :-------------------------------------
 
        wBDATBArtNr=BDATBArtNr
        wD1=D1
@@ -509,9 +506,9 @@ c  BDAT 1.0 - Sortierung StammHolz IndustrieHolz :------------------------------
 
        wIFeh=0
 
-c  Aenderung <<17.01.03>> :...schwaches Stangenholz Du < 10 cm --------------------------
+!  Aenderung <<17.01.03>> :...schwaches Stangenholz Du < 10 cm --------------------------
 
-c   ...MittenDurchmesser o.R. Fixl?nge (stat. Erwartungswert gerundet) :............
+!   ...MittenDurchmesser o.R. Fixl?nge (stat. Erwartungswert gerundet) :............
 
        if (wD1 < 10) then
 
@@ -519,25 +516,25 @@ c   ...MittenDurchmesser o.R. Fixl?nge (stat. Erwartungswert gerundet) :........
 
         if(wH0>H) wH0=H
 
-c   <<18.09.03>> : Aenderung :.......................................................
+!   <<18.09.03>> : Aenderung :.......................................................
 
-c   FixLng(NParFixLng*MMaxFixLng)= HStHLzEnde
+!   FixLng(NParFixLng*MMaxFixLng)= HStHLzEnde
 
-c   Aenderung <<22.09.03>> :--------------------------------------------------------------
+!   Aenderung <<22.09.03>> :--------------------------------------------------------------
 
-c    wHDHGrz = xFNBDATHxDx(BDATBArtNr,D1,H1,D2,H2,Hges,
-c  2  wHDHGrz,wDHGrz,IErr)
+!    wHDHGrz = xFNBDATHxDx(BDATBArtNr,D1,H1,D2,H2,Hges,
+!  2  wHDHGrz,wDHGrz,IErr)
 
-c   Aenderung <<01.04.04>> :----------------------------------------------------
+!   Aenderung <<01.04.04>> :----------------------------------------------------
 
         wHDHGrz = xFNBDATHxDx(BDATBArtNr,wD1,wH1,wD2,wH2,Hges,
      2  wHDHGrz,wDHGrz,IErr)
 
         wHDHGrz = MIN(wHDHGrz,H)
 
-c   Aenderung <<22.09.03>> :----------------------------------------------------
+!   Aenderung <<22.09.03>> :----------------------------------------------------
 
-c    <<20.01.03>> : Aenderung :..................................................
+!    <<20.01.03>> : Aenderung :..................................................
 
         wL0 = (wHDHGrz-wH0)
 
@@ -560,10 +557,10 @@ c    <<20.01.03>> : Aenderung :.................................................
         wDx = DMoR * 0.01
         VoloR = Pi * 0.25 * wDx * wDx * wL0
 
-c     Ergaenzung Christian Vonderach 22.01.2019
-c     MDM, Laenge + zopf IndustrieHolz ins output schreiben
-c     vgl. RETURN Zeile 933
-c     Zopf direkt abzgl. 0.5 (forstl. Runden), da Dm sicher < 20
+!     Ergaenzung Christian Vonderach 22.01.2019
+!     MDM, Laenge + zopf IndustrieHolz ins output schreiben
+!     vgl. RETURN Zeile 933
+!     Zopf direkt abzgl. 0.5 (forstl. Runden), da Dm sicher < 20
       LDSort(13) = LDSort(1) + LDSort(2) + H0FixLng ! Fußpunkt Ind
       LDSort(14) = wL0 ! Länge Ind
       LDSort(15) = DMoR ! MDM Ind
@@ -601,24 +598,24 @@ c     Zopf direkt abzgl. 0.5 (forstl. Runden), da Dm sicher < 20
 
        end if
 
-c  Aenderung <<17.01.03>> :--------------------------------------------------------
+!  Aenderung <<17.01.03>> :--------------------------------------------------------
 
-c  ------------------------------------------------
-c   write (*,*)
-c  write (*,*) " VOL(5): ", VOL(5)
-c   write (*,*) " BDAT2.0 --> BDAT (Sortierung):"
-c   write (*,*)
-c  ------------------------------------------------
+!  ------------------------------------------------
+!   write (*,*)
+!  write (*,*) " VOL(5): ", VOL(5)
+!   write (*,*) " BDAT2.0 --> BDAT (Sortierung):"
+!   write (*,*)
+!  ------------------------------------------------
 
 
        Call BDAT(wBDATBArtNr,wD1,wH1,wD2,wH2,wH,wHx,wHkz,
      1    wSkz,wAz,wHsh,wZsh,wZab,wSokz,
      2    wSkl(1),wVol(1),wBhd,wIfeh)
 
-c  ------------------------------------------------
-c   write (*,*) " BDAT --> BDAT2.0 (Sortierung):"
-c  write (*,*) " VOL(5): ", wVOL(5)
-c  ------------------------------------------------
+!  ------------------------------------------------
+!   write (*,*) " BDAT --> BDAT2.0 (Sortierung):"
+!  write (*,*) " VOL(5): ", wVOL(5)
+!  ------------------------------------------------
 
        do i=3,6
         Skl(i)=wSkl(i)
@@ -626,7 +623,7 @@ c  ------------------------------------------------
         SuVoloR = SuVoloR + Vol(i)
        end do
 
-c Aenderung  <<20.09.02>> :----------------------------------------------------------------
+! Aenderung  <<20.09.02>> :----------------------------------------------------------------
 
        if ((SuVoloR>0).and.(SuVoloR<Vol(1))) then
         Vol(7) = Vol(1)-SuVoloR
@@ -637,21 +634,21 @@ c Aenderung  <<20.09.02>> :-----------------------------------------------------
 
        Ifeh = wIfeh
 
-c ...Zuweisung COMMON /glLDSort/ zu LDSort(1:20) christian vonderach 24.07.2018
-c ...X-holz oben, direkt nach Berechnung
-c ...Stammholz, zzgl Fixlaengen am Stammfuss
+! ...Zuweisung COMMON /glLDSort/ zu LDSort(1:20) christian vonderach 24.07.2018
+! ...X-holz oben, direkt nach Berechnung
+! ...Stammholz, zzgl Fixlaengen am Stammfuss
       LDSort(5) = LDSort(1) + LDSort(2) + H0FixLng! Fussposition im Stamm
       LDSort(6) = glLSort(2) ! Laenge des Sortiments [m]
       LDSort(7) = glDSort(2) ! Mittendurchmesser [cm]
-c ...Abschnitt
+! ...Abschnitt
       LDSort(9) = LDSort(5) + LDSort(6)*1.01 ! Fussposition im Stamm
       LDSort(10) = glLSort(3) ! Laenge des Sortiments [m]
       LDSort(11) = glDSort(3) ! Mittendurchmesser [cm]
-c ...Industrieholz
+! ...Industrieholz
       LDSort(13) = LDSort(9) + LDSort(10)*1.01 ! Fussposition im Stamm
       LDSort(14) = glLSort(4) ! Laenge des Sortiments [m]
       LDSort(15) = glDSort(4) ! Mittendurchmesser [cm]
-c ...nvD-Holz
+! ...nvD-Holz
       LDSort(17) = LDSort(13) + LDSort(14) ! Fussposition im Stamm
       LDSort(18) = glLSort(5) ! Laenge des Sortiments [m]
       LDSort(19) = glDSort(5) ! Mittendurchmesser [cm]
@@ -668,29 +665,27 @@ c ...nvD-Holz
        end if
        LDSort(i) = tmp ! Zopfdurchmesser [cm]
       end do
-c ...ende ergaenzung christian vonderach 24.07.2018...
+! ...ende ergaenzung christian vonderach 24.07.2018...
 
-c ...<<18.09.03>> : Aenderung :.......................................................
+! ...<<18.09.03>> : Aenderung :.......................................................
 
-c FixLng(NParFixLng*MMaxFixLng)= HStHLzEnde
+! FixLng(NParFixLng*MMaxFixLng)= HStHLzEnde
 
-c ...<<18.09.03>> : Aenderung :.......................................................
+! ...<<18.09.03>> : Aenderung :.......................................................
 
       END SUBROUTINE BDAT20
 
 
-c     ##################################################################
+!     ##################################################################
       SUBROUTINE BDAT10(BDATBArtNr, D1, H1, D2, H2, H,
      1     Hx, Hkz, Skz, Az, Hsh, Zsh, Zab, Sokz,
      2     Skl,Vol,Bhd,Ifeh)
-c     ##################################################################
+!     ##################################################################
 
-c  Aenderung <<22.09.03>> :--------------------------------------------------------------
+!  Aenderung <<22.09.03>> :--------------------------------------------------------------
 
-c ...<<14.03.03>> : Aenderung :............................................................
+! ...<<14.03.03>> : Aenderung :............................................................
 
-
-!dec$ ATTRIBUTES  DLLEXPORT :: BDAT10
 
        parameter (StammFussPrz =1)
 
@@ -713,7 +708,7 @@ c ...<<14.03.03>> : Aenderung :.................................................
        REAL   Bhd
        INTEGER Ifeh
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
        INTEGER wBDATBArtNr
        REAL   wD1
@@ -734,7 +729,7 @@ c ------------------------------------------------------------------------------
        REAL   wBhd
        INTEGER wIfeh
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
        INTEGER i, IErr
        REAL   Hges
@@ -744,7 +739,7 @@ c ------------------------------------------------------------------------------
        REAL   Pi
        DATA    Pi       /3.14159E0/
 
-c ---------------------------------------------------------------------------------------
+! ---------------------------------------------------------------------------------------
 
        REAL   wDHGrz
        DATA    wDHGrz    /7/ ! DerholzGrenze in cm
@@ -752,9 +747,9 @@ c ------------------------------------------------------------------------------
        REAL   wSekLng
        DATA    wSekLng    /2/ !   SektionsL?ngen VolBerechnung
 
-c ---------------------------------------------------------------------------------------
+! ---------------------------------------------------------------------------------------
 
-c ...<<18.09.03>> : Aenderung :.......................................................
+! ...<<18.09.03>> : Aenderung :.......................................................
 
        REAL   HStockEnde
        REAL   HStHAnfang
@@ -765,7 +760,7 @@ c ...<<18.09.03>> : Aenderung :.................................................
        COMMON /XtrComPar/ HStockEnde, HStHAnfang, LngStH, HStHLzEnde
      1     , HBDATGes
 
-c ...<<18.09.03>> : Aenderung :.......................................................
+! ...<<18.09.03>> : Aenderung :.......................................................
 
        wBDATBArtNr=BDATBArtNr
        wD1=D1
@@ -794,9 +789,9 @@ c ...<<18.09.03>> : Aenderung :.................................................
        wBhd=0
        wIfeh=0
 
-c ...<<17.01.03>> : Aenderung :------------------------------------------------------------
+! ...<<17.01.03>> : Aenderung :------------------------------------------------------------
 
-c ...StammHoehe Hges = H(Hkz) :........................................................
+! ...StammHoehe Hges = H(Hkz) :........................................................
 
        if (Hkz.eq.1) then
         Hges=H+2
@@ -815,9 +810,9 @@ c ...StammHoehe Hges = H(Hkz) :.................................................
        HStockEnde=Hges*StammFussPrz*0.01
        HStockEnde=MIN(HStockEnde,H)
 
-c  BDAT 1.0 - X-Holz:------------------------------------------------------------------
+!  BDAT 1.0 - X-Holz:------------------------------------------------------------------
 
-c ...<<17.01.03>> : Aenderung :------------------------------------------------------------
+! ...<<17.01.03>> : Aenderung :------------------------------------------------------------
 
        call xBDATD2H2Trans (wBDATBArtNr,wD1,wH1,wD2,wH2,Hges)
 
@@ -825,7 +820,7 @@ c ...<<17.01.03>> : Aenderung :-------------------------------------------------
      1    wSkz,wAz,wHsh,wZsh,wZab,wSokz,
      2    wSkl(1),wVol(1),wBhd,wIfeh)
 
-c  X-HolzVolumen (Efm oR) :.............................................................
+!  X-HolzVolumen (Efm oR) :.............................................................
 
        Vol(2) = wVol(2)
        Skl(1) = wSkl(1)
@@ -837,10 +832,10 @@ c  X-HolzVolumen (Efm oR) :.....................................................
 
        SuVoloR = Vol(2)
 
-c  Aenderung <<22.09.03>> :--------------------------------------------------------------
+!  Aenderung <<22.09.03>> :--------------------------------------------------------------
 
-c   vol(1)  = xFNBDATVolDHmR(wBDATBArtNr,wD1,wH1,wD2,wH2,Hges,
-c 2       wDHGrz,wHDHGrz,wSekLng,wIfeh,wVolDHmR)
+!   vol(1)  = xFNBDATVolDHmR(wBDATBArtNr,wD1,wH1,wD2,wH2,Hges,
+! 2       wDHGrz,wHDHGrz,wSekLng,wIfeh,wVolDHmR)
        Dx=wDHGrz
 
        wHDHGrz = xFNBDATHxDx(BDATBArtNr,D1,H1,D2,H2,Hges,
@@ -855,11 +850,11 @@ c 2       wDHGrz,wHDHGrz,wSekLng,wIfeh,wVolDHmR)
      2       A,B,SekLng,IErr,VolABmR)
        vol(1)  = VolDHmR
 
-c  Aenderung <<22.09.03>> :--------------------------------------------------------------
+!  Aenderung <<22.09.03>> :--------------------------------------------------------------
 
        if((0<Ifeh).and.(Ifeh<5)) return
 
-c  BDAT 1.0 - Sortierung StammHolz IndustrieHolz :-------------------------------------
+!  BDAT 1.0 - Sortierung StammHolz IndustrieHolz :-------------------------------------
 
        wBDATBArtNr=BDATBArtNr
        wD1=D1
@@ -890,26 +885,26 @@ c  BDAT 1.0 - Sortierung StammHolz IndustrieHolz :------------------------------
 
        wIFeh=0
 
-c  Aenderung <<17.01.03>> :...schwaches Stangenholz Du < 10 cm --------------------------
+!  Aenderung <<17.01.03>> :...schwaches Stangenholz Du < 10 cm --------------------------
 
 
-c  Aenderung <<29.08.03>> :...schwaches Stangenholz Du < 10 cm --------------------------
+!  Aenderung <<29.08.03>> :...schwaches Stangenholz Du < 10 cm --------------------------
 
 
 
-c  ################### IH bis AufarbeitungsZopf Rest uvD ###############################
+!  ################### IH bis AufarbeitungsZopf Rest uvD ###############################
 
 
-c   ...MittenDurchmesser o.R. Fixl?nge (stat. Erwartungswert gerundet) :............
+!   ...MittenDurchmesser o.R. Fixl?nge (stat. Erwartungswert gerundet) :............
 
 
-c  Aenderung <<22.09.03>> :...schwaches Stangenholz Du < 10 cm --------------------------
+!  Aenderung <<22.09.03>> :...schwaches Stangenholz Du < 10 cm --------------------------
 
        wHDHGrz = xFNBDATHxDx(BDATBArtNr,D1,H1,D2,H2,Hges,
      2 wHDHGrz,wDHGrz,IErr)
        wHDHGrz = MIN(wHDHGrz,H)
 
-c  Aenderung <<22.09.03>> :--------------------------------------------------------------
+!  Aenderung <<22.09.03>> :--------------------------------------------------------------
 
        if (wD1 < 10) then
 
@@ -917,7 +912,7 @@ c  Aenderung <<22.09.03>> :-----------------------------------------------------
 
         if(wH0>H) wH0=H
 
-c ...<<20.01.03>> : Aenderung :............................................................
+! ...<<20.01.03>> : Aenderung :............................................................
 
         wL0 = (wHDHGrz-wH0)
 
@@ -965,7 +960,7 @@ c ...<<20.01.03>> : Aenderung :.................................................
 
        end if
 
-c  Aenderung <<17.01.03>> :--------------------------------------------------------------
+!  Aenderung <<17.01.03>> :--------------------------------------------------------------
 
        Call BDAT(wBDATBArtNr,wD1,wH1,wD2,wH2,wH,wHx,wHkz,
      1    wSkz,wAz,wHsh,wZsh,wZab,wSokz,
@@ -977,7 +972,7 @@ c  Aenderung <<17.01.03>> :-----------------------------------------------------
         SuVoloR = SuVoloR + Vol(i)
        end do
 
-c Aenderung  <<20.09.02>> :----------------------------------------------------------------
+! Aenderung  <<20.09.02>> :----------------------------------------------------------------
 
        if ((SuVoloR>0).and.(SuVoloR<Vol(1))) then
         Vol(7) = Vol(1)-SuVoloR
@@ -991,18 +986,16 @@ c Aenderung  <<20.09.02>> :-----------------------------------------------------
       END SUBROUTINE BDAT10
 
 
-c Aenderung <<04.09.02>> :-----------------------------------------------------------------
+! Aenderung <<04.09.02>> :-----------------------------------------------------------------
 
 
-c     ##################################################################
+!     ##################################################################
       SUBROUTINE xBDAT10(BDATBArtNr, D1, H1, D2, H2, H,
      1     Hx, Hkz, Skz, Az, Hsh, Zsh, Zab, Sokz,
      2     Skl,Vol,Bhd,Ifeh)
-c     ##################################################################
+!     ##################################################################
 
-c ...<<14.03.03>> : Aenderung :............................................................
-
-c!dec$ ATTRIBUTES  DLLEXPORT :: xBDAT10
+! ...<<14.03.03>> : Aenderung :............................................................
 
        INTEGER BDATBArtNr
        REAL   D1
@@ -1023,19 +1016,19 @@ c!dec$ ATTRIBUTES  DLLEXPORT :: xBDAT10
        REAL   Bhd
        INTEGER Ifeh
 
-c     ----------------------------------------------------------------------------------------
+!     ----------------------------------------------------------------------------------------
        REAL   DHGrz
        DATA    DHGrz    /7/ ! DerholzGrenze in cm
        REAL   HDHGrz     ! Hoehe der DerbHolzGrenze (aus)
        REAL   SekLng
        DATA    SekLng    /2/ !   SektionsL?ngen VolBerechnung
        REAL   VolDHmR     ! VolumenDerbHolz  (aus)
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
        REAL   SuVoloR
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
 
-c ...<<18.09.03>> : Aenderung :.......................................................
+! ...<<18.09.03>> : Aenderung :.......................................................
 
        REAL   HStockEnde
        REAL   HStHAnfang
@@ -1047,7 +1040,7 @@ c ...<<18.09.03>> : Aenderung :.................................................
      1     , HBDATGes
 
 
-c ...<<18.09.03>> : Aenderung :.......................................................
+! ...<<18.09.03>> : Aenderung :.......................................................
 
        do i=1,6
         Skl(i)=0
@@ -1059,7 +1052,7 @@ c ...<<18.09.03>> : Aenderung :.................................................
        Bhd=0
        Ifeh=0
 
-c ...Aenderung <<10.09.02>> :..............................................................
+! ...Aenderung <<10.09.02>> :..............................................................
 
        call xBDATD2H2Trans (BDATBArtNr,D1,H1,D2,H2,H)
 
@@ -1070,7 +1063,7 @@ c ...Aenderung <<10.09.02>> :...................................................
         vol(1)  = xFNBDATVolDHmR(BDATBArtNr,D1,H1,D2,H2,H,
      2       DHGrz,HDHGrz,SekLng,Ifeh,VolDHmR)
 
-c   -------------------------------------------------------------------------------------
+!   -------------------------------------------------------------------------------------
 
        SuVoloR = Vol(2)
 
@@ -1078,7 +1071,7 @@ c   ----------------------------------------------------------------------------
         SuVoloR = SuVoloR + Vol(i)
        end do
 
-c Aenderung  <<20.09.02>> :----------------------------------------------------------------
+! Aenderung  <<20.09.02>> :----------------------------------------------------------------
 
        if ((SuVoloR>0) .and. (SuVoloR<Vol(1))) then
         Vol(7)=Vol(1)-SuVoloR
@@ -1087,22 +1080,20 @@ c Aenderung  <<20.09.02>> :-----------------------------------------------------
         Vol(7) = 0
        end if
 
-c  Vol(7)=Vol(1)-SuVoloR
-c
-c  if (Vol(7)<0) Vol(7)=0
+!  Vol(7)=Vol(1)-SuVoloR
+!
+!  if (Vol(7)<0) Vol(7)=0
 
       END SUBROUTINE xBDAT10
 
 
 
-c ****************************************************************************************
+! ****************************************************************************************
       subroutine BDATVolDHmR(BDATBArtNr, D1, H1, D2, H2, Hges,
      2      DHGrz, HDHGrz, SekLng, IErr,VolDHmR)
-c ****************************************************************************************
+! ****************************************************************************************
 
-!dec$ ATTRIBUTES  DLLEXPORT :: BDATVolDHmR
-
-c Derbholzvolumen zu gegebenem DerbholzGrenzDurchmesser :.................................
+! Derbholzvolumen zu gegebenem DerbholzGrenzDurchmesser :.................................
 
        INTEGER BDATBArtNr
        REAL   D1
@@ -1116,22 +1107,20 @@ c Derbholzvolumen zu gegebenem DerbholzGrenzDurchmesser :.......................
        INTEGER IErr
        REAL   VolDHmR     ! VolumenDerbHolz  (aus)
 
-c -----------------------------------------------------------------------------------------
+! -----------------------------------------------------------------------------------------
        VolDHmR = xFNBDATVolDHmR(BDATBArtNr, D1, H1, D2, H2,Hges,
      2      DHGrz, HDHGrz, SekLng, IErr,VolDHmR)
-c -----------------------------------------------------------------------------------------
+! -----------------------------------------------------------------------------------------
 
       end subroutine BDATVolDHmR
 
 
-c ****************************************************************************************
+! ****************************************************************************************
       REAL function FNBDATVolDHmR(BDATBArtNr, D1, H1, D2, H2, Hges,
      2      DHGrz, HDHGrz, SekLng, IErr,VolDHmR)
-c ****************************************************************************************
+! ****************************************************************************************
 
-!dec$ ATTRIBUTES  DLLEXPORT :: FNBDATVolDHmR
-
-c Derbholzvolumen zu gegebenem DerbholzGrenzDurchmesser :.................................
+! Derbholzvolumen zu gegebenem DerbholzGrenzDurchmesser :.................................
 
        INTEGER BDATBArtNr
        REAL   D1
@@ -1145,22 +1134,22 @@ c Derbholzvolumen zu gegebenem DerbholzGrenzDurchmesser :.......................
        INTEGER IErr
        REAL   VolDHmR     ! VolumenDerbHolz  (aus)
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
        VolDHmR = xFNBDATVolDHmR(BDATBArtNr, D1, H1, D2, H2,Hges,
      2      DHGrz, HDHGrz, SekLng, IErr,VolDHmR)
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
        FNBDATVolDHmR=VolDHmR
 
       end function FNBDATVolDHmR
 
 
-c ****************************************************************************************
+! ****************************************************************************************
       REAL function xFNBDATVolDHmR(BDATBArtNr, D1, H1, D2, H2, Hges,
      2      DHGrz, HDHGrz, SekLng, IErr,VolDHmR)
-c ****************************************************************************************
+! ****************************************************************************************
 
-c Derbholzvolumen zu gegebenem DerbholzGrenzDurchmesser :.................................
+! Derbholzvolumen zu gegebenem DerbholzGrenzDurchmesser :.................................
 
        INTEGER BDATBArtNr
        REAL   D1
@@ -1176,7 +1165,7 @@ c Derbholzvolumen zu gegebenem DerbholzGrenzDurchmesser :.......................
 
        REAL   Dx,Hx,A,B,VolABmR
 
-c -----------------------------------------------------------------------------------------
+! -----------------------------------------------------------------------------------------
 
        call xBDATD2H2Trans (BDATBArtNr,D1,H1,D2,H2,Hges)
 
@@ -1194,15 +1183,13 @@ c ------------------------------------------------------------------------------
 
       end function xFNBDATVolDHmR
 
-c *** insertion by cv 10.07.2018
-c ****************************************************************************************
+! *** insertion by cv 10.07.2018
+! ****************************************************************************************
       subroutine BDATVolDHoR(BDATBArtNr, D1, H1, D2, H2, Hges,
      2      DHGrz, HDHGrz, SekLng, IErr,VolDHoR)
-c ****************************************************************************************
+! ****************************************************************************************
 
-!dec$ ATTRIBUTES  DLLEXPORT :: BDATVolDHoR
-
-c Derbholzvolumen zu gegebenem DerbholzGrenzDurchmesser :.................................
+! Derbholzvolumen zu gegebenem DerbholzGrenzDurchmesser :.................................
 
        INTEGER BDATBArtNr
        REAL   D1
@@ -1216,22 +1203,20 @@ c Derbholzvolumen zu gegebenem DerbholzGrenzDurchmesser :.......................
        INTEGER IErr
        REAL   VolDHoR     ! VolumenDerbHolz ohnr Rinde (aus)
 
-c -----------------------------------------------------------------------------------------
+! -----------------------------------------------------------------------------------------
        VolDHoR = xFNBDATVolDHoR(BDATBArtNr, D1, H1, D2, H2,Hges,
      2      DHGrz, HDHGrz, SekLng, IErr,VolDHoR)
-c -----------------------------------------------------------------------------------------
+! -----------------------------------------------------------------------------------------
 
       end subroutine BDATVolDHoR
 
 
-c ****************************************************************************************
+! ****************************************************************************************
       REAL function FNBDATVolDHoR(BDATBArtNr, D1, H1, D2, H2, Hges,
      2      DHGrz, HDHGrz, SekLng, IErr,VolDHoR)
-c ****************************************************************************************
+! ****************************************************************************************
 
-!dec$ ATTRIBUTES  DLLEXPORT :: FNBDATVolDHoR
-
-c Derbholzvolumen zu gegebenem DerbholzGrenzDurchmesser :.................................
+! Derbholzvolumen zu gegebenem DerbholzGrenzDurchmesser :.................................
 
        INTEGER BDATBArtNr
        REAL   D1
@@ -1245,22 +1230,22 @@ c Derbholzvolumen zu gegebenem DerbholzGrenzDurchmesser :.......................
        INTEGER IErr
        REAL   VolDHoR     ! VolumenDerbHolz  (aus)
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
        VolDHoR = xFNBDATVolDHoR(BDATBArtNr, D1, H1, D2, H2,Hges,
      2      DHGrz, HDHGrz, SekLng, IErr,VolDHoR)
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
        FNBDATVolDHoR=VolDHoR
 
       end function FNBDATVolDHoR
 
 
-c ****************************************************************************************
+! ****************************************************************************************
       REAL function xFNBDATVolDHoR(BDATBArtNr, D1, H1, D2, H2, Hges,
      2      DHGrz, HDHGrz, SekLng, IErr,VolDHoR)
-c ****************************************************************************************
+! ****************************************************************************************
 
-c Derbholzvolumen zu gegebenem DerbholzGrenzDurchmesser :.................................
+! Derbholzvolumen zu gegebenem DerbholzGrenzDurchmesser :.................................
 
        INTEGER BDATBArtNr
        REAL   D1
@@ -1276,7 +1261,7 @@ c Derbholzvolumen zu gegebenem DerbholzGrenzDurchmesser :.......................
 
        REAL   Dx,Hx,A,B,VolABoR
 
-c -----------------------------------------------------------------------------------------
+! -----------------------------------------------------------------------------------------
 
        call xBDATD2H2Trans (BDATBArtNr,D1,H1,D2,H2,Hges)
 
@@ -1294,30 +1279,28 @@ c ------------------------------------------------------------------------------
 
       end function xFNBDATVolDHoR
 
-c ** end insertion by cv 10.07.2018
+! ** end insertion by cv 10.07.2018
 
-c ****************************************************************************************
+! ****************************************************************************************
       subroutine BDATVolABmR(wBDATBArtNr, wD1, wH1, wD2, wH2,
      1      wHges, wA, wB, wSekLng, wIErr,
      2      wVolABmR)
-c ****************************************************************************************
+! ****************************************************************************************
 
-!dec$ ATTRIBUTES  DLLEXPORT :: BDATVolABmR
+! ... BaumVolumen [m?] für den Abschnitt StammHoehe A - B durch sektionsweise Kubierung
+!  in Form von Walzen der L?nge SekLng.
 
-c ... BaumVolumen [m?] für den Abschnitt StammHoehe A - B durch sektionsweise Kubierung
-c  in Form von Walzen der L?nge SekLng.
-
-c  INTEGER BDATBArtNr - BDATBaumArtSchl?ssel
-c  REAL   D1    - Durchmesser (cm) in Hoehe wH1 (wH1 = 0 : H1 = 1.3 m)
-c  REAL   H1    - Hoehe (m) Durchmesser 1 (0: wH1 = 1.3)
-c  REAL   D2    - Durchmesser(cm) in Hoehe wH2 (vgl. BDAT)
-c  REAL   H2    - Hoehe (m) Durchmesser 2 (0: wH2 = 7.0)
-c  REAL   Hges   - StammHoehe (m)
-c  REAL   A    - Abschnittsanfang (m) für die Voluminierung
-c  REAL   B    - Abschnittsende (m) für die Voluminierung
-c  REAL   SekLng   - Sektionsl?nge (m)
-c  INTEGER IErr   - Fehlerindikator
-c  REAL   VolABmR  - Abschnittsvolumen (m?) in Rinde
+!  INTEGER BDATBArtNr - BDATBaumArtSchl?ssel
+!  REAL   D1    - Durchmesser (cm) in Hoehe wH1 (wH1 = 0 : H1 = 1.3 m)
+!  REAL   H1    - Hoehe (m) Durchmesser 1 (0: wH1 = 1.3)
+!  REAL   D2    - Durchmesser(cm) in Hoehe wH2 (vgl. BDAT)
+!  REAL   H2    - Hoehe (m) Durchmesser 2 (0: wH2 = 7.0)
+!  REAL   Hges   - StammHoehe (m)
+!  REAL   A    - Abschnittsanfang (m) für die Voluminierung
+!  REAL   B    - Abschnittsende (m) für die Voluminierung
+!  REAL   SekLng   - Sektionsl?nge (m)
+!  INTEGER IErr   - Fehlerindikator
+!  REAL   VolABmR  - Abschnittsvolumen (m?) in Rinde
 
        INTEGER wBDATBArtNr
        REAL   wD1
@@ -1331,24 +1314,22 @@ c  REAL   VolABmR  - Abschnittsvolumen (m?) in Rinde
        INTEGER wIErr
        REAL   wVolABmR
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
        wVolABmR = xFNBDATVolABmR(wBDATBArtNr,wD1,wH1,wD2,wH2,wHges,
      2        wA, wB, wSekLng,wIErr, wVolABmR)
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
       End Subroutine BDATVolABmR
 
 
-c ****************************************************************************************
+! ****************************************************************************************
       REAL function FNBDATVolABmR(wBDATBArtNr, wD1, wH1, wD2,
      1        wH2, wHges, wA, wB, wSekLng,
      2        wIErr, wVolABmR)
-c ****************************************************************************************
+! ****************************************************************************************
 
-!dec$ ATTRIBUTES  DLLEXPORT :: FNBDATVolABmR
-
-c ... BaumVolumen [m?] für den Abschnitt StammHoehe A - B durch sektionsweise Kubierung in
-c  Form von Walzen der L?nge SekLng.
+! ... BaumVolumen [m?] für den Abschnitt StammHoehe A - B durch sektionsweise Kubierung in
+!  Form von Walzen der L?nge SekLng.
 
        INTEGER wBDATBArtNr
        REAL   wD1
@@ -1362,22 +1343,22 @@ c  Form von Walzen der L?nge SekLng.
        INTEGER wIErr
        REAL   wVolABmR
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
        FNBDATVolABmR = xFNBDATVolABmR(wBDATBArtNr,wD1,wH1,wD2,wH2,
      2      wHges,wA, wB, wSekLng,wIErr, wVolABmR)
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
       End Function FNBDATVolABmR
 
 
-c ****************************************************************************************
+! ****************************************************************************************
       REAL function xFNBDATVolABmR(wBDATBArtNr, wD1, wH1, wD2,
      1        wH2, wHges, wA, wB, wSekLng,
      2        wIErr, wVolABmR)
-c ****************************************************************************************
+! ****************************************************************************************
 
-c ... BaumVolumen [m?] für den Abschnitt StammHoehe A - B durch sektionsweise Kubierung in
-c  Form von Walzen der L?nge SekLng.
+! ... BaumVolumen [m?] für den Abschnitt StammHoehe A - B durch sektionsweise Kubierung in
+!  Form von Walzen der L?nge SekLng.
 
        INTEGER wBDATBArtNr
        REAL   wD1
@@ -1443,7 +1424,7 @@ c  Form von Walzen der L?nge SekLng.
        REAL   Pi
        DATA    Pi   /3.14159E0/
 
-c ........................................................................................
+! ........................................................................................
 
        REAL   H
        REAL   Hx
@@ -1454,7 +1435,7 @@ c ..............................................................................
        REAL   Bx
        REAL   ABx
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
        BDATBArtNr = wBDATBArtNr
 
@@ -1465,7 +1446,7 @@ c ------------------------------------------------------------------------------
        Hges = wHges
        H=Hges
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
        call xBDATD2H2Trans (BDATBArtNr,D1,H1,D2,H2,Hges)
 
@@ -1473,14 +1454,14 @@ c ------------------------------------------------------------------------------
      1    Hkz,Sk, Azop, sthh, Zost, Zoab, sok,
      2    klasse(1), volum(1), BHDz,ifeh)
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
        A = wA
        B = wB
        SekLng = wSekLng
        IErr = wIErr
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
        VolBx = 0
        VolAx = 0
@@ -1518,9 +1499,9 @@ c ------------------------------------------------------------------------------
            HxM = Hges
           EndIf
 
-c     ----------------------------------
+!     ----------------------------------
           Call KUWERT(1 - HxM / Hges, tmp)
-c     ----------------------------------
+!     ----------------------------------
 
           Dx = tmp
 
@@ -1536,9 +1517,9 @@ c     ----------------------------------
            HxM = Hges
           EndIf
 
-c     ----------------------------------
+!     ----------------------------------
           Call KUWERT(1 - HxM / Hges, tmp)
-c     ----------------------------------
+!     ----------------------------------
 
           Dx = tmp
 
@@ -1569,9 +1550,9 @@ c     ----------------------------------
            HxM = Hges
           EndIf
 
-c     ----------------------------------
+!     ----------------------------------
           Call KUWERT(1 - HxM / Hges, tmp)
-c     ----------------------------------
+!     ----------------------------------
 
           Dx = tmp
 
@@ -1587,9 +1568,9 @@ c     ----------------------------------
            HxM = Hges
           EndIf
 
-c     ----------------------------------
+!     ----------------------------------
           Call KUWERT(1 - HxM / Hges, tmp)
-c     ----------------------------------
+!     ----------------------------------
 
           Dx = tmp
 
@@ -1616,30 +1597,28 @@ c     ----------------------------------
       End Function xFNBDATVolABmR
 
 
-c ****************************************************************************************
+! ****************************************************************************************
       subroutine BDATVolABoR(wBDATBArtNr, wD1, wH1, wD2, wH2,
      1      wHges, wA, wB, wSekLng, wIErr,
      2      wVolABoR)
-c ****************************************************************************************
+! ****************************************************************************************
 
-!dec$ ATTRIBUTES  DLLEXPORT :: BDATVolABoR
+! ... BaumVolumen [m?] für den Abschnitt StammHoehe A - B durch sektionsweise Kubierung
+!  in Form von Walzen der L?nge SekLng.
 
-c ... BaumVolumen [m?] für den Abschnitt StammHoehe A - B durch sektionsweise Kubierung
-c  in Form von Walzen der L?nge SekLng.
-
-c  INTEGER BDATBArtNr - BDATBaumArtSchl?ssel
-c  REAL   D1    - Durchmesser (cm) in Hoehe wH1 (wH1 = 0 : H1 = 1.3 m)
-c  REAL   H1    - Hoehe (m) Durchmesser 1 (0: wH1 = 1.3)
-c  REAL   D2    - Durchmesser(cm) in Hoehe wH2 (vgl. BDAT)
-c  REAL   H2    - Hoehe (m) Durchmesser 2 (0: wH2 = 7.0)
-c  REAL   Hges   - StammHoehe (m)
-c  REAL   A    - Abschnittsanfang (m) für die Voluminierung
-c  REAL   B    - Abschnittsende (m) für die Voluminierung
-c  REAL   SekLng   - Sektionsl?nge (m)
-c  INTEGER IErr   - Fehlerindikator
-c  REAL   VolABoR  - Abschnittsvolumen (m?) in Rinde
-c
-c ----------------------------------------------------------------------------------------
+!  INTEGER BDATBArtNr - BDATBaumArtSchl?ssel
+!  REAL   D1    - Durchmesser (cm) in Hoehe wH1 (wH1 = 0 : H1 = 1.3 m)
+!  REAL   H1    - Hoehe (m) Durchmesser 1 (0: wH1 = 1.3)
+!  REAL   D2    - Durchmesser(cm) in Hoehe wH2 (vgl. BDAT)
+!  REAL   H2    - Hoehe (m) Durchmesser 2 (0: wH2 = 7.0)
+!  REAL   Hges   - StammHoehe (m)
+!  REAL   A    - Abschnittsanfang (m) für die Voluminierung
+!  REAL   B    - Abschnittsende (m) für die Voluminierung
+!  REAL   SekLng   - Sektionsl?nge (m)
+!  INTEGER IErr   - Fehlerindikator
+!  REAL   VolABoR  - Abschnittsvolumen (m?) in Rinde
+!
+! ----------------------------------------------------------------------------------------
        INTEGER wBDATBArtNr
        REAL   wD1
        REAL   wH1
@@ -1652,25 +1631,23 @@ c ------------------------------------------------------------------------------
        INTEGER wIErr
        REAL   wVolABoR
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
           wVolABoR=xFNBDATVolABoR(wBDATBArtNr, wD1, wH1, wD2,
      1        wH2, wHges, wA, wB, wSekLng,
      2        wIErr, wVolABoR)
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
       End Subroutine BDATVolABoR
 
 
-c ****************************************************************************************
+! ****************************************************************************************
       REAL function FNBDATVolABoR(wBDATBArtNr, wD1, wH1, wD2,
      1        wH2, wHges, wA, wB, wSekLng,
      2        wIErr, wVolABoR)
-c ****************************************************************************************
+! ****************************************************************************************
 
-!dec$ ATTRIBUTES  DLLEXPORT :: FNBDATVolABoR
-
-c ... BaumVolumen [m?] für den Abschnitt StammHoehe A - B durch sektionsweise Kubierung in
-c  Form von Walzen der L?nge SekLng.
+! ... BaumVolumen [m?] für den Abschnitt StammHoehe A - B durch sektionsweise Kubierung in
+!  Form von Walzen der L?nge SekLng.
 
        INTEGER wBDATBArtNr
        REAL   wD1
@@ -1685,25 +1662,23 @@ c  Form von Walzen der L?nge SekLng.
        REAL   wVolABoR
 
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
        FNBDATVolABoR = xFNBDATVolABoR(wBDATBArtNr, wD1, wH1, wD2,
      1        wH2, wHges, wA, wB, wSekLng,
      2        wIErr, wVolABoR)
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
 
       End Function FNBDATVolABoR
 
-c ****************************************************************************************
+! ****************************************************************************************
       REAL function xFNBDATVolABoR(wBDATBArtNr, wD1, wH1, wD2,
      1        wH2, wHges, wA, wB, wSekLng,
      2        wIErr, wVolABoR)
-c ****************************************************************************************
+! ****************************************************************************************
 
-!dec$ ATTRIBUTES  DLLEXPORT :: FNBDATVolABoR
-
-c ... BaumVolumen [m?] für den Abschnitt StammHoehe A - B durch sektionsweise Kubierung in
-c  Form von Walzen der L?nge SekLng.
+! ... BaumVolumen [m?] für den Abschnitt StammHoehe A - B durch sektionsweise Kubierung in
+!  Form von Walzen der L?nge SekLng.
 
        INTEGER wBDATBArtNr
        REAL   wD1
@@ -1769,7 +1744,7 @@ c  Form von Walzen der L?nge SekLng.
        REAL   Pi
        DATA    Pi   /3.14159E0/
 
-c ........................................................................................
+! ........................................................................................
 
        REAL   H
        REAL   Hx
@@ -1780,7 +1755,7 @@ c ..............................................................................
        REAL   Bx
        REAL   ABx
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
        BDATBArtNr = wBDATBArtNr
 
@@ -1791,7 +1766,7 @@ c ------------------------------------------------------------------------------
        Hges = wHges
        H=Hges
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
        call xBDATD2H2Trans (BDATBArtNr,D1,H1,D2,H2,Hges)
 
@@ -1799,14 +1774,14 @@ c ------------------------------------------------------------------------------
      1    Hkz,Sk, Azop, sthh, Zost, Zoab, sok,
      2    klasse(1), volum(1), BHDz,ifeh)
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
        A = wA
        B = wB
        SekLng = wSekLng
        IErr = wIErr
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
        VolBx = 0
        VolAx = 0
@@ -1844,10 +1819,10 @@ c ------------------------------------------------------------------------------
            HxM = Hges
           EndIf
 
-c     ----------------------------------
+!     ----------------------------------
           Call KUWERT(1 - HxM / Hges, tmp)
           Call RINDE (1 - HxM / Hges, tmp, R2, 0, 0)
-c     -----------------------------------------
+!     -----------------------------------------
 
           If (tmp < 0) Then
            tmp = 0.0
@@ -1867,10 +1842,10 @@ c     -----------------------------------------
            HxM = Hges
           EndIf
 
-c     ----------------------------------
+!     ----------------------------------
           Call KUWERT(1 - HxM / Hges, tmp)
           Call RINDE (1 - HxM / Hges, tmp, R2, 0, 0)
-c     -----------------------------------------
+!     -----------------------------------------
 
           If (tmp < 0) Then
            tmp = 0.0
@@ -1905,10 +1880,10 @@ c     -----------------------------------------
            HxM = Hges
           EndIf
 
-c     ------------------------------------------
+!     ------------------------------------------
           Call KUWERT(1 - HxM / Hges, tmp)
           Call RINDE (1 - HxM / Hges, tmp, R2, 0, 0)
-c     ------------------------------------------
+!     ------------------------------------------
 
           If (tmp < 0) Then
            tmp = 0.0
@@ -1928,10 +1903,10 @@ c     ------------------------------------------
            HxM = Hges
           EndIf
 
-c     ------------------------------------------
+!     ------------------------------------------
           Call KUWERT(1 - HxM / Hges, tmp)
           Call RINDE (1 - HxM / Hges, tmp, R2, 0, 0)
-c     ------------------------------------------
+!     ------------------------------------------
 
           If (tmp < 0) Then
            tmp = 0.0
@@ -1962,12 +1937,10 @@ c     ------------------------------------------
       End Function xFNBDATVolABoR
 
 
-c ****************************************************************************************
+! ****************************************************************************************
       subroutine BDATDmRHx(wBDATBArtNr, wD1, wH1, wD2, wH2,
      1      wHges, wHx, wIErr, wDmRHx)
-c ****************************************************************************************
-
-!dec$ ATTRIBUTES  DLLEXPORT :: BDATDmRHx
+! ****************************************************************************************
 
        INTEGER wBDATBArtNr
        REAL   wD1
@@ -1979,20 +1952,18 @@ c ******************************************************************************
        INTEGER wIErr
        REAL   wDmRHx
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
        wDmRHx = xFNBDATDmRHx(wBDATBArtNr, wD1, wH1, wD2, wH2
      1       ,wHges,wHx, wIErr, wDmRHx)
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
       End subroutine BDATDmRHx
 
 
-c ****************************************************************************************
+! ****************************************************************************************
       REAL function FNBDATDmRHx(wBDATBArtNr, wD1, wH1, wD2, wH2,
      1        wHges, wHx, wIErr, wDmRHx)
-c ****************************************************************************************
-
-!dec$ ATTRIBUTES  DLLEXPORT :: FNBDATDmRHx
+! ****************************************************************************************
 
        INTEGER wBDATBArtNr
        REAL   wD1
@@ -2004,18 +1975,18 @@ c ******************************************************************************
        INTEGER wIErr
        REAL   wDmRHx
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
        FNBDATDmRHx = xFNBDATDmRHx(wBDATBArtNr, wD1, wH1, wD2, wH2
      1        ,wHges,wHx, wIErr, wDmRHx)
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
       End Function FNBDATDmRHx
 
 
-c ****************************************************************************************
+! ****************************************************************************************
       REAL function xFNBDATDmRHx(wBDATBArtNr, wD1, wH1, wD2, wH2,
      1      wHges, wHx, wIErr, wDmRHx)
-c ****************************************************************************************
+! ****************************************************************************************
 
        INTEGER wBDATBArtNr
        REAL   wD1
@@ -2027,7 +1998,7 @@ c ******************************************************************************
        INTEGER wIErr
        REAL   wDmRHx
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
        INTEGER BDATBArtNr
        REAL   D1
        REAL   H1
@@ -2080,7 +2051,7 @@ c ------------------------------------------------------------------------------
 
        REAL   H
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
        BDATBArtNr = wBDATBArtNr
 
@@ -2097,14 +2068,14 @@ c ------------------------------------------------------------------------------
 
        call xBDATD2H2Trans (BDATBArtNr,D1,H1,D2,H2,Hges)
 
-c ....Liefert den Durchmesser an der Stelle Hx im Schaft als Funktion der Baumart
-c  Durchmesser(Hoehe 1/2) (D1,H1) (D2,H2)und der GesamtHoehe H
+! ....Liefert den Durchmesser an der Stelle Hx im Schaft als Funktion der Baumart
+!  Durchmesser(Hoehe 1/2) (D1,H1) (D2,H2)und der GesamtHoehe H
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
        Call BDAT(BDATBArtNr, D1, H1, D2, H2, Hges, Stxu, Hkz,
      1 Sk, Azop, sthh, Zost, Zoab, sok, klasse(1), volum(1), BHDz,
      2 ifeh)
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
        wIErr = ifeh
 
@@ -2112,9 +2083,9 @@ c ------------------------------------------------------------------------------
         Hx = Hges
        EndIf
 
-c  ----------------------------------
+!  ----------------------------------
        Call KUWERT(1 - Hx / Hges, tmp)
-c  ----------------------------------
+!  ----------------------------------
 
        If (tmp .lt. 0) Then
         tmp = 0
@@ -2125,10 +2096,10 @@ c  ----------------------------------
 
       End Function xFNBDATDmRHx
 
-c ****************************************************************************************
+! ****************************************************************************************
       REAL function yFNBDATDmRHx(wBDATBArtNr, wD1, wH1, wD2, wH2,
      1      wHges, wHx, wIErr, wDmRHx)
-c ****************************************************************************************
+! ****************************************************************************************
 
        INTEGER wBDATBArtNr
        REAL   wD1
@@ -2140,7 +2111,7 @@ c ******************************************************************************
        INTEGER wIErr
        REAL   wDmRHx
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
        INTEGER BDATBArtNr
        REAL   D1
        REAL   H1
@@ -2193,7 +2164,7 @@ c ------------------------------------------------------------------------------
 
        REAL   H
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
        BDATBArtNr = wBDATBArtNr
 
@@ -2208,16 +2179,16 @@ c ------------------------------------------------------------------------------
 
        H=Hges
 
-c  call xBDATD2H2Trans (BDATBArtNr,D1,H1,D2,H2,Hges)
+!  call xBDATD2H2Trans (BDATBArtNr,D1,H1,D2,H2,Hges)
 
-c ....Liefert den Durchmesser an der Stelle Hx im Schaft als Funktion der Baumart
-c  Durchmesser(Hoehe 1/2) (D1,H1) (D2,H2)und der GesamtHoehe H
+! ....Liefert den Durchmesser an der Stelle Hx im Schaft als Funktion der Baumart
+!  Durchmesser(Hoehe 1/2) (D1,H1) (D2,H2)und der GesamtHoehe H
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
        Call BDAT(BDATBArtNr, D1, H1, D2, H2, Hges, Stxu, Hkz,
      1 Sk, Azop, sthh, Zost, Zoab, sok, klasse(1), volum(1), BHDz,
      2 ifeh)
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
        wIErr = ifeh
 
@@ -2225,9 +2196,9 @@ c ------------------------------------------------------------------------------
         Hx = Hges
        EndIf
 
-c  ----------------------------------
+!  ----------------------------------
        Call KUWERT(1 - Hx / Hges, tmp)
-c  ----------------------------------
+!  ----------------------------------
 
        If (tmp .lt. 0) Then
         tmp = 0
@@ -2239,12 +2210,10 @@ c  ----------------------------------
       End Function yFNBDATDmRHx
 
 
-c ****************************************************************************************
+! ****************************************************************************************
       Subroutine BDATDoRHx (wBDATBArtNr, wD1, wH1, wD2, wH2,
      1      wHges, wHx, wIErr, wDoRHx)
-c ****************************************************************************************
-
-!dec$ ATTRIBUTES  DLLEXPORT :: BDATDoRHx
+! ****************************************************************************************
 
        INTEGER wBDATBArtNr
        REAL   wD1
@@ -2256,20 +2225,18 @@ c ******************************************************************************
        INTEGER wIErr
        REAL   wDoRHx
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
        wDoRHx=xFNBDATDoRHx (wBDATBArtNr, wD1, wH1, wD2, wH2,
      1      wHges, wHx, wIErr, wDoRHx)
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
       End Subroutine BDATDoRHx
 
 
-c ****************************************************************************************
+! ****************************************************************************************
       REAL function FNBDATDoRHx (wBDATBArtNr, wD1, wH1, wD2, wH2,
      1        wHges, wHx, wIErr, wDoRHx)
-c ****************************************************************************************
-
-!dec$ ATTRIBUTES  DLLEXPORT :: FNBDATDoRHx
+! ****************************************************************************************
 
        INTEGER wBDATBArtNr
        REAL   wD1
@@ -2281,18 +2248,18 @@ c ******************************************************************************
        INTEGER wIErr
        REAL   wDoRHx
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
        FNBDATDoRHx=xFNBDATDoRHx (wBDATBArtNr, wD1, wH1, wD2, wH2,
      1        wHges, wHx, wIErr, wDoRHx)
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
       End Function FNBDATDoRHx
 
 
-c ****************************************************************************************
+! ****************************************************************************************
       REAL function xFNBDATDoRHx (wBDATBArtNr, wD1, wH1, wD2, wH2,
      1        wHges, wHx, wIErr, wDoRHx)
-c ****************************************************************************************
+! ****************************************************************************************
 
        INTEGER wBDATBArtNr
        REAL   wD1
@@ -2359,7 +2326,7 @@ c ******************************************************************************
 
        REAL   H
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
        BDATBArtNr = wBDATBArtNr
        D1 = wD1
@@ -2373,7 +2340,7 @@ c ------------------------------------------------------------------------------
 
        H = Hges
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
        call xBDATD2H2Trans (BDATBArtNr,D1,H1,D2,H2,Hges)
 
@@ -2382,12 +2349,12 @@ c ------------------------------------------------------------------------------
      1    Hkz,Sk, Azop, sthh, Zost, Zoab, sok,
      2    klasse(1), volum(1), BHDz,ifeh)
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
-c  -----------------------------------------
+!  -----------------------------------------
        Call KUWERT(1 - Hx / Hges, kw)
        Call RINDE (1 - Hx / Hges, Kw, R2, 0, 0)
-c  -----------------------------------------
+!  -----------------------------------------
 
        If (Kw < 0) Then
         Kw = 0.0
@@ -2399,12 +2366,10 @@ c  -----------------------------------------
       End Function xFNBDATDoRHx
 
 
-c ****************************************************************************************
+! ****************************************************************************************
       subroutine BDATRinde2Hx(wBDATBArtNr, wD1, wH1, wD2, wH2,
      1       wHges, wHx, wIErr, wRinde2Hx)
-c ****************************************************************************************
-
-!dec$ ATTRIBUTES  DLLEXPORT :: BDATRinde2Hx
+! ****************************************************************************************
 
        INTEGER wBDATBArtNr
        REAL   wD1
@@ -2416,20 +2381,18 @@ c ******************************************************************************
        INTEGER wIErr
        REAL   wRinde2Hx
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
        wRinde2Hx = xFNBDATRinde2Hx(wBDATBArtNr, wD1, wH1, wD2,
      1       wH2,wHges, wHx, wIErr, wRinde2Hx)
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
       End subroutine BDATRinde2Hx
 
 
-c ****************************************************************************************
+! ****************************************************************************************
       REAL function FNBDATRinde2Hx(wBDATBArtNr, wD1, wH1, wD2, wH2,
      1        wHges, wHx, wIErr, wRinde2Hx)
-c ****************************************************************************************
-
-!dec$ ATTRIBUTES  DLLEXPORT :: FNBDATRinde2Hx
+! ****************************************************************************************
 
        INTEGER wBDATBArtNr
        REAL   wD1
@@ -2441,18 +2404,18 @@ c ******************************************************************************
        INTEGER wIErr
        REAL   wRinde2Hx
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
        FNBDATRinde2Hx = xFNBDATRinde2Hx(wBDATBArtNr, wD1, wH1, wD2,
      1       wH2,wHges, wHx, wIErr, wRinde2Hx)
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
       End Function FNBDATRinde2Hx
 
 
-c ****************************************************************************************
+! ****************************************************************************************
       REAL function xFNBDATRinde2Hx(wBDATBArtNr, wD1, wH1, wD2, wH2,
      1        wHges, wHx, wIErr, wRinde2Hx)
-c ****************************************************************************************
+! ****************************************************************************************
 
        INTEGER wBDATBArtNr
        REAL   wD1
@@ -2519,7 +2482,7 @@ c ******************************************************************************
 
        REAL   H
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
        BDATBArtNr = wBDATBArtNr
 
@@ -2536,11 +2499,11 @@ c ------------------------------------------------------------------------------
 
        call xBDATD2H2Trans (BDATBArtNr,D1,H1,D2,H2,Hges)
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
        Call BDAT(BDATBArtNr, D1, H1, D2, H2, Hges, Stxu, Hkz,
      1 Sk, Azop, sthh, Zost, Zoab, sok, klasse(1), volum(1), BHDz
      2 , ifeh)
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
        IErr = ifeh
 
@@ -2548,10 +2511,10 @@ c ------------------------------------------------------------------------------
         Hx = Hges
        EndIf
 
-c  -----------------------------------------
+!  -----------------------------------------
        Call KUWERT(1 - Hx / Hges, kw)
        Call RINDE (1 - Hx / Hges, kw, tmp, 0, 0)
-c  -----------------------------------------
+!  -----------------------------------------
 
        wRinde2Hx = tmp
        xFNBDATRinde2Hx = tmp
@@ -2560,29 +2523,27 @@ c  -----------------------------------------
       End Function xFNBDATRinde2Hx
 
 
-c ****************************************************************************************
+! ****************************************************************************************
       subroutine BDATD2H2Trans (wBDATBArtNr, wD1, wH1, wD2, wH2,wHges)
-c ****************************************************************************************
+! ****************************************************************************************
 
-!dec$ ATTRIBUTES  DLLEXPORT :: BDATD2H2Trans
-
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
        INTEGER wBDATBArtNr
        REAL   wD1
        REAL   wH1
        REAL   wD2
        REAL   wH2
        REAL   wHges
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
        call xBDATD2H2Trans (wBDATBArtNr, wD1, wH1, wD2, wH2,wHges)
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
       End subroutine BDATD2H2Trans
 
 
-c ****************************************************************************************
+! ****************************************************************************************
       subroutine xBDATD2H2Trans (wBDATBArtNr, wD1, wH1, wD2, wH2,wHges)
-c ****************************************************************************************
+! ****************************************************************************************
 
        INTEGER wBDATBArtNr
        REAL   wD1
@@ -2640,13 +2601,13 @@ c ******************************************************************************
        REAL   kw
        DATA    kw   /0.0/
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
        REAL   Hx, Dx, Q03Pct,MwQ03BWI,StDevQ03BWI,MwQ03BWIPct
        INTEGER iERR
        DATA  iERR  /0/
        REAL   H,D2t,H2t,D2u,D2o
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
        if (wH1<=0) then
         wH1=1.3
@@ -2660,26 +2621,26 @@ c ------------------------------------------------------------------------------
        H2 = wH2
        Hges = wHges
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
        if  (D2 > 0) then
 
-c   D2 (ein) ~ Durchmesserwert
+!   D2 (ein) ~ Durchmesserwert
 
         if (H2>0) then
 
-c    D2 (aus) = D2 (ein)
-c    H2 (aus) = H2 (ein)
+!    D2 (aus) = D2 (ein)
+!    H2 (aus) = H2 (ein)
 
         else
 
-c    H2 (aus) = 7 m (Standardwert BWI)
+!    H2 (aus) = 7 m (Standardwert BWI)
 
          H2 = 7
 
         end if
 
-c  ...<<12.11.02>> : Aenderung :........................................................
+!  ...<<12.11.02>> : Aenderung :........................................................
 
         H=Hges
         D2t=-0.400
@@ -2717,21 +2678,21 @@ c  ...<<12.11.02>> : Aenderung :................................................
 
        else if ((-1 < D2).and.(D2 < 0)) then
 
-c   Formigkeit: q0.3:= D0.30/D095
+!   Formigkeit: q0.3:= D0.30/D095
 
-c   D2 (ein) ~ - q0.3;
+!   D2 (ein) ~ - q0.3;
 
-c   D2 (aus) = D2 (ein)
-c   H2 (aus) = 0.3*Hges
+!   D2 (aus) = D2 (ein)
+!   H2 (aus) = 0.3*Hges
 
         H2 = 0.3*Hges
 
        else if (D2 <= -1)     then
 
-c    Formigkeit: BWI-?quivalenz (MEDIAN q0.3)
+!    Formigkeit: BWI-?quivalenz (MEDIAN q0.3)
 
-c    D2 (aus) = EST MED [q0.3 |BHD,Hges;BWI]
-c    H2 (aus) = 0.3*Hges
+!    D2 (aus) = EST MED [q0.3 |BHD,Hges;BWI]
+!    H2 (aus) = 0.3*Hges
 
          Q03Pct=0.50
 
@@ -2743,23 +2704,23 @@ c    H2 (aus) = 0.3*Hges
 
        else
 
-c   D2 (ein) = 0 : D2 ~ ?ber <<H2>> festlegen
+!   D2 (ein) = 0 : D2 ~ ?ber <<H2>> festlegen
 
         if (H2 <= 0) then
 
-c    Formigkeit: MassenTafel-?quivalenz (BDAT 1.0)
+!    Formigkeit: MassenTafel-?quivalenz (BDAT 1.0)
 
          D2=0
          H2=0
 
         else if ((0<H2).and.(H2<100)) then
 
-c    Formigkeit: BWI-?quivalenz (PCTL q0.3)
+!    Formigkeit: BWI-?quivalenz (PCTL q0.3)
 
-c    H2 (ein) ~ PercentilWert * 100
-c
-c    D2 (aus) = EST PCTL [q0.3 | BHD,Hges,H2(ein);BWI]
-c    H2 (aus) = 0.3*Hges
+!    H2 (ein) ~ PercentilWert * 100
+!
+!    D2 (aus) = EST PCTL [q0.3 | BHD,Hges,H2(ein);BWI]
+!    H2 (aus) = 0.3*Hges
 
          Q03Pct=wH2*0.01
 
@@ -2771,10 +2732,10 @@ c    H2 (aus) = 0.3*Hges
 
         else
 
-c    Formigkeit: BWI-?quivalenz (MEDIAN q0.3)
-c
-c    D2 (aus) = EST MED [q0.3 |BHD,Hges;BWI]
-c    H2 (aus) = 0.3*Hges
+!    Formigkeit: BWI-?quivalenz (MEDIAN q0.3)
+!
+!    D2 (aus) = EST MED [q0.3 |BHD,Hges;BWI]
+!    H2 (aus) = 0.3*Hges
 
          Q03Pct=0.50
 
@@ -2788,7 +2749,7 @@ c    H2 (aus) = 0.3*Hges
 
        end if
 
-c     AusgabeParameter :------------------------------------------------------------------
+!     AusgabeParameter :------------------------------------------------------------------
 
        wD1=D1
        wH1=H1
@@ -2799,53 +2760,51 @@ c     AusgabeParameter :--------------------------------------------------------
       End subroutine xBDATD2H2Trans
 
 
-c ****************************************************************************************
+! ****************************************************************************************
       subroutine BDATMwQ03BWI(BDATBArtNr,D,H,Q03Pct,
      1      MwQ03BWI,StDevQ03BWI,MwQ03BWIPct)
-c ****************************************************************************************
+! ****************************************************************************************
 
-c  q0.3 - Percentile = MwQ03BWIPct = F(D,H,PctlWert) / MW / STD = F(D,H)
-c
-c  BDATBArtNr INT*2 EIN - BDAT BaumArt Nummer 1-36
-c   D   REAL  EIN - BHD [cm]
-c  H   REAL  EIN - BaumHoehe [m]
-c  Q03Pct  REAL  EIN - PercentilWert (eps,1-eps) für MwQ03BWIPct Schätzung
-c  MwQ03BWI      REAL  AUS - Mittelwert q0.3 (gesch?tzt)
-c  StDevQ03BWI      REAL  AUS - Standardabweichung Mwq0.3 - Verteilung
-c  MwQ03BWIPct      REAL  AUS - Mittlerer q0.3 - Percentilwert (gesch?tzt)
+!  q0.3 - Percentile = MwQ03BWIPct = F(D,H,PctlWert) / MW / STD = F(D,H)
+!
+!  BDATBArtNr INT*2 EIN - BDAT BaumArt Nummer 1-36
+!   D   REAL  EIN - BHD [cm]
+!  H   REAL  EIN - BaumHoehe [m]
+!  Q03Pct  REAL  EIN - PercentilWert (eps,1-eps) für MwQ03BWIPct Schätzung
+!  MwQ03BWI      REAL  AUS - Mittelwert q0.3 (gesch?tzt)
+!  StDevQ03BWI      REAL  AUS - Standardabweichung Mwq0.3 - Verteilung
+!  MwQ03BWIPct      REAL  AUS - Mittlerer q0.3 - Percentilwert (gesch?tzt)
 
-c ****************************************************************************************
+! ****************************************************************************************
 
-!dec$ ATTRIBUTES  DLLEXPORT :: BDATMwQ03BWI
-
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
        INTEGER BDATBArtNr
        REAL   D, H, Q03Pct
        REAL   MwQ03BWI,StDevQ03BWI, MwQ03BWIPct
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
        call xBDATMwQ03BWI(BDATBArtNr,D,H,Q03Pct,
      1      MwQ03BWI,StDevQ03BWI,MwQ03BWIPct)
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
       end subroutine BDATMwQ03BWI
 
 
-c ****************************************************************************************
+! ****************************************************************************************
       subroutine xBDATMwQ03BWI(BDATBArtNr,D,H,Q03Pct,
      1      MwQ03BWI,StDevQ03BWI,MwQ03BWIPct)
-c ****************************************************************************************
+! ****************************************************************************************
 
-c  q0.3 - Percentile = MwQ03BWIPct = F(D,H,PctlWert) / MW / STD = F(D,H)
-c
-c  BDATBArtNr INT*2 EIN - BDAT BaumArt Nummer 1-36
-c   D   REAL  EIN - BHD [cm]
-c  H   REAL  EIN - BaumHoehe [m]
-c  Q03Pct  REAL  EIN - PercentilWert (eps,1-eps) für MwQ03BWIPct Schätzung
-c  MwQ03BWI      REAL  AUS - Mittelwert q0.3 (gesch?tzt)
-c  StDevQ03BWI      REAL  AUS - Standardabweichung Mwq0.3 - Verteilung
-c  MwQ03BWIPct      REAL  AUS - Mittlerer q0.3 - Percentilwert (gesch?tzt)
+!  q0.3 - Percentile = MwQ03BWIPct = F(D,H,PctlWert) / MW / STD = F(D,H)
+!
+!  BDATBArtNr INT*2 EIN - BDAT BaumArt Nummer 1-36
+!   D   REAL  EIN - BHD [cm]
+!  H   REAL  EIN - BaumHoehe [m]
+!  Q03Pct  REAL  EIN - PercentilWert (eps,1-eps) für MwQ03BWIPct Schätzung
+!  MwQ03BWI      REAL  AUS - Mittelwert q0.3 (gesch?tzt)
+!  StDevQ03BWI      REAL  AUS - Standardabweichung Mwq0.3 - Verteilung
+!  MwQ03BWIPct      REAL  AUS - Mittlerer q0.3 - Percentilwert (gesch?tzt)
 
-c ****************************************************************************************
+! ****************************************************************************************
 
        INTEGER BDATBArtNr
        REAL   D, H, Q03Pct
@@ -2879,7 +2838,7 @@ c ******************************************************************************
        REAL   eps
        DATA    eps /0.001/
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
        data BDATSKNrList       /
      1 1,  1,  2,  2,  4,  4,  4,  3,  5,  5,
@@ -2887,7 +2846,7 @@ c ------------------------------------------------------------------------------
      3 6,  6,  6,  6,  6,  6,  6,  6,  6,  6,
      4 6,  6,  7,  6,  6,  6      /
 
-c -------------------------------- Stand 23.08.01 ----------------------------------------
+! -------------------------------- Stand 23.08.01 ----------------------------------------
 
        data (((EQP(i,j,k),k=1,7),j=1,2),i=1,8)  /
      1  20, 10, 50, 0.650, 0.875, 0.850, 0.250,
@@ -2917,7 +2876,7 @@ c -------------------------------- Stand 23.08.01 ------------------------------
      7 0.50, 0.80, 1.00, 0.2500, 0.0700, 0.0000,
      8 0.50, 0.80, 1.00, 0.0300, 0.0300, 0.0300  /
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
        BDATSKNr = BDATSKNrList(BDATBArtNr)
 
@@ -2943,10 +2902,10 @@ c ------------------------------------------------------------------------------
 
        Phi = EQP(BDATSKNr, 1, 7)
 
-c     ****************************************************************************************
-c     * Z(H|D(i)) = MW [Q0.3| H | a(H(i,j)|D(i))]; j=1,2,3; i=1,2                            *
-c * Ratkowsky, D.A. (1990) (4.3.9), S97                                                  *
-c     ****************************************************************************************
+!     ****************************************************************************************
+!     * Z(H|D(i)) = MW [Q0.3| H | a(H(i,j)|D(i))]; j=1,2,3; i=1,2                            *
+! * Ratkowsky, D.A. (1990) (4.3.9), S97                                                  *
+!     ****************************************************************************************
 
        Q1 = 2 * (H - h11) / (h12 - h11)
        Z1 = a11 + (a12 - a11) * (1 - ((a12 - a13)/(a13 - a11))** Q1)
@@ -2956,9 +2915,9 @@ c     **************************************************************************
        Z2 = a21 + (a22 - a21) * (1 - ((a22 - a23)/(a23 - a21)) ** Q2)
      1 / (1 - ((a22 - a23) / (a23 - a21)) ** 2)
 
-c     ****************************************************************************************
-c     * EQ0.3(D,H) =  E [Q0.3| D, Z(H|D(i)); i=1,2] * Ratkowsky, D.A. (1990) (4.3.23), S104  *
-c     ****************************************************************************************
+!     ****************************************************************************************
+!     * EQ0.3(D,H) =  E [Q0.3| D, Z(H|D(i)); i=1,2] * Ratkowsky, D.A. (1990) (4.3.23), S104  *
+!     ****************************************************************************************
 
        EQ03 = Z1 * Z2 * (D2 ** Phi - D1 ** Phi)
      1 / (Z2 * (D2 ** Phi - D ** Phi) + Z1 * (D ** Phi - D1 ** Phi))
@@ -2971,16 +2930,16 @@ c     **************************************************************************
         EQ03 = EQ03oG
        End If
 
-c  ***************
+!  ***************
        MwQ03BWI = EQ03
-c  ***************
+!  ***************
 
-c     ****************************************************************************************
-c     * sQ0.3(D,H) =  s [Q0.3| D,sQ(Q|i)); i=1,3] * Ratkowsky, D.A. (1990) (4.3.29), S106    *
-c     ****************************************************************************************
+!     ****************************************************************************************
+!     * sQ0.3(D,H) =  s [Q0.3| D,sQ(Q|i)); i=1,3] * Ratkowsky, D.A. (1990) (4.3.29), S106    *
+!     ****************************************************************************************
 
 
-c  Call BDATStDevQ03(BDATBArtNr, MwQ03, BDATSKNr, StDevQ03)
+!  Call BDATStDevQ03(BDATBArtNr, MwQ03, BDATSKNr, StDevQ03)
 
        Q1 = SQP(BDATSKNr, 1)
        Q2 = SQP(BDATSKNr, 2)
@@ -3002,9 +2961,9 @@ c  Call BDATStDevQ03(BDATBArtNr, MwQ03, BDATSKNr, StDevQ03)
      1  * sQ2 + (Q-Q3)*(Q1-Q2)*sQ3)
        end if
 
-c  ********************
+!  ********************
        StDevQ03BWI=StDevQ03
-c  ********************
+!  ********************
 
        CDFx = Q03Pct
 
@@ -3016,14 +2975,14 @@ c  ********************
         CDFx=0.5
        end if
 
-c  *****************************************
+!  *****************************************
        Call CDFNORMInv(EQ03, StDevQ03, CDFx, x)
-c  *****************************************
+!  *****************************************
 
 
-c  ***************
+!  ***************
        MwQ03BWIPct = x
-c  ***************
+!  ***************
 
        if (MwQ03BWIPct>1) then
         MwQ03BWIPct=1
@@ -3036,24 +2995,22 @@ c  ***************
       end subroutine xBDATMwQ03BWI
 
 
-c ****************************************************************************************
+! ****************************************************************************************
       subroutine BDATPctQ03BWI(BDATBArtNr,D,H,Q03,
      1      MwQ03BWI,StDevQ03BWI,PctQ03BWI)
-c ****************************************************************************************
+! ****************************************************************************************
 
-c  q0.3 - PercentilWert = PctQ03BWI = F(D,H,q0.3) / Mittelwert / Standardabweichung = F(D,H)
+!  q0.3 - PercentilWert = PctQ03BWI = F(D,H,q0.3) / Mittelwert / Standardabweichung = F(D,H)
 
-c  BDATBArtNr INT*2 EIN - BDAT BaumArt Nummer 1-36
-c   D   REAL  EIN - BHD [cm]
-c  H   REAL  EIN - BaumHoehe [m]
-c  Q03     REAL  EIN - Formquotient für die Percentilbestimmung
-c  MwQ03BWI      REAL  AUS - Mittelwert q0.3 (gesch?tzt)
-c  StDevQ03BWI      REAL  AUS - Standardabweichung Mwq0.3 - Verteilung
-c  PctQ03BWI      REAL  AUS - q0.3 - Percentilwert (gesch?tzt) zu q0.3, D, H
+!  BDATBArtNr INT*2 EIN - BDAT BaumArt Nummer 1-36
+!   D   REAL  EIN - BHD [cm]
+!  H   REAL  EIN - BaumHoehe [m]
+!  Q03     REAL  EIN - Formquotient für die Percentilbestimmung
+!  MwQ03BWI      REAL  AUS - Mittelwert q0.3 (gesch?tzt)
+!  StDevQ03BWI      REAL  AUS - Standardabweichung Mwq0.3 - Verteilung
+!  PctQ03BWI      REAL  AUS - q0.3 - Percentilwert (gesch?tzt) zu q0.3, D, H
 
-c ****************************************************************************************
-
-!dec$ ATTRIBUTES  DLLEXPORT :: BDATPctQ03BWI
+! ****************************************************************************************
 
        INTEGER BDATBArtNr
        REAL   D, H, Q03
@@ -3087,7 +3044,7 @@ c ******************************************************************************
        REAL   eps
        DATA    eps /0.001/
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
        data BDATSKNrList      /
      1 1,  1,  2,  2,  4,  4,  4,  3,  5,  5,
@@ -3095,7 +3052,7 @@ c ------------------------------------------------------------------------------
      3 6,  6,  6,  6,  6,  6,  6,  6,  6,  6,
      4 6,  6,  7,  6,  6,  6     /
 
-c -------------------------------- Stand 23.08.01 ----------------------------------------
+! -------------------------------- Stand 23.08.01 ----------------------------------------
 
        data (((EQP(i,j,k),k=1,7),j=1,2),i=1,8)  /
      1  20, 10, 50, 0.650, 0.875, 0.850, 0.250,
@@ -3125,7 +3082,7 @@ c -------------------------------- Stand 23.08.01 ------------------------------
      7 0.50, 0.80, 1.00, 0.2500, 0.0700, 0.0000,
      8 0.50, 0.80, 1.00, 0.0300, 0.0300, 0.0300  /
 
-c -------------------------------- Stand 23.08.01 ----------------------------------------
+! -------------------------------- Stand 23.08.01 ----------------------------------------
 
        BDATSKNr = BDATSKNrList(BDATBArtNr)
 
@@ -3151,10 +3108,10 @@ c -------------------------------- Stand 23.08.01 ------------------------------
 
        Phi = EQP(BDATSKNr, 1, 7)
 
-c     ****************************************************************************************
-c     * Z(H|D(i)) = MW [Q0.3| H | a(H(i,j)|D(i))]; j=1,2,3; i=1,2                            *
-c * Ratkowsky, D.A. (1990) (4.3.9), S97                                                  *
-c     ****************************************************************************************
+!     ****************************************************************************************
+!     * Z(H|D(i)) = MW [Q0.3| H | a(H(i,j)|D(i))]; j=1,2,3; i=1,2                            *
+! * Ratkowsky, D.A. (1990) (4.3.9), S97                                                  *
+!     ****************************************************************************************
 
        Q1 = 2 * (H - h11) / (h12 - h11)
        Z1 = a11 + (a12 - a11) * (1 - ((a12 - a13) / (a13 - a11))**Q1)
@@ -3164,9 +3121,9 @@ c     **************************************************************************
        Z2 = a21 + (a22 - a21) * (1 - ((a22 - a23) / (a23 - a21))**Q2)
      1 / (1 - ((a22 - a23) / (a23 - a21)) ** 2)
 
-c     ****************************************************************************************
-c     * EQ0.3(D,H) =  E [Q0.3| D, Z(H|D(i)); i=1,2] * Ratkowsky, D.A. (1990) (4.3.23), S104  *
-c     ****************************************************************************************
+!     ****************************************************************************************
+!     * EQ0.3(D,H) =  E [Q0.3| D, Z(H|D(i)); i=1,2] * Ratkowsky, D.A. (1990) (4.3.23), S104  *
+!     ****************************************************************************************
 
        EQ03 = Z1 * Z2 * (D2 ** Phi - D1 ** Phi)
      1 / (Z2 * (D2 ** Phi - D ** Phi) + Z1 * (D ** Phi - D1 ** Phi))
@@ -3181,11 +3138,11 @@ c     **************************************************************************
        End If
 
 
-c  ***************
+!  ***************
        MwQ03BWI = EQ03
-c  ***************
+!  ***************
 
-c  Call BDATStDevQ03(BDATBArtNr, MwQ03, BDATSKNr, StDevQ03)
+!  Call BDATStDevQ03(BDATBArtNr, MwQ03, BDATSKNr, StDevQ03)
 
        Q1 = SQP(BDATSKNr, 1)
        Q2 = SQP(BDATSKNr, 2)
@@ -3207,9 +3164,9 @@ c  Call BDATStDevQ03(BDATBArtNr, MwQ03, BDATSKNr, StDevQ03)
      1  * sQ2 + (Q-Q3)*(Q1-Q2)*sQ3)
        end if
 
-c  ********************
+!  ********************
        StDevQ03BWI=StDevQ03
-c  ********************
+!  ********************
 
        if (Q03 < eps) then
         PctQ03BWI=0
@@ -3217,11 +3174,11 @@ c  ********************
         PctQ03BWI=1
        else
 
-c   **************************************
+!   **************************************
         x=Q03
         Call CDFNORM(EQ03, StDevQ03, x, CDFx)
         PctQ03BWI = CDFx
-c   **************************************
+!   **************************************
 
        end if
 
@@ -3229,11 +3186,9 @@ c   **************************************
       end subroutine BDATPctQ03BWI
 
 
-c ****************************************************************************************
+! ****************************************************************************************
       subroutine EQ03ParIni(WEQP,WSQP)
-c ****************************************************************************************
-
-!dec$ ATTRIBUTES  DLLEXPORT :: EQ03ParIni
+! ****************************************************************************************
 
        REAL  WEQP(1:8,1:2,1:7)
        REAL  WSQP(1:8,1:6)
@@ -3242,9 +3197,9 @@ c ******************************************************************************
        REAL  SQP(1:8,1:6)
 
 
-c  COMMON / EQ03 / EQP, SQP
+!  COMMON / EQ03 / EQP, SQP
 
-c -------------------------------- Stand 23.08.01 ----------------------------------------
+! -------------------------------- Stand 23.08.01 ----------------------------------------
 
        data (((EQP(i,j,k),k=1,7),j=1,2),i=1,8)  /
      1 20, 10, 50, 0.650, 0.875, 0.850, 0.250,
@@ -3274,7 +3229,7 @@ c -------------------------------- Stand 23.08.01 ------------------------------
      7 0.50, 0.80, 1.00, 0.2500, 0.0700, 0.0000,
      8 0.50, 0.80, 1.00, 0.0300, 0.0300, 0.0300  /
 
-c -------------------------------------------------------------------------------------------
+! -------------------------------------------------------------------------------------------
 
        do i= 1,8,1
         do j= 1,2,1
@@ -3293,15 +3248,13 @@ c ------------------------------------------------------------------------------
       end subroutine EQ03ParIni
 
 
-c q03 - Fortschreibung :_____________________________________________________________________
+! q03 - Fortschreibung :_____________________________________________________________________
 
 
-c *******************************************************************************************
+! *******************************************************************************************
       REAL function FNBDATEstQ032(BDATBArtNr, BHD1, D71, H1, BHD2, H2,
      1       Estq032, EstD72, iErr)
-c *******************************************************************************************
-
-!dec$ ATTRIBUTES  DLLEXPORT :: FNBDATEstQ032
+! *******************************************************************************************
 
        INTEGER BDATBArtNr
        REAL   BHD1
@@ -3319,7 +3272,7 @@ c ******************************************************************************
 
        REAL   D005,D03
 
-c --------------------------------------------------------------------------------------------
+! --------------------------------------------------------------------------------------------
 
        iErr = 0
 
@@ -3328,7 +3281,7 @@ c ------------------------------------------------------------------------------
             iErr = 1
        End If
 
-c        '...q03 = F(BHD,D7=0,H,INV 2) :...............................................
+!        '...q03 = F(BHD,D7=0,H,INV 2) :...............................................
 
        D1 = BHD2
        HD1 = 1.3
@@ -3362,7 +3315,7 @@ c        '...q03 = F(BHD,D7=0,H,INV 2) :........................................
 
        Else
 
-c  '...q03 = F(BHD,D7=0,H,INV 1) :..............................................
+!  '...q03 = F(BHD,D7=0,H,INV 1) :..............................................
 
         D1 = BHD1
         HD1 = 1.3
@@ -3376,7 +3329,7 @@ c  '...q03 = F(BHD,D7=0,H,INV 1) :..............................................
      1       StDevQ03BWI, MwQ03BWIPct)
         MWq031 = MwQ03BWI
 
-c  '...q03 = F(BHD,D7,H,INV 1) :................................................
+!  '...q03 = F(BHD,D7,H,INV 1) :................................................
 
         D1 = BHD1
         HD1 = 1.3
@@ -3394,7 +3347,7 @@ c  '...q03 = F(BHD,D7,H,INV 1) :................................................
 
         q031 = D03 / D005
 
-c  '...Fortschreibung :........................................................
+!  '...Fortschreibung :........................................................
 
         Estq032 = q031 + (MWq032 - MWq031)
 
@@ -3411,29 +3364,27 @@ c  '...Fortschreibung :........................................................
 
        Dx = xFNBDATDmRHx(BDATBArtNr, D1, HD1, D2, HD2, H, Hx, iErr, Dx)
 
-c  ******************************
+!  ******************************
        If (Dx > D71) Then
         EstD72 = Dx
        Else
         iErr = iErr + 1
         EstD72 = D71 * BHD2 / BHD1
        End If
-c  ******************************
+!  ******************************
 
 
-c  ******************************
+!  ******************************
        FNBdatEstq032 = Estq032
-c  ******************************
+!  ******************************
 
       End Function FNBDATEstQ032
 
-c subroutine ergaenzt für BDATHXDX, 10.06.2018 cv
-c ****************************************************************************************
+! subroutine ergaenzt für BDATHXDX, 10.06.2018 cv
+! ****************************************************************************************
       Subroutine BDATHxDx (BDATBArtNr, D1, H1, D2, H2,
      1      H, Dx, Hx, IErr)
-c ****************************************************************************************
-
-!dec$ ATTRIBUTES  DLLEXPORT :: BDATHxDx
+! ****************************************************************************************
 
        INTEGER BDATBArtNr
        REAL  D1
@@ -3445,22 +3396,20 @@ c ******************************************************************************
        REAL  Dx
        INTEGER IErr
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
        Hx=FNBDATHxDx( BDATBArtNr, D1, H1, D2, H2,
      1      H, Hx, Dx, IErr)
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
       End Subroutine BDATHxDx
 
 
-c ***************************************************************************************
+! ***************************************************************************************
       REAL function FNBDATHxDx(BDATBArtNr,D1,H1,D2,H2,H,
      2        Hx,Dx,IErr)
-c ***************************************************************************************
+! ***************************************************************************************
 
-!dec$ ATTRIBUTES  DLLEXPORT :: FNBDATHxDx
-
-c     ... Hoehe (Hx) zu gegebenem Durchmesser (Dx) :...........................................
+!     ... Hoehe (Hx) zu gegebenem Durchmesser (Dx) :...........................................
 
        INTEGER BDATBArtNr
        REAL   D1
@@ -3472,19 +3421,19 @@ c     ... Hoehe (Hx) zu gegebenem Durchmesser (Dx) :............................
        REAL   Dx
        INTEGER IErr
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
        FNBDATHxDx = xFNBDATHxDx(BDATBArtNr,D1,H1,D2,H2,H,Hx,Dx,IErr)
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
       END Function FNBDATHxDx
 
 
-c ***************************************************************************************
+! ***************************************************************************************
       REAL function xFNBDATHxDx(BDATBArtNr,D1,H1,D2,H2,H,
      2        Hx,Dx,IErr)
-c ***************************************************************************************
+! ***************************************************************************************
 
-c     ... Hoehe (Hx) zu gegebenem Durchmesser (Dx) :...........................................
+!     ... Hoehe (Hx) zu gegebenem Durchmesser (Dx) :...........................................
 
        INTEGER BDATBArtNr
        REAL   D1
@@ -3496,7 +3445,7 @@ c     ... Hoehe (Hx) zu gegebenem Durchmesser (Dx) :............................
        REAL   Dx
        INTEGER IErr
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
        INTEGER NSFktNr
        DATA  NSFktNr   /1/
@@ -3518,7 +3467,7 @@ c ------------------------------------------------------------------------------
        REAL   x1
        REAL   x2
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
        A = 0
        B = H
@@ -3535,15 +3484,13 @@ c ------------------------------------------------------------------------------
       END Function xFNBDATHxDx
 
 
-c ...<<07.03.03>> : Aenderung :............................................................
+! ...<<07.03.03>> : Aenderung :............................................................
 
-c subroutine ergaenzt für BDATHXDX, 14.06.2018 cv
-c ****************************************************************************************
+! subroutine ergaenzt für BDATHXDX, 14.06.2018 cv
+! ****************************************************************************************
       Subroutine BDATHxDxoR (BDATBArtNr, D1, H1, D2, H2,
      1      H, Dx, Hx, IErr)
-c ****************************************************************************************
-
-!dec$ ATTRIBUTES  DLLEXPORT :: BDATHxDx
+! ****************************************************************************************
 
        INTEGER BDATBArtNr
        REAL  D1
@@ -3555,21 +3502,19 @@ c ******************************************************************************
        REAL  Dx
        INTEGER IErr
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
        Hx=FNBDATHxDxoR( BDATBArtNr, D1, H1, D2, H2,
      1      H, Hx, Dx, IErr)
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
       End Subroutine BDATHxDxoR
 
-c ***************************************************************************************
+! ***************************************************************************************
       REAL function FNBDATHxDxoR(BDATBArtNr,D1,H1,D2,H2,H,
      2        Hx,Dx,IErr)
-c ***************************************************************************************
+! ***************************************************************************************
 
-!dec$ ATTRIBUTES  DLLEXPORT :: FNBDATHxDxoR
-
-c     ... Hoehe (Hx) zu gegebenem Durchmesser oR (Dx) :.......................................
+!     ... Hoehe (Hx) zu gegebenem Durchmesser oR (Dx) :.......................................
 
        INTEGER BDATBArtNr
        REAL   D1
@@ -3581,20 +3526,20 @@ c     ... Hoehe (Hx) zu gegebenem Durchmesser oR (Dx) :.........................
        REAL   Dx
        INTEGER IErr
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
        FNBDATHxDxoR = xFNBDATHxDxoR(BDATBArtNr,D1,H1,D2,H2,H,Hx,Dx,
      1 IErr)
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
       END Function FNBDATHxDxoR
 
 
-c ***************************************************************************************
+! ***************************************************************************************
       REAL function xFNBDATHxDxoR(BDATBArtNr,D1,H1,D2,H2,H,
      2        Hx,Dx,IErr)
-c ***************************************************************************************
+! ***************************************************************************************
 
-c     ... Hoehe (Hx) zu gegebenem Durchmesser oR (Dx) :.......................................
+!     ... Hoehe (Hx) zu gegebenem Durchmesser oR (Dx) :.......................................
 
        INTEGER BDATBArtNr
        REAL   D1
@@ -3606,7 +3551,7 @@ c     ... Hoehe (Hx) zu gegebenem Durchmesser oR (Dx) :.........................
        REAL   Dx
        INTEGER IErr
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
        INTEGER NSFktNr
        DATA  NSFktNr   /2/
@@ -3628,7 +3573,7 @@ c ------------------------------------------------------------------------------
        REAL   x1
        REAL   x2
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
        A = 0
        B = H
@@ -3645,17 +3590,15 @@ c ------------------------------------------------------------------------------
       END Function xFNBDATHxDxoR
 
 
-c ...<<07.03.03>> : Aenderung :............................................................
+! ...<<07.03.03>> : Aenderung :............................................................
 
 
-c ***************************************************************************************
+! ***************************************************************************************
       REAL function FNBDATHxDxoRFoRu(BDATBArtNr,D1,H1,D2,H2,H,
      2        Hx,Dx,IErr)
-c ***************************************************************************************
+! ***************************************************************************************
 
-!dec$ ATTRIBUTES  DLLEXPORT :: FNBDATHxDxoRFoRu
-
-c     ... Hoehe (Hx) zu gegebenem Durchmesser oR mit forstlicher Rundung [Dx]:................
+!     ... Hoehe (Hx) zu gegebenem Durchmesser oR mit forstlicher Rundung [Dx]:................
 
        INTEGER BDATBArtNr
        REAL   D1
@@ -3667,20 +3610,20 @@ c     ... Hoehe (Hx) zu gegebenem Durchmesser oR mit forstlicher Rundung [Dx]:..
        REAL   Dx
        INTEGER IErr
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
        FNBDATHxDxoRFoRu = xFNBDATHxDxoRFoRu(BDATBArtNr,D1,H1,D2,H2,H
      1 ,Hx,Dx,IErr)
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
       END Function FNBDATHxDxoRFoRu
 
 
-c ***************************************************************************************
+! ***************************************************************************************
       REAL function xFNBDATHxDxoRFoRu(BDATBArtNr,D1,H1,D2,H2,H,
      2        Hx,Dx,IErr)
-c ***************************************************************************************
+! ***************************************************************************************
 
-c     ... Hoehe (Hx) zu gegebenem Durchmesser (Dx) :...........................................
+!     ... Hoehe (Hx) zu gegebenem Durchmesser (Dx) :...........................................
 
        INTEGER BDATBArtNr
        REAL   D1
@@ -3692,7 +3635,7 @@ c     ... Hoehe (Hx) zu gegebenem Durchmesser (Dx) :............................
        REAL   Dx
        INTEGER IErr
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
        INTEGER NSFktNr
        DATA  NSFktNr   /3/
@@ -3714,7 +3657,7 @@ c ------------------------------------------------------------------------------
        REAL   x1
        REAL   x2
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
        A = 0
        B = H
@@ -3731,21 +3674,19 @@ c ------------------------------------------------------------------------------
       END Function xFNBDATHxDxoRFoRu
 
 
-c ...<<07.03.03>> : Aenderung :............................................................
+! ...<<07.03.03>> : Aenderung :............................................................
 
 
-c ****************************************************************************************
+! ****************************************************************************************
       REAL function FNBDATQ03VHDx
      1  (BDATBArtNr, D1, H1, H, Dx, VolHDx,
      2   MIt, q031, q032, q03x, IErr
      3  )
-c ****************************************************************************************
+! ****************************************************************************************
 
-!dec$ ATTRIBUTES  DLLEXPORT :: FNBDATQ03VHDx
-
-c ---------------------------------------------------------------------------------------
-c     Formquotient q0.3x zu VolHDx (Volumen bis zum GrenzDurchmesser Dx)
-c ---------------------------------------------------------------------------------------
+! ---------------------------------------------------------------------------------------
+!     Formquotient q0.3x zu VolHDx (Volumen bis zum GrenzDurchmesser Dx)
+! ---------------------------------------------------------------------------------------
 
        INTEGER BDATBArtNr
        REAL   D1
@@ -3761,7 +3702,7 @@ c ------------------------------------------------------------------------------
 
        INTEGER IErr
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
        REAL   D2
        REAL   H2
@@ -3800,7 +3741,7 @@ c ------------------------------------------------------------------------------
        REAL   VolHDx3
        DATA    VolHDx3     /0/
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
        REAL   X3
        REAL   f1
@@ -3809,14 +3750,14 @@ c ------------------------------------------------------------------------------
        REAL   s12
        INTEGER It
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
        It = 0
        A=0
        x1 = q031
        x2 = q032
 
-c GrenzHoehe/Volumen zu Dx und q031 :......................................................
+! GrenzHoehe/Volumen zu Dx und q031 :......................................................
 
        H2=0
        D2=-x1
@@ -3831,7 +3772,7 @@ c GrenzHoehe/Volumen zu Dx und q031 :...........................................
 
        f1= VolHDx1 - VolHDx
 
-c GrenzHoehe/Volumen zu Dx und q032 :......................................................
+! GrenzHoehe/Volumen zu Dx und q032 :......................................................
 
        H2=0
        D2=-x2
@@ -3884,7 +3825,7 @@ c GrenzHoehe/Volumen zu Dx und q032 :...........................................
           XNs = x1
          End If
 
-c ...<<11.12.02>> : Aenderung :............................................................
+! ...<<11.12.02>> : Aenderung :............................................................
 
          iErr=0
          q03x = XNs
@@ -3894,7 +3835,7 @@ c ...<<11.12.02>> : Aenderung :.................................................
          s12 = (f2 - f1) / (x2 - x1)
          X3 = x2 - f2 / s12
 
-c   GrenzHoehe/Volumen zu Dx und q032 :..............................................
+!   GrenzHoehe/Volumen zu Dx und q032 :..............................................
 
          H2=0
          D2=-x3
@@ -3919,7 +3860,7 @@ c   GrenzHoehe/Volumen zu Dx und q032 :.........................................
         End If
        end do
 
-c ...Zul?ssige Anzahl von Iterationen erreicht ohne Konvergenz
+! ...Zul?ssige Anzahl von Iterationen erreicht ohne Konvergenz
 
        IErr = 2 ! keine Konvergenz
        q03x = 0 ! Rueckgabe von Null
@@ -3927,19 +3868,19 @@ c ...Zul?ssige Anzahl von Iterationen erreicht ohne Konvergenz
       End Function FNBDATQ03VHDx
 
 
-c ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-c +++         lokale Prozeduren          +++
-c ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+! ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+! +++         lokale Prozeduren          +++
+! ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-c lokal: CDFNORM (NUM)  CDFNORMInv (NUM)
-c
-c ****************************************************************************************
+! lokal: CDFNORM (NUM)  CDFNORMInv (NUM)
+!
+! ****************************************************************************************
       subroutine CDFNORM (mw,StDev,x,CDFx)
-c ****************************************************************************************
+! ****************************************************************************************
 
-c Summenfunktion (CDF) der Normalverteilung :.............................................
+! Summenfunktion (CDF) der Normalverteilung :.............................................
 
-c  USE numerical_libraries
+!  USE numerical_libraries
        REAL  mw
        REAL  StDev
        REAL  x
@@ -3955,18 +3896,18 @@ c  USE numerical_libraries
        N01 = (x-mw)/StDev
 
        CDFx=ANORDF(N01)
-c  CDFx=0.5
+!  CDFx=0.5
 
       end subroutine CDFNORM
 
 
-c ****************************************************************************************
+! ****************************************************************************************
       subroutine CDFNORMInv (mw,StDev,CDFx,x)
-c ****************************************************************************************
+! ****************************************************************************************
 
-c Inverse Summenfunktion (Percentile) der Normalverteilung :..............................
+! Inverse Summenfunktion (Percentile) der Normalverteilung :..............................
 
-c  USE numerical_libraries
+!  USE numerical_libraries
 
        REAL  mw
        REAL  StDev
@@ -3983,25 +3924,25 @@ c  USE numerical_libraries
         return
        else
         N01=dinvnorm(CDFx)
-c   N01=1
+!   N01=1
         x=mw+N01*StDev
        end if
 
       end subroutine CDFNORMInv
 
 
-c ****************************************************************************************
+! ****************************************************************************************
       Subroutine BDATNullStellenSuche
      1  (BDATBArtNr, D1, H1, D2, H2, H,
      2   NSFktNr, NSFktPar,A, B,
      3   NSFktAbsErr, NSFktXAbsErr, NSFktXRelErr,
      4   MIt, x1, x2, XNs, IErr
      5  )
-c ****************************************************************************************
+! ****************************************************************************************
 
-c ---------------------------------------------------------------------------------------
-c     NullStelle einer stetigen Funktion nach dem PegasusVerfahren vgl. Engeln-M?llges P2.8.2
-c ---------------------------------------------------------------------------------------
+! ---------------------------------------------------------------------------------------
+!     NullStelle einer stetigen Funktion nach dem PegasusVerfahren vgl. Engeln-M?llges P2.8.2
+! ---------------------------------------------------------------------------------------
 
        INTEGER BDATBArtNr
        REAL   D1
@@ -4025,7 +3966,7 @@ c ------------------------------------------------------------------------------
        REAL   XNs      ! Nullstelle
        INTEGER IErr
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
        REAL   X3
        REAL   f1
@@ -4034,7 +3975,7 @@ c ------------------------------------------------------------------------------
        REAL   s12
        INTEGER It
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
        It = 0
        x1 = A
@@ -4076,7 +4017,7 @@ c ------------------------------------------------------------------------------
           XNs = x1
          End If
 
-c ...<<11.12.02>> : Aenderung :............................................................
+! ...<<11.12.02>> : Aenderung :............................................................
 
          iErr=0
          return
@@ -4098,20 +4039,20 @@ c ...<<11.12.02>> : Aenderung :.................................................
         End If
        end do
 
-c ...Zul?ssige Anzahl von Iterationen erreicht ohne Konvergenz
+! ...Zul?ssige Anzahl von Iterationen erreicht ohne Konvergenz
 
        IErr = 3
 
       End Subroutine BDATNullStellenSuche
 
 
-c ***************************************************************************************
+! ***************************************************************************************
       Subroutine BDATNullStellenFkt (BDATBArtNr,D1,H1,D2,H2,H,
      1        NSFktNr,NSFktPar,X,Fx)
-c ***************************************************************************************
+! ***************************************************************************************
 
 
-c     ...NullStellen Funktion für das PegasusVerfahren :.....................................
+!     ...NullStellen Funktion für das PegasusVerfahren :.....................................
 
 
        INTEGER BDATBArtNr
@@ -4126,20 +4067,20 @@ c     ...NullStellen Funktion für das PegasusVerfahren :.......................
        REAL   X
        REAL   Fx
 
-c ---------------------------------------------------------------------------------------
+! ---------------------------------------------------------------------------------------
 
        INTEGER IErr
        REAL   Hx
        REAL   Dx
        REAL   DmRHx,DoRHx
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
 
 
        If (NSFktNr .eq. 1) Then
 
-c   ...X: Hoehe zu gegebenem Durchmesser: Hx = H (Dx) :...............................
+!   ...X: Hoehe zu gegebenem Durchmesser: Hx = H (Dx) :...............................
 
         Dx = NSFktPar
         Hx = X
@@ -4151,7 +4092,7 @@ c   ...X: Hoehe zu gegebenem Durchmesser: Hx = H (Dx) :.........................
        Else If (NSFktNr .eq. 2) Then
 
 
-c   ...X: Hoehe zu gegebenem Durchmesser oR: Hx = H (Dx) :............................
+!   ...X: Hoehe zu gegebenem Durchmesser oR: Hx = H (Dx) :............................
 
 
         Dx = NSFktPar
@@ -4164,7 +4105,7 @@ c   ...X: Hoehe zu gegebenem Durchmesser oR: Hx = H (Dx) :......................
        Else If (NSFktNr .eq. 3) Then
 
 
-c   ...X: Hoehe zu gegebenem Durchmesser oR mit forstlicher Rundung Hx = H (Dx) :.....
+!   ...X: Hoehe zu gegebenem Durchmesser oR mit forstlicher Rundung Hx = H (Dx) :.....
 
 
         Dx = NSFktPar
@@ -4190,16 +4131,14 @@ c   ...X: Hoehe zu gegebenem Durchmesser oR mit forstlicher Rundung Hx = H (Dx) 
       END Subroutine BDATNullStellenFkt
 
 
-c ...<<07.03.03>> : Aenderung :............................................................
+! ...<<07.03.03>> : Aenderung :............................................................
 
 
-c ***************************************************************************************
+! ***************************************************************************************
       REAL function FNBDATDxFoRu(Dx)
-c ***************************************************************************************
+! ***************************************************************************************
 
-!dec$ ATTRIBUTES  DLLEXPORT :: FNBDATDxFoRu
-
-c     ... Durchmesser forstlich gerundet [Dx] :..............................................
+!     ... Durchmesser forstlich gerundet [Dx] :..............................................
 
        REAL   Dx
 
@@ -4208,11 +4147,11 @@ c     ... Durchmesser forstlich gerundet [Dx] :.................................
       END Function FNBDATDxFoRu
 
 
-c ***************************************************************************************
+! ***************************************************************************************
       REAL function xFNBDATDxFoRu(Dx)
-c ***************************************************************************************
+! ***************************************************************************************
 
-c     ... Durchmesser forstlich gerundet [Dx] :..............................................
+!     ... Durchmesser forstlich gerundet [Dx] :..............................................
 
        REAL   Dx
 
@@ -4224,7 +4163,7 @@ c     ... Durchmesser forstlich gerundet [Dx] :.................................
 
       END Function xFNBDATDxFoRu
 
-c ...<<18.09.03>> : Aenderung :.......................................................
+! ...<<18.09.03>> : Aenderung :.......................................................
 
 !c ***************************************************************************************
 ! REAL function FNBDATHStockEnde
@@ -4238,8 +4177,6 @@ c ...<<18.09.03>> : Aenderung :.................................................
 !
 !  COMMON /XtrComPar/ HStockEnde, HStHAnfang, LngStH, HStHLzEnde
 ! 1     , HBDATGes
-!
-!!dec$ ATTRIBUTES  DLLEXPORT :: FNBDATHStockEnde
 !
 !  FNBDATHStockEnde=HStockEnde
 !
@@ -4258,8 +4195,6 @@ c ...<<18.09.03>> : Aenderung :.................................................
 !  COMMON /XtrComPar/ HStockEnde, HStHAnfang, LngStH, HStHLzEnde
 ! 1     , HBDATGes
 !
-!!dec$ ATTRIBUTES  DLLEXPORT :: FNBDATHStHAnfang
-!
 !  FNBDATHStHAnfang=HStHAnfang
 !
 ! END Function FNBDATHStHAnfang
@@ -4276,8 +4211,6 @@ c ...<<18.09.03>> : Aenderung :.................................................
 !
 !  COMMON /XtrComPar/ HStockEnde, HStHAnfang, LngStH, HStHLzEnde
 ! 1     , HBDATGes
-!
-!!dec$ ATTRIBUTES  DLLEXPORT :: FNBDATLngStH
 !
 !  FNBDATLngStH=LngStH
 !
@@ -4296,8 +4229,6 @@ c ...<<18.09.03>> : Aenderung :.................................................
 !  COMMON /XtrComPar/ HStockEnde, HStHAnfang, LngStH, HStHLzEnde
 ! 1     , HBDATGes
 !
-!!dec$ ATTRIBUTES  DLLEXPORT :: FNBDATHStHLzEnde
-!
 !  FNBDATHStHLzEnde=HStHLzEnde
 !
 ! END Function FNBDATHStHLzEnde
@@ -4315,187 +4246,185 @@ c ...<<18.09.03>> : Aenderung :.................................................
 !  COMMON /XtrComPar/ HStockEnde, HStHAnfang, LngStH, HStHLzEnde
 ! 1     , HBDATGes
 !
-!!dec$ ATTRIBUTES  DLLEXPORT :: FNBDATHBDATGes
-!
 !  FNBDATHBDATGes=HBDATGes
 !
 ! END Function FNBDATHBDATGes
 
-c #############################  BWI BDAT 1.0  ###########################################
+! #############################  BWI BDAT 1.0  ###########################################
 
-c Aenderungen: <<19.01.04>> :--------------------------------------------------------------
-c Aenderungen: <<05.11.02>> :--------------------------------------------------------------
-c Aenderungen: <<01.07.02>> :--------------------------------------------------------------
+! Aenderungen: <<19.01.04>> :--------------------------------------------------------------
+! Aenderungen: <<05.11.02>> :--------------------------------------------------------------
+! Aenderungen: <<01.07.02>> :--------------------------------------------------------------
 
-c....                   Version:17.10.01
-c Aenderungen: <<19.01.04>> :--------------------------------------------------------------
+!....                   Version:17.10.01
+! Aenderungen: <<19.01.04>> :--------------------------------------------------------------
 
-c      REAL wH095
+!      REAL wH095
 
-c ...<<17.10.01>> :...(Rindenfunktion)  ..................................................
+! ...<<17.10.01>> :...(Rindenfunktion)  ..................................................
 
-c.... Aenderung 23.10.00 Kublin :.........................................
+!.... Aenderung 23.10.00 Kublin :.........................................
 
-c     M?glichkeit (Ddo,Hho) abweichend vom D7 oder q0.30 vorzugeben
+!     M?glichkeit (Ddo,Hho) abweichend vom D7 oder q0.30 vorzugeben
 
-c.... Aenderung 23.10.00 Kublin :.........................................
+!.... Aenderung 23.10.00 Kublin :.........................................
 
-c     *******************************************************************
-c     * Voluminierung & Sortierung  ***  VOL = INTEGRAL(SPLINE(Du,Do,H) *
-c     *******************************************************************
-c     * FILE: BDAT_B.FOR * STAND: 13.12.90 * AUTOREN: SCHARNAGL/KUBLIN  *
-c     *******************************************************************
+!     *******************************************************************
+!     * Voluminierung & Sortierung  ***  VOL = INTEGRAL(SPLINE(Du,Do,H) *
+!     *******************************************************************
+!     * FILE: BDAT_B.FOR * STAND: 13.12.90 * AUTOREN: SCHARNAGL/KUBLIN  *
+!     *******************************************************************
 
 
-c     ###################################################################
+!     ###################################################################
       SUBROUTINE BDAT(ibba,Ddu,Hhu,Ddo,Hho,Hoe,Stx,Hkz,Sk,Azopf,
      *                     ksthh,zzost,Zzoab,Sok,Klasse,Volum,Bhd,ifeh)
-c     ###################################################################
+!     ###################################################################
 
 
-c                                               VERSION: 13.12.90 Kublin
-c  Eingabe(E)/ Ausgabe(A) - Variable
-c
-c        Name(bei Eingabe-Ausgabe)
-c             Name (im Programm) bei m?glicher WertAenderung
-c                        Variablentyp  (i=Integer,R=Real)
-c                               Beschreibung
-c                               ============
-c  E     Ibba(Iba)       I      Baumart nach Baumartenschluessel
-c                               s. Block data
-c                               iba bleibt konstant !
-c  E     Ddu (Du)        R      Unterer Durchmesser (cm)
-c  E     Hhu (Hu)        R      Hoehe des  unt.Durchmessers am Stamm (cm)
-c  E     Ddo (Do)        R      Oberer Durchmesser (cm)
-c                               Ddo > 0 und Hho=0 und ->                     Hho = 7
-c                               Ddo < 0               -> q0.3 = ABS(Ddo) und Hho = 0.3*Hoe
-c            (D7m)       R                  "
+!                                               VERSION: 13.12.90 Kublin
+!  Eingabe(E)/ Ausgabe(A) - Variable
+!
+!        Name(bei Eingabe-Ausgabe)
+!             Name (im Programm) bei m?glicher WertAenderung
+!                        Variablentyp  (i=Integer,R=Real)
+!                               Beschreibung
+!                               ============
+!  E     Ibba(Iba)       I      Baumart nach Baumartenschluessel
+!                               s. Block data
+!                               iba bleibt konstant !
+!  E     Ddu (Du)        R      Unterer Durchmesser (cm)
+!  E     Hhu (Hu)        R      Hoehe des  unt.Durchmessers am Stamm (cm)
+!  E     Ddo (Do)        R      Oberer Durchmesser (cm)
+!                               Ddo > 0 und Hho=0 und ->                     Hho = 7
+!                               Ddo < 0               -> q0.3 = ABS(Ddo) und Hho = 0.3*Hoe
+!            (D7m)       R                  "
 
-c.....Aenderung 23.10.00 Kublin :..........................................
+!.....Aenderung 23.10.00 Kublin :..........................................
 
-c  E     HHo                    Hoehe oberer Durchmesser 0 und Ddo>0 -> Hho = 7m
-c                                                             Ddo<0 -> Q0.3 = ABS (Ddo) Hho = 0.3*Hoe
+!  E     HHo                    Hoehe oberer Durchmesser 0 und Ddo>0 -> Hho = 7m
+!                                                             Ddo<0 -> Q0.3 = ABS (Ddo) Hho = 0.3*Hoe
 
-c.....Aenderung 23.10.00 Kublin :..........................................
+!.....Aenderung 23.10.00 Kublin :..........................................
 
-c  E     Hoe (H)         R      Hoehe des Baumes (m)
-c            (Hbr)       R      Hilfsv. fuer H,H wird durch Hkz
-c                               ge?ndert
-c  E     Stx (Stxu)      R      L?nge X-Holz am Stammfuss
-c  E     Hkz             I      Hoehenkennziffer 1 = Wipfelbruch
-c                                              2 = Gipfelbruch
-c  E     Sk              I      Stammkennziffer  s. Dokum. S.83
-c  E     Azopf(Azop)     R      Aufarbeitungszopf(cm)
-c  E     Ksthh(sthh)     R      Hoehe bis zu der Stammholz ausgehalten
-c                                     werden darf
-c  E     Zzost(zost)     R      Zopf bis zu dem Stammholz ausgehalten
-c                               werden darf
-c  E     Zzoab(zoab)     R      Zopf bis zu dem Abschnitt ausgehalten
-c                               werden darf
-c  E     Sok(Sokz)       I      Sortierkennziffer 0=keine Sortierung
-c                                    1=Mittenst. 2=Heilbronner
-c  A     Klasse          I      St?rkeklassen (Feld 1-6)
-c         (1...Kl )      I      Klasse     Stammholz          a
-c         (2...Ukl)      I      Unterklasse    "     werden fuer Ausg.
-c         (3...Klx)      I      Klasse       X-Holz         in Klasse
-c         (4...Uklx)     I      Unterklasse    "          uebertragen
-c         (5...Kla )     I      Klasse    Abschnitt
-c         (6...Ukla)     I      Unterklasse    "
-c
-c
-c  A     Volum           R      Volumenfeld  (Feld 1-7)
-c         ( 1...Vol )           Hilsgr??e für Indh.ber.Laubholz
-c                                (Stammholz o.R. incl. X-Holz)
-c         ( 2...Volx)           X-Holz Efm. o. Ri.
-c         ( 3...Vols)           Stammholz   "
-c         ( 4...Vola)           Stammteil(-abschnitt)  "
-c         ( 5...Voli)           Industrieholz          "
-c         ( 6...Volu)           nicht verwertetes Derbholz  "
-c         ( 7...Volr)           Ernteverlust                "
-c
-c  A     Bhd             R      BHD aus Schaftk. wenn Du <>1,30
-c  A     Ifeh            I      Fehler der Eingabegr?ssen
-c                               nach Fehlertabelle s.Doc.  S.84 ff.
-c
-c==================================================================
-c   Variable im Programm:
-c        Hazop           R      Hoehe (Lage) des Aufarbeitungszopfes
-c        Hdgren          R       "            "  Derbholzgrenze
-c        Hsthzop         R       "            "  Stammholzzopfes
-c        Habzop          R       "            "  Abschnittzopfes
-c        Ba              I      zugeordneter Baumarten-Index fuer
-c                               best.Funktion
-c
-c   Schaft
-c
-c==================================================================
-c        Konstante :
-c        ===========
-c  K     Dgr (Dgrenz)    R      Derbholzgrenze  = 7 cm
-c
-c =================================================================
-c
-c  K     Volk(6,30,3)    I      Volumen nach Krenn (ba,mm-St,h?-St)
-c                               s.BD.
-c  K     Hoehr(6,6)      R      Hoehenrahmen fur Krenn-Vol.(h?-st)
-c  K     Azo(7,3)        R      Durchschn. Aufarbeitungszopf der
-c                               Baumarten
-c  K     Rin(28,4,3)     R      Koeffizienten fuer Rindenfunktionen
-c                               Rin(Ba,Hoehen-St im Baum,Koeffz-Nr)
-c  K     Rinh(3,5,3)     R      wie Rin jedoch fuer H-Sortierung
-c  K     Ban (36,7)      I      Baumartenindex verschiedene
-c                               Funktionen nach Zuordnungstabelle
-c
-c  Schaftkurvenvariable:                 s.Dok.
-c  K     Nnp,Np,Nxk,B,Xk
-c  K     nxk95a,nxk95b,xk95a,xk95b,a95,b95
-c  K     Add07,Md07,Snxkn7,Sxk07,Sdo7
-c  K     Add07(14,5:45,3)I      Addresse der D07-Werte im Feld
-c                               Md07(20333)   Add07(Ba,BHD,  )
-c  K     Md07(20333)     I      Feld der Massentafel-D07 (*1000)
-c
-c
-c        Yy              R      Hilfsvariable
-c        Durel           R
-c        Hurel           R      relative Lage des unteren Durchmessers
-c        Horel           R      relative Lage des oberen Durchmessers
-c  K     Ho              R      Hoehe (Lage) des oberen Durchmessers
-c                                auf 7m festgesetzt
-c        D095            R      Gesch?tzter Durchmesser in 5% der Hoehe
-c        Dnorm           R      Normungsdurchmesser (=Du)
-c        D07             R      Relativdurchmesser in 30% der Hoehe
-c                                 iteriert oder aus Tabelle (SUB D07tab)
-c        Xsi             R      Hilfsgr?sse bei D07-Iteration
-c        Ifehl           I      Fehler-Zeiger zeigt an, ob Iteration
-c                                 erfolgreich war
-c
-c
-c        D07lu           R      untere Iterationsgrenze fuer D07
-c        D07lo           R      obere  Iterationsgrenze fuer D07
-c
-c
+!  E     Hoe (H)         R      Hoehe des Baumes (m)
+!            (Hbr)       R      Hilfsv. fuer H,H wird durch Hkz
+!                               ge?ndert
+!  E     Stx (Stxu)      R      L?nge X-Holz am Stammfuss
+!  E     Hkz             I      Hoehenkennziffer 1 = Wipfelbruch
+!                                              2 = Gipfelbruch
+!  E     Sk              I      Stammkennziffer  s. Dokum. S.83
+!  E     Azopf(Azop)     R      Aufarbeitungszopf(cm)
+!  E     Ksthh(sthh)     R      Hoehe bis zu der Stammholz ausgehalten
+!                                     werden darf
+!  E     Zzost(zost)     R      Zopf bis zu dem Stammholz ausgehalten
+!                               werden darf
+!  E     Zzoab(zoab)     R      Zopf bis zu dem Abschnitt ausgehalten
+!                               werden darf
+!  E     Sok(Sokz)       I      Sortierkennziffer 0=keine Sortierung
+!                                    1=Mittenst. 2=Heilbronner
+!  A     Klasse          I      St?rkeklassen (Feld 1-6)
+!         (1...Kl )      I      Klasse     Stammholz          a
+!         (2...Ukl)      I      Unterklasse    "     werden fuer Ausg.
+!         (3...Klx)      I      Klasse       X-Holz         in Klasse
+!         (4...Uklx)     I      Unterklasse    "          uebertragen
+!         (5...Kla )     I      Klasse    Abschnitt
+!         (6...Ukla)     I      Unterklasse    "
+!
+!
+!  A     Volum           R      Volumenfeld  (Feld 1-7)
+!         ( 1...Vol )           Hilsgr??e für Indh.ber.Laubholz
+!                                (Stammholz o.R. incl. X-Holz)
+!         ( 2...Volx)           X-Holz Efm. o. Ri.
+!         ( 3...Vols)           Stammholz   "
+!         ( 4...Vola)           Stammteil(-abschnitt)  "
+!         ( 5...Voli)           Industrieholz          "
+!         ( 6...Volu)           nicht verwertetes Derbholz  "
+!         ( 7...Volr)           Ernteverlust                "
+!
+!  A     Bhd             R      BHD aus Schaftk. wenn Du <>1,30
+!  A     Ifeh            I      Fehler der Eingabegr?ssen
+!                               nach Fehlertabelle s.Doc.  S.84 ff.
+!
+!==================================================================
+!   Variable im Programm:
+!        Hazop           R      Hoehe (Lage) des Aufarbeitungszopfes
+!        Hdgren          R       "            "  Derbholzgrenze
+!        Hsthzop         R       "            "  Stammholzzopfes
+!        Habzop          R       "            "  Abschnittzopfes
+!        Ba              I      zugeordneter Baumarten-Index fuer
+!                               best.Funktion
+!
+!   Schaft
+!
+!==================================================================
+!        Konstante :
+!        ===========
+!  K     Dgr (Dgrenz)    R      Derbholzgrenze  = 7 cm
+!
+! =================================================================
+!
+!  K     Volk(6,30,3)    I      Volumen nach Krenn (ba,mm-St,h?-St)
+!                               s.BD.
+!  K     Hoehr(6,6)      R      Hoehenrahmen fur Krenn-Vol.(h?-st)
+!  K     Azo(7,3)        R      Durchschn. Aufarbeitungszopf der
+!                               Baumarten
+!  K     Rin(28,4,3)     R      Koeffizienten fuer Rindenfunktionen
+!                               Rin(Ba,Hoehen-St im Baum,Koeffz-Nr)
+!  K     Rinh(3,5,3)     R      wie Rin jedoch fuer H-Sortierung
+!  K     Ban (36,7)      I      Baumartenindex verschiedene
+!                               Funktionen nach Zuordnungstabelle
+!
+!  Schaftkurvenvariable:                 s.Dok.
+!  K     Nnp,Np,Nxk,B,Xk
+!  K     nxk95a,nxk95b,xk95a,xk95b,a95,b95
+!  K     Add07,Md07,Snxkn7,Sxk07,Sdo7
+!  K     Add07(14,5:45,3)I      Addresse der D07-Werte im Feld
+!                               Md07(20333)   Add07(Ba,BHD,  )
+!  K     Md07(20333)     I      Feld der Massentafel-D07 (*1000)
+!
+!
+!        Yy              R      Hilfsvariable
+!        Durel           R
+!        Hurel           R      relative Lage des unteren Durchmessers
+!        Horel           R      relative Lage des oberen Durchmessers
+!  K     Ho              R      Hoehe (Lage) des oberen Durchmessers
+!                                auf 7m festgesetzt
+!        D095            R      Gesch?tzter Durchmesser in 5% der Hoehe
+!        Dnorm           R      Normungsdurchmesser (=Du)
+!        D07             R      Relativdurchmesser in 30% der Hoehe
+!                                 iteriert oder aus Tabelle (SUB D07tab)
+!        Xsi             R      Hilfsgr?sse bei D07-Iteration
+!        Ifehl           I      Fehler-Zeiger zeigt an, ob Iteration
+!                                 erfolgreich war
+!
+!
+!        D07lu           R      untere Iterationsgrenze fuer D07
+!        D07lo           R      obere  Iterationsgrenze fuer D07
+!
+!
       implicit logical (a-z)
 
 
-c ...<<11.11.02>> : Aenderung :.......................................................
-c
-c REAL DuTmp,HuTmp,DoTmp,HoTmp,HTmp,DoLoTmp,DoLuTmp,DTmp
+! ...<<11.11.02>> : Aenderung :.......................................................
+!
+! REAL DuTmp,HuTmp,DoTmp,HoTmp,HTmp,DoLoTmp,DoLuTmp,DTmp
 
-c............................................Aenderung: 17.01.91 Kublin
+!............................................Aenderung: 17.01.91 Kublin
 
       REAL ABS,AMAX1,AMIN1
-c     REAL hhxx
+!     REAL hhxx
 
-c.....................................................................
+!.....................................................................
 
       INTEGER Nnp,Np,Nxk,Sk,Sokz,Sok,Hkz,I
       REAL B(1:80,1:8),Xk(1:6) ,Azopf,Stx,Hoe,Ddu,Ddo,Hhu,X,D7m,Ksthh
 
-c.....Aenderung 23.10.00 Kublin :..........................................
+!.....Aenderung 23.10.00 Kublin :..........................................
 
       REAL Hho, wDdu
 
-c.....Aenderung 23.10.00 Kublin :..........................................
+!.....Aenderung 23.10.00 Kublin :..........................................
 
       REAL Rin(1:28,1:4,1:3)
       REAL Rinh(1:3,1:5,1:3)
@@ -4509,11 +4438,11 @@ c.....Aenderung 23.10.00 Kublin :..........................................
       REAL Azop,Dgrenz,Hazop,Hdgren,Hstzop,Habzop,PI,Zzost,Zost
       REAL Zzoab,Zoab,Hbr
 
-c Aenderungen: <<19.01.04>> :--------------------------------------------------------------
+! Aenderungen: <<19.01.04>> :--------------------------------------------------------------
       REAL wH095
-c Aenderungen: <<19.01.04>> :--------------------------------------------------------------
+! Aenderungen: <<19.01.04>> :--------------------------------------------------------------
 
-c
+!
       INTEGER Ifehl,Ianz
       REAL F1,F2,D07lo,D07lu,Bb,Aa
       REAL Azo(7,0:3)
@@ -4528,19 +4457,19 @@ c
       REAL Sxk07(7,8),Sd07(24,8)
       INTEGER Snxkn7(8)
 
-c ...<<18.09.03>> : Aenderung :.......................................................
+! ...<<18.09.03>> : Aenderung :.......................................................
 
       REAL   HStockEnde
       REAL   HStHAnfang
       REAL   LngStH
       REAL   HStHLzEnde
       REAL   HBDATGes
-c   REAL glLSort(1:5), glDSort(1:5) ! christian vonderach, 24.07.2018
+!   REAL glLSort(1:5), glDSort(1:5) ! christian vonderach, 24.07.2018
 
       COMMON /XtrComPar/ HStockEnde, HStHAnfang, LngStH, HStHLzEnde
      1     , HBDATGes
 
-c ...<<18.09.03>> : Aenderung :.......................................................
+! ...<<18.09.03>> : Aenderung :.......................................................
 
       COMMON /Volk/Volk,hoehr
       COMMON /Wert1/ sthh,Sokz,Stxu
@@ -4556,14 +4485,14 @@ c ...<<18.09.03>> : Aenderung :.................................................
       COMMON /Sk/ Yy,Durel
       COMMON /Baum0/ Nbaum
       COMMON /Baum1/ D095,D07,Du,Do,Dnorm,H,Hu,Hurel,Ho,Horel
-c   COMMON /glLDSort/ glLSort, glDSort ! christian vonderach, 24.07.2018
+!   COMMON /glLDSort/ glLSort, glDSort ! christian vonderach, 24.07.2018
 
-c ----------------------------------------------------------------------------------------
+! ----------------------------------------------------------------------------------------
 
-c     return
-c     write(*,*) '***** Hallo *****'
-c     return
-c
+!     return
+!     write(*,*) '***** Hallo *****'
+!     return
+!
       do 10 i=1,6
         Klasse(i)=0
         Volum(i)=0
@@ -4576,7 +4505,7 @@ c
       Volum(7)=0
 
       Nbaum=1
-c                                        ....Aenderung 31.01.91 Kublin
+!                                        ....Aenderung 31.01.91 Kublin
       Iba=ibba
       if(iba.lt.1.or.iba.gt.36)ifeh=1
       Stxu=Stx
@@ -4587,14 +4516,14 @@ c                                        ....Aenderung 31.01.91 Kublin
       Du=Ddu
       Bhd=Ddu
 
-c.....Aenderung 23.10.00 Kublin :..........................................
+!.....Aenderung 23.10.00 Kublin :..........................................
 
       wDdu=Ddu
       Do=Ddo
 
-c.....Aenderung 23.10.00 Kublin :..........................................
+!.....Aenderung 23.10.00 Kublin :..........................................
 
-c.....                   oberer Durchmesser darf nicht > unterer sein
+!.....                   oberer Durchmesser darf nicht > unterer sein
 
       if(do.gt.du*.99)do=du*.99
 
@@ -4602,10 +4531,10 @@ c.....                   oberer Durchmesser darf nicht > unterer sein
       H=Hoe
       if(h.le.0.and.du.ge.10)ifeh=2
 
-c  Aenderung <<15.12.03>> :--------------------------------------------------------------
+!  Aenderung <<15.12.03>> :--------------------------------------------------------------
 
       if(du.le.0)ifeh=3
-c     if(hu.gt.2.5)ifeh=4
+!     if(hu.gt.2.5)ifeh=4
       if(ifeh.gt.0)return
       sthh=Ksthh
       Zost=Zzost
@@ -4613,7 +4542,7 @@ c     if(hu.gt.2.5)ifeh=4
       Hbr=h
       Sokz=Sok
 
-c.....                                     Hoehenkorrektur bei Hkz > 0
+!.....                                     Hoehenkorrektur bei Hkz > 0
 
       if(hkz.eq.1)H=h+2
       if(hkz.eq.2)THEN
@@ -4623,22 +4552,22 @@ c.....                                     Hoehenkorrektur bei Hkz > 0
           H=Du
         END IF
 
-c.....                              Mindestzuschlag bei Wipfelbruch 4 m
+!.....                              Mindestzuschlag bei Wipfelbruch 4 m
 
         IF(Hbr.gt.H-3)H=Hbr+4
       END IF
-c     write(10,*) 'h,hbr',h,hbr
+!     write(10,*) 'h,hbr',h,hbr
       IF (Hu.le.0)  Hu=1.3
 
 
-c DuTmp=DDu
-c HuTmp=Hu
-c DoTmp=DDo
-c HoTmp=HHo
-c HTmp = H
+! DuTmp=DDu
+! HuTmp=Hu
+! DoTmp=DDo
+! HoTmp=HHo
+! HTmp = H
 
 
-c.....................................................................
+!.....................................................................
 
       IF(h.ge.3)then
 
@@ -4649,18 +4578,18 @@ c.....................................................................
         D7m=Do
         dnorm=du
 
-c.....  Aenderung 23.10.00 Kublin :....................................
+!.....  Aenderung 23.10.00 Kublin :....................................
 
-c       IF(Sk.eq.0.AND.Du.lt.20) D7m=0
-c
-c.....  Aenderung 23.10.00 Kublin :....................................
+!       IF(Sk.eq.0.AND.Du.lt.20) D7m=0
+!
+!.....  Aenderung 23.10.00 Kublin :....................................
 
-c.....  ............D095-Schätzung aus Du u H  (Du wird =D1.3 gesetzt)
-c
+!.....  ............D095-Schätzung aus Du u H  (Du wird =D1.3 gesetzt)
+!
 
-c Aenderungen: <<19.01.04>> :--------------------------------------------------------------
-c     REAL wH095
-c Aenderungen: <<19.01.04>> :--------------------------------------------------------------
+! Aenderungen: <<19.01.04>> :--------------------------------------------------------------
+!     REAL wH095
+! Aenderungen: <<19.01.04>> :--------------------------------------------------------------
 
         if (h>60) then
        wH095=60
@@ -4673,14 +4602,14 @@ c Aenderungen: <<19.01.04>> :---------------------------------------------------
         Bb=Spline(wH095,Ba,Nxk95b,Xk95b,B95)
         D095=Aa+Bb*Du
 
-c Aenderungen: <<19.01.04>> :--------------------------------------------------------------
+! Aenderungen: <<19.01.04>> :--------------------------------------------------------------
 
-c
+!
         IF (D7m.GT.0.)  THEN
 
-c.....    d07-Startwert :..............................................
+!.....    d07-Startwert :..............................................
 
-c         Do=D7m                            (Aenderung: 12.12.90 Kublin)
+!         Do=D7m                            (Aenderung: 12.12.90 Kublin)
 
           D07lu=.4
           D07lo=.99
@@ -4690,14 +4619,14 @@ c         Do=D7m                            (Aenderung: 12.12.90 Kublin)
           CALL Fkt(D07lu,F1)
           CALL Fkt(D07lo,F2)
 
-c  F=Fdrel(D095,X,H,1-Ho/H)/Fdrel(D095,X,H,1-Hu/H)-Do/Du
+!  F=Fdrel(D095,X,H,1-Ho/H)/Fdrel(D095,X,H,1-Hu/H)-Do/Du
 
           Ianz=0
           Xsi=0
 
           CALL Pegasu(Ifehl,Ianz,F1,F2,Xsi,d07lu,d07lo)
 
-c         write(10,*)'ifehl,d07lu,xsi,d07lo',ifehl,d07lu,xsi,d07lo
+!         write(10,*)'ifehl,d07lu,xsi,d07lo',ifehl,d07lu,xsi,d07lo
 
           IF (Ifehl.LT.3.AND.Ifehl.GE.0) THEN
             D07=AMAX1(D07lu,AMIN1(Xsi,D07lo))
@@ -4705,65 +4634,65 @@ c         write(10,*)'ifehl,d07lu,xsi,d07lo',ifehl,d07lu,xsi,d07lo
 
             IF(ifehl.eq.-1)THEN
 
-c   ...<<11.11.02>> : Aenderung :...............................................
+!   ...<<11.11.02>> : Aenderung :...............................................
 
-c   d07=D07lu
-c   call Kuwert(HHo,DoLuTmp)
+!   d07=D07lu
+!   call Kuwert(HHo,DoLuTmp)
 
-c   REAL DuTmp,HuTmp,DoTmp,HoTmp,HTmp,DoLoTmp,DoLuTmp
+!   REAL DuTmp,HuTmp,DoTmp,HoTmp,HTmp,DoLoTmp,DoLuTmp
 
 
-c   DoLuTmp = xFNBDATDmRHx(Iba, 135.0, 1.3,65.0,
-c 1      7.0,HTmp,7,ifehl, DTmp)
-c   DoTmp=-0.90
-c   HoTmp=0.0
-c   DuTmp=135
-c   HuTmp=0.0
-c   HTmp=60
-c   x=7.0
-c   Iba=3
-c   ifehl=0
-c    DoLuTmp = xFNBDATDmRHx(Iba,DuTmp, HuTmp, DoTmp,
-c  1       HoTmp,HTmp, x, ifehl, DTmp)
+!   DoLuTmp = xFNBDATDmRHx(Iba, 135.0, 1.3,65.0,
+! 1      7.0,HTmp,7,ifehl, DTmp)
+!   DoTmp=-0.90
+!   HoTmp=0.0
+!   DuTmp=135
+!   HuTmp=0.0
+!   HTmp=60
+!   x=7.0
+!   Iba=3
+!   ifehl=0
+!    DoLuTmp = xFNBDATDmRHx(Iba,DuTmp, HuTmp, DoTmp,
+!  1       HoTmp,HTmp, x, ifehl, DTmp)
 
-c --------------------------------------------------------------------
-c   DoTmp=-.40
-c   HoTmp=0.0
-c   DuTmp=135
-c   HuTmp=0.0
-c   HTmp=60
-c   x=7
-c   Iba=3
-c   ifehl=0
-c   DTmp=0.0
+! --------------------------------------------------------------------
+!   DoTmp=-.40
+!   HoTmp=0.0
+!   DuTmp=135
+!   HuTmp=0.0
+!   HTmp=60
+!   x=7
+!   Iba=3
+!   ifehl=0
+!   DTmp=0.0
 
-c    DoLoTmp = xFNBDATDmRHx(Iba, DuTmp, HuTmp, DoTmp,
-c  1       HoTmp,HTmp,x, ifehl, DTmp)
+!    DoLoTmp = xFNBDATDmRHx(Iba, DuTmp, HuTmp, DoTmp,
+!  1       HoTmp,HTmp,x, ifehl, DTmp)
 
-c     if (DoLoTmp>65) then
-c     d07=.9333
-c     else
-c        d07=.40
-c     endif
+!     if (DoLoTmp>65) then
+!     d07=.9333
+!     else
+!        d07=.40
+!     endif
 
-c --------------------------------------------------------------------
+! --------------------------------------------------------------------
 
         d07=D07lo
 
-c
-c ...<<11.12.02>> : Aenderung :............................................................
+!
+! ...<<11.12.02>> : Aenderung :............................................................
 
-c    call Kuwert(HHo,DoLoTmp)
+!    call Kuwert(HHo,DoLoTmp)
 
 
-c.....                                       (Aenderung: 12.12.90 Kublin)
+!.....                                       (Aenderung: 12.12.90 Kublin)
                  ifeh=12
 
                  CALL D07tab(ifehl)
                  if (ifehl.eq.0) then
                    ifeh=13
                  end if
-c.....
+!.....
             ELSE
                ifeh=14
                d07=Xsi
@@ -4772,7 +4701,7 @@ c.....
 
         ELSE
 
-c.....    Aenderung 23.10.00 Kublin :....................................
+!.....    Aenderung 23.10.00 Kublin :....................................
 
           IF (D7m.LT.0.)        THEN
 
@@ -4780,135 +4709,135 @@ c.....    Aenderung 23.10.00 Kublin :....................................
         D07 = ABS(D7m)
         Ho=H*.3
 
-c.....  Aenderung 29.08.01 (Kublin) :....................................................
+!.....  Aenderung 29.08.01 (Kublin) :....................................................
 
         if (1<=D07) then
          CALL D07tab(ifehl)
          iFEH = 15
         end if
 
-c   Aenderung 03.09.01 :.......................................
-c
-c    D07=AMAX1(D07lu,AMIN1(D07,D07lo))
+!   Aenderung 03.09.01 :.......................................
+!
+!    D07=AMAX1(D07lu,AMIN1(D07,D07lo))
 
           ELSE
 
-c.....      Aenderung 23.10.00 Kublin :..................................
+!.....      Aenderung 23.10.00 Kublin :..................................
 
             Horel=.7
             CALL D07tab(ifehl)
-c.....                                       (Aenderung: 12.12.90 Kublin)
+!.....                                       (Aenderung: 12.12.90 Kublin)
             if (ifehl.eq.0) then
               ifeh=13
             end if
-c.....
+!.....
             Ho=H*.3
           END IF
         END IF
 
-c........................Unterer Durchmesser nicht bei 1.30m gemessen :
+!........................Unterer Durchmesser nicht bei 1.30m gemessen :
 
         IF(ABS(hu-1.3).gt.0.005) then
-c                                        ....Aenderung 31.01.91 Kublin
+!                                        ....Aenderung 31.01.91 Kublin
           hhrel=1.-1.3/h
           call Kuwert(Hhrel,Kw)
           bhd=kw
         END IF
 
       ELSE
-c       ...................................(Aenderung: 12.12.90 Kublin)
+!       ...................................(Aenderung: 12.12.90 Kublin)
 
-c       H < 3 m : Anpassen einer Schaftkurve für Testzwecke. Wird bei
-c       bei der BWI nicht gebraucht, da für diese B?ume kein Volumen
-c       berechnet wird
+!       H < 3 m : Anpassen einer Schaftkurve für Testzwecke. Wird bei
+!       bei der BWI nicht gebraucht, da für diese B?ume kein Volumen
+!       berechnet wird
 
-c       ..............................................................
+!       ..............................................................
 
-c       Ba=Ban(iba,1)
-c       Aa=Spline(H,Ba,Nxk95a,Xk95a,A95)
-c       Bb=Spline(H,Ba,Nxk95b,Xk95b,B95)
-c       D095=Aa+Bb*Du
-c
-c       if(hu.le.0) then
-c         hu=1.3
-c       end if
-c       hurel=1.0-hu/h
-c
-c       Horel=.7
-c       CALL D07tab(ifehl)
-c
-c       if (ifehl.eq.0) then
-c         ifeh=13
-c       end if
-c
-c       Ho=H*.3
-c
-c       dnorm=du
-c.....  .............................................................
+!       Ba=Ban(iba,1)
+!       Aa=Spline(H,Ba,Nxk95a,Xk95a,A95)
+!       Bb=Spline(H,Ba,Nxk95b,Xk95b,B95)
+!       D095=Aa+Bb*Du
+!
+!       if(hu.le.0) then
+!         hu=1.3
+!       end if
+!       hurel=1.0-hu/h
+!
+!       Horel=.7
+!       CALL D07tab(ifehl)
+!
+!       if (ifehl.eq.0) then
+!         ifeh=13
+!       end if
+!
+!       Ho=H*.3
+!
+!       dnorm=du
+!.....  .............................................................
 
       END IF
 
       IF(D07.gt..95) D07=.95
       if(d07.lt..40) D07=.40
 
-c............................................Aenderung 11.12.90 Kublin
+!............................................Aenderung 11.12.90 Kublin
 
       nbaum = 1
 
-c............................................Aenderung 17.01.91 Kublin
+!............................................Aenderung 17.01.91 Kublin
 
-c
-c     Ausgabe der Baumparameter und der Durchmesser bei 0.0(0.1)1.0
-c     für Testzwecke. Ausgabe auf FILE # 10.
-c
-c.....................................................................
-c
-c     write(10,'(3(/),5x,a5,f10.3  )') 'H:   ',H
-c     write(10,'(     5x,a5,f10.3  )') 'Hu:  ',hu
-c     write(10,'(     5x,a5,f10.3  )') 'Du:  ',du
-c     write(10,'(     5x,a5,f10.3,/)') 'BHD: ',bhd
-c
-c     write(10,'(     5x,a5,f10.3  )') 'D095:',d095
-c     write(10,'(     5x,a5,f10.3,/)') 'D070:',d07
-c
-c     if (du.gt.0) then
-c
-c       hhxx  = 1.-1./h
-c       call kuwert(hhxx,kw)
-c       write(10,'(5x,a5,3f10.3)')     'D1 : ',1.0-hhxx,kw/du,kw
-c
-c       hhxx=1.-1.3/h
-c       call kuwert(hhxx,kw)
-c       write(10,'(5x,a5,3f10.3)')     'BHD:  ',1.0-hhxx,kw/du,kw
-c
-c       if (h.gt.7) then
-c         hhxx=1.-7./h
-c         call kuwert(hhxx,kw)
-c         write(10,'(5x,a5,3f10.3)')    'D7 : ',1.0-hhxx,kw/du,kw
-c       else
-c         write(10,*)
-c       end if
-c
-c       write(10,'(/)')
-c
-c       do 12300 hhxx=0.00,1.0001,.1
-c         call kuwert(1.-hhxx,kw)
-c         write(10,'(10x,3f10.3)') hhxx,kw/du,kw
-c12300  continue
-c
-c     end if
-c
-c......................................................................
+!
+!     Ausgabe der Baumparameter und der Durchmesser bei 0.0(0.1)1.0
+!     für Testzwecke. Ausgabe auf FILE # 10.
+!
+!.....................................................................
+!
+!     write(10,'(3(/),5x,a5,f10.3  )') 'H:   ',H
+!     write(10,'(     5x,a5,f10.3  )') 'Hu:  ',hu
+!     write(10,'(     5x,a5,f10.3  )') 'Du:  ',du
+!     write(10,'(     5x,a5,f10.3,/)') 'BHD: ',bhd
+!
+!     write(10,'(     5x,a5,f10.3  )') 'D095:',d095
+!     write(10,'(     5x,a5,f10.3,/)') 'D070:',d07
+!
+!     if (du.gt.0) then
+!
+!       hhxx  = 1.-1./h
+!       call kuwert(hhxx,kw)
+!       write(10,'(5x,a5,3f10.3)')     'D1 : ',1.0-hhxx,kw/du,kw
+!
+!       hhxx=1.-1.3/h
+!       call kuwert(hhxx,kw)
+!       write(10,'(5x,a5,3f10.3)')     'BHD:  ',1.0-hhxx,kw/du,kw
+!
+!       if (h.gt.7) then
+!         hhxx=1.-7./h
+!         call kuwert(hhxx,kw)
+!         write(10,'(5x,a5,3f10.3)')    'D7 : ',1.0-hhxx,kw/du,kw
+!       else
+!         write(10,*)
+!       end if
+!
+!       write(10,'(/)')
+!
+!       do 12300 hhxx=0.00,1.0001,.1
+!         call kuwert(1.-hhxx,kw)
+!         write(10,'(10x,3f10.3)') hhxx,kw/du,kw
+!12300  continue
+!
+!     end if
+!
+!......................................................................
 
-c     Liegt der Du bei 1.30m Hoehe und ist < 10, wird eine Durchmesser-
-c     abrundung durch + 0.5 ausgeglichen :
+!     Liegt der Du bei 1.30m Hoehe und ist < 10, wird eine Durchmesser-
+!     abrundung durch + 0.5 ausgeglichen :
 
-c.....Aenderung 23.10.00 Kublin :..........................................
+!.....Aenderung 23.10.00 Kublin :..........................................
 
       if(Bhd.eq.Ddu)wDdu=Ddu+.5
 
-c...................................................Volumen nach Krenn
-c..............................................Aenderung 11.03.94 St?hr
+!...................................................Volumen nach Krenn
+!..............................................Aenderung 11.03.94 St?hr
 
       IF(wDdu.lt.10)then
        IF(wDdu.lt.7) then
@@ -4921,7 +4850,7 @@ c..............................................Aenderung 11.03.94 St?hr
          Volum(7)=volr*.3
          Volum(5)=volr-volum(7)
 
-c.....Aenderung 23.10.00 Kublin :..........................................
+!.....Aenderung 23.10.00 Kublin :..........................................
 
          RETURN
       ELSE
@@ -4931,12 +4860,12 @@ c.....Aenderung 23.10.00 Kublin :..........................................
         ENDIF
       ENDIF
 
-c        Schätzung des Aufarbeitungszopfes mit Funktionen falls nicht
-c          eingegeben:
+!        Schätzung des Aufarbeitungszopfes mit Funktionen falls nicht
+!          eingegeben:
 
-c Aenderungen: <<05.11.02>> :--------------------------------------------------------------
+! Aenderungen: <<05.11.02>> :--------------------------------------------------------------
 
-c     IF(Azop.eq.0) THEN
+!     IF(Azop.eq.0) THEN
 
       IF(Azop.lt.0.001) THEN
         Ba=Ban(Iba,3)
@@ -4949,7 +4878,7 @@ c     IF(Azop.eq.0) THEN
        RETURN
       END IF
 
-c     Ueberpruefung der Sortier-Eingabeparameter bei Laubholz:.......
+!     Ueberpruefung der Sortier-Eingabeparameter bei Laubholz:.......
 
       IF(Iba.gt.14) THEN
         if(sokz.gt.0) sokz=3
@@ -4957,7 +4886,7 @@ c     Ueberpruefung der Sortier-Eingabeparameter bei Laubholz:.......
           IF(sthh.gt.0) ifeh=6
           sthh=hbr*.7
         end if
-c.....                                    (Aenderung: 12.12.90 Kublin)
+!.....                                    (Aenderung: 12.12.90 Kublin)
 
         IF(Sk.eq.2) then
           if (sthh.gt.0) then
@@ -4969,7 +4898,7 @@ c.....                                    (Aenderung: 12.12.90 Kublin)
             sthh=5.0
           end if
         endif
-c.....                                     (Aenderung: 12.12.90 Kublin)
+!.....                                     (Aenderung: 12.12.90 Kublin)
         IF(Sk.eq.3.)then
           if (sthh.gt.0) then
             if (sthh.gt.3.or.sthh.lt.1.3) then
@@ -4980,7 +4909,7 @@ c.....                                     (Aenderung: 12.12.90 Kublin)
             sthh=0.1
           end if
         end if
-c.....                                   (Aenderung: 12.12.90 Kublin)
+!.....                                   (Aenderung: 12.12.90 Kublin)
         IF(Sk.eq.4) then
           if (sthh.gt.0) then
             IF(sthh.gt.Hbr*.66) then
@@ -4998,17 +4927,17 @@ c.....                                   (Aenderung: 12.12.90 Kublin)
 
       ELSE
 
-c       .................................................Nadelholz :
+!       .................................................Nadelholz :
 
         IF(Sokz.gt.2) sokz=1
 
-c       write(10,*)'sokz,sthh,zost'
-c       write(10,*) sokz,sthh,zost
+!       write(10,*)'sokz,sthh,zost'
+!       write(10,*) sokz,sthh,zost
 
         IF(Sokz.eq.1.and.Sthh.le.0.and.zost.le.0) Sokz=4
 
-c       write(10,*)'sokz'
-c       write(10,*) sokz
+!       write(10,*)'sokz'
+!       write(10,*) sokz
 
         if(sk.eq.0.or.sk.eq.1)then
           IF(sthh.gt.0) THEN
@@ -5017,7 +4946,7 @@ c       write(10,*) sokz
              Sthh=Hbr
           END IF
         END IF
-c
+!
         if(sk.eq.2)then
           sthh=5
           habzop=5
@@ -5029,7 +4958,7 @@ c
           hstzop=.1
         end if
 
-c.....                                     (Aenderung: 12.12.90 Kublin)
+!.....                                     (Aenderung: 12.12.90 Kublin)
 
         if(sk.eq.4)then
           if (hkz.eq.0) then
@@ -5049,9 +4978,9 @@ c.....                                     (Aenderung: 12.12.90 Kublin)
           end if
         end if
       END IF
-c
-c.................................................Volumen Vfm mit Rinde
-c
+!
+!.................................................Volumen Vfm mit Rinde
+!
          volx=0
          volu=0
          vols=0
@@ -5064,12 +4993,12 @@ c
          klx=0
          uklx=0
 
-c.....Berechnung Vorrats, Lage Grenzdm und -Hoehen fuer die Sortierung...
+!.....Berechnung Vorrats, Lage Grenzdm und -Hoehen fuer die Sortierung...
 
         CALL Iter
         Volum(1)=Volr
 
-c .......................................Aufruf eines Sortierprogrammes:
+! .......................................Aufruf eines Sortierprogrammes:
 
       IF(Sokz.gt.0) then
           IF(iba.gt.14)sokz=3
@@ -5082,16 +5011,16 @@ c .......................................Aufruf eines Sortierprogrammes:
                 CALL sortlb
              ENDIF
           ENDIF
-c
-c...................................Klassen und Unterklassen der Sorten:
-c
-c    X-Holz
+!
+!...................................Klassen und Unterklassen der Sorten:
+!
+!    X-Holz
          Klasse(1)=Klx
          Klasse(2)=Uklx
-c    Stammholz
+!    Stammholz
          Klasse(3)=Kl
          Klasse(4)=Ukl
-c    Stammholz-Abschnitt
+!    Stammholz-Abschnitt
          Klasse(5)=Kla
          Klasse(6)=Ukla
       do 20  i=1,6,2
@@ -5101,38 +5030,38 @@ c    Stammholz-Abschnitt
       endif
   20  continue
 
-c  write (*,*) " BDAT ! VOLi: ", VOLi
-c
-c Volumina
-c    X-holz
+!  write (*,*) " BDAT ! VOLi: ", VOLi
+!
+! Volumina
+!    X-holz
          Volum(2)=Volx
-c    Stammholz
+!    Stammholz
          Volum(3)=Vols
-c    Stammholz-Abschnitt
+!    Stammholz-Abschnitt
          Volum(4)=Vola
-c    Industrieholz
+!    Industrieholz
          Volum(5)=Voli
-c    nicht verwertetes Derbholz
+!    nicht verwertetes Derbholz
          Volum(6)=Volu
-c    Ernteverlust
+!    Ernteverlust
          Volum(7)=Volum(1)-volx-vols-vola-voli-volu
       ENDIF
       RETURN
-c     debug subchk
+!     debug subchk
       END SUBROUTINE
 
 
-c     ################## BDAT - Unterprogramme #########################
+!     ################## BDAT - Unterprogramme #########################
 
 
-c     ###################################################################
+!     ###################################################################
       SUBROUTINE D07tab(mt)
-c     ###################################################################
+!     ###################################################################
 
       implicit logical (a-z)
-c.....                                       (Aenderung: 12.12.90 Kublin)
+!.....                                       (Aenderung: 12.12.90 Kublin)
       INTEGER mt
-c.....
+!.....
       INTEGER md07(20333)
       INTEGER Add07(14,5:45,3)
       INTEGER Ba,Iba,Ban(36,7)
@@ -5142,95 +5071,91 @@ c.....
       REAL Sxk07(7,8),Sd07(24,8)
       INTEGER Snxkn7(8)
       REAL D095,D07,Du,Do,Dnorm,H,Hu,Hurel,Ho,Horel
-c
+!
       COMMON /D07/ Add07,Md07,Snxkn7,Sxk07,Sd07
       COMMON /Baum1/ D095,D07,Du,Do,Dnorm,H,Hu,Hurel,Ho,Horel
       COMMON /Baum/ Ba,Iba,Ban
-c
+!
       Ba=Ban(Iba,7)
 
-c.....Rundung auf ganze Hoehen und Durchmesser fuer den Tabellenzugriff:
+!.....Rundung auf ganze Hoehen und Durchmesser fuer den Tabellenzugriff:
 
       Hh=int(H+.5)
       Dd=int(Du+.5)
 
-c.....                 Begrenzung auf Minimal und Maximal-Hoehen-Werte :
+!.....                 Begrenzung auf Minimal und Maximal-Hoehen-Werte :
 
       IF(Hh.gt.45)Hh=45
       IF(Hh.lt.5)Hh=5
 
-c.....                        Durchmesser innerhalb/ausserhalb  Tabelle:
+!.....                        Durchmesser innerhalb/ausserhalb  Tabelle:
 
       IF(Dd.gt.Add07(Ba,Hh,3).or.Dd.lt.Add07(Ba,HH,2).or.
      *   Add07(Ba,Hh,1).le.0)Then
          Ba=Ban(iba,1)
 
-c.....                           Schätzung ueber Spline-Schaetzfunktion:
+!.....                           Schätzung ueber Spline-Schaetzfunktion:
 
 
          D07=Spline(H,Ba,Snxkn7,Sxk07,Sd07)
-c        write(10,*)'d07spline  ',d07,h,ba
+!        write(10,*)'d07spline  ',d07,h,ba
 
-c.....                                       (Aenderung:12.12.90 Kublin)
+!.....                                       (Aenderung:12.12.90 Kublin)
          mt = 0
-c.....
+!.....
 
       ELSE
 
          Ad1=Add07(Ba,HH,1)+Dd-Add07(Ba,Hh,2)
          D07=Md07(Ad1)*.001
-c        write(10,*)'md07  ', d07,ad1,ba,add07(ba,hh,1),add07(ba,hh,2)
+!        write(10,*)'md07  ', d07,ad1,ba,add07(ba,hh,1),add07(ba,hh,2)
 
-c.....                                       (Aenderung:12.12.90 Kublin)
+!.....                                       (Aenderung:12.12.90 Kublin)
          mt = 1
-c.....
+!.....
 
       END IF
       END SUBROUTINE
 
 
-c     ###################################################################
+!     ###################################################################
       SUBROUTINE KUWERT(Hhrel,Kw)
-c     ###################################################################
+!     ###################################################################
 
-
-
-c!dec$ ATTRIBUTES  DLLEXPORT :: KUWERT
-
-c     Das Unterprogramm gibt an der relativen Lage (Hhrel) des Schaftes
-c     den Durchmesser aus.
-c
+!     Das Unterprogramm gibt an der relativen Lage (Hhrel) des Schaftes
+!     den Durchmesser aus.
+!
       implicit logical (a-z)
         REAL D095,D07,Du,Do,Dnorm,H,Hu,Hurel,Ho,Horel
         INTEGER Nbaum
         INTEGER Ba,Iba,Ban(36,7)
         REAL Yy,Durel,D1rel
-c REAL Ddo,Ddu,Fdrel,Hhrel
+! REAL Ddo,Ddu,Fdrel,Hhrel
       REAL Fdrel,Hhrel
         REAL Kw ,eins
         COMMON /Baum0/ Nbaum
         COMMON /Baum1/ D095,D07,Du,Do,Dnorm,H,Hu,Hurel,Ho,Horel
         COMMON /Sk/ Yy,Durel
         COMMON /Baum/ Ba,Iba,Ban
-c
+!
         ba=ban(iba,1)
         eins=1.
         IF (Nbaum.GT.0) THEN
 
-c.....         Durel,Yy,Ddo,Ddu werden nur beim ersten Aufruf berechnet
-c                                                         (wenn Nbaum>0
+!.....         Durel,Yy,Ddo,Ddu werden nur beim ersten Aufruf berechnet
+!                                                         (wenn Nbaum>0
 
           Nbaum=0
           Durel=Fdrel(D095,D07,H,Hurel)
           Yy=1./Durel
 
-c.....    ...................................(Aenderung: 12.12.90 Kublin)
-c         Ddo=Fdrel(D095,D07,H,Horel)*Yy*Dnorm
-c         Ddu=Fdrel(D095,D07,H,Hurel)*Yy*Dnorm
-c.....    ..............................................................
+!.....    ...................................(Aenderung: 12.12.90 Kublin)
+!         Ddo=Fdrel(D095,D07,H,Horel)*Yy*Dnorm
+!         Ddu=Fdrel(D095,D07,H,Hurel)*Yy*Dnorm
+!.....    ..............................................................
 
         END IF
-c
+!
         IF (Hhrel.GT.Hurel) THEN
             D1rel=Fdrel(D095,D07,H,eins)
             IF(D1rel.lt.Durel)THEN
@@ -5243,24 +5168,24 @@ c
           Kw=Fdrel(d095,d07,H,Hhrel)*Yy*Dnorm
         END IF
       RETURN
-c     debug subchk
+!     debug subchk
       END SUBROUTINE
 
 
-c     ###################################################################
+!     ###################################################################
       SUBROUTINE Pegasu(Ifehl,Ianz,F1,F2,Xsi,A,Bb)
-c     ###################################################################
+!     ###################################################################
 
-c     Iterationsprogramm für die D07 Berechnung :
+!     Iterationsprogramm für die D07 Berechnung :
 
-c      delt             Genauigkeitsminimum
-c      Nmax             Maximale Anzahl der Iterationen
-c
+!      delt             Genauigkeitsminimum
+!      Nmax             Maximale Anzahl der Iterationen
+!
       implicit logical (a-z)
         REAL S12,F1,F2,X1,X2,Xsi,A,BB,Delt,X3,F3
         INTEGER Ifehl,Ianz,Nmax,I
         data delt/.01/,Nmax/20/
-c
+!
         Ianz=0
         X1=A
         X2=Bb
@@ -5272,7 +5197,7 @@ c
           Ifehl=0
           RETURN
         END IF
-c----------------------------------------------------------
+!----------------------------------------------------------
         DO 30   I= 1, Nmax
           Ianz=I
           IF (F2.EQ.0) THEN
@@ -5302,27 +5227,27 @@ c----------------------------------------------------------
  30     CONTINUE
         Ifehl=3
       RETURN
-c     debug subchk
+!     debug subchk
       END SUBROUTINE
 
 
-c     ###################################################################
+!     ###################################################################
       SUBROUTINE Fkt(X,F)
-c     ###################################################################
+!     ###################################################################
 
       implicit logical (a-z)
         REAL D095,D07,Du,Do,Dnorm,H,Hu,Hurel,Ho,Horel
         COMMON /Baum1/ D095,D07,Du,Do,Dnorm,H,Hu,Hurel,Ho,Horel
         REAL X,F,Fdrel
         F=Fdrel(D095,X,H,1-Ho/H)/Fdrel(D095,X,H,1-Hu/H)-Do/Du
-c
+!
       RETURN
       END SUBROUTINE
 
 
-c     ###################################################################
+!     ###################################################################
       REAL FUNCTION Fdrel(D095,D07,H,Hhrel)
-c     ###################################################################
+!     ###################################################################
 
         implicit logical (a-z)
         INTEGER Nnp,Np,Nxk,Ftint
@@ -5334,8 +5259,8 @@ c     ###################################################################
         INTEGER I,Ii,Ix
         REAL A,Bb,C,D,T,U
         REAL Klein
-c
-c       write (10,*) ba,ban(iba,1)
+!
+!       write (10,*) ba,ban(iba,1)
         Klein=1.E-4
         fdrel=0.
         X(1)=1.0
@@ -5347,7 +5272,7 @@ c       write (10,*) ba,ban(iba,1)
           Ii=(Ix-1)*4+(I-1)*Nnp
           T=(Hhrel-Xk(Ix))/(Xk(Ix+1)-Xk(Ix))
           U=1.-T
-c....                                              Splinekoeffizienten:
+!....                                              Splinekoeffizienten:
           A=B(Ii+1,ba)
           Bb=B(Ii+2,ba)
           C=B(Ii+3,ba)
@@ -5361,9 +5286,9 @@ c....                                              Splinekoeffizienten:
       END FUNCTION
 
 
-c     ###################################################################
+!     ###################################################################
       INTEGER FUNCTION Ftint(Hhrel)
-c     ###################################################################
+!     ###################################################################
 
         implicit logical (a-z)
         INTEGER Nnp,Np,Nxk
@@ -5386,31 +5311,31 @@ c     ###################################################################
       END FUNCTION
 
 
-c     ###################################################################
+!     ###################################################################
       REAL FUNCTION   Spline(x,ba,nk,Xk,B)
-c     ###################################################################
+!     ###################################################################
 
-c
-c  Berechnung (d/dx)**a [SPLINE(x)] ; a=0,1,2
-c=======================================================================
-c
-c X         - EIN: Abszissenwert
-c Nk        - EIN: # Knotenpunkte der Zerlegung des Def.-Ber. <a,b>
-c Xk(nk)    - EIN: Knotenpunkte der Zerlegung: a=xk(1)<...<xk(nk)=b
-c B(4(nk-1))- EIN: Splinekoeffizienten
-c
-c=======================================================================
-c
+!
+!  Berechnung (d/dx)**a [SPLINE(x)] ; a=0,1,2
+!=======================================================================
+!
+! X         - EIN: Abszissenwert
+! Nk        - EIN: # Knotenpunkte der Zerlegung des Def.-Ber. <a,b>
+! Xk(nk)    - EIN: Knotenpunkte der Zerlegung: a=xk(1)<...<xk(nk)=b
+! B(4(nk-1))- EIN: Splinekoeffizienten
+!
+!=======================================================================
+!
         implicit logical (a-z)
        INTEGER I,Iu,Io,Fehler,nk(8),ba
        REAL Eps,U,T,x,xk(7,8),b(24,8)
        Eps=1.E-6
        Fehler=0
-c
-c=======================================================================
-c
+!
+!=======================================================================
+!
        Spline=0.
-c
+!
        if (x.lt.Xk(1,ba)-Eps)then
          Fehler=1
        ELSE IF(x.lt.Xk(1,ba)+Eps)then
@@ -5430,30 +5355,30 @@ c
        IF (Fehler.eq.0) THEN
          U=1.-T
          Iu=(I-1)*4
-c...y=Spline(x)
+!...y=Spline(x)
       Spline=B(Iu+1,ba)*U+B(Iu+2,ba)*T+B(Iu+3,ba)*U*U*U+B(Iu+4,ba)*T*T*T
        ENDIF
        RETURN
-c
-c     debug subchk
+!
+!     debug subchk
       END FUNCTION
 
 
-c     ###################################################################
+!     ###################################################################
       SUBROUTINE Bisekt(X,ba,Xk,Iu,Io,Iku)
-c     ###################################################################
+!     ###################################################################
 
 
-c     ==================================================================
-c     Iku: xk(iku) <= x < xk(iku+1) / Bin?res Suchen des Teilintervalls
-c     ==================================================================
-c
+!     ==================================================================
+!     Iku: xk(iku) <= x < xk(iku+1) / Bin?res Suchen des Teilintervalls
+!     ==================================================================
+!
         implicit logical (a-z)
        REAL X,Xk(7,8)
        INTEGER Ba,Iko,Mitte,Iu,Io,Iku
        Iku=Iu
        Iko=Io
-c
+!
   10   IF((Iko-Iku).lt.2)return
          Mitte=INT((Iko+Iku)/2)
          IF (X.lt.Xk(Mitte,ba))THEN
@@ -5462,28 +5387,26 @@ c
            Iku=Mitte
          END IF
        go to 10
-c
-c     debug subchk
+!
+!     debug subchk
       END SUBROUTINE
-c
+!
 
-c     ###################################################################
+!     ###################################################################
       SUBroutine RINDE(Hhrel,Kw,Ri,Hsga,Zo)
-c     ###################################################################
+!     ###################################################################
 
-c!dec$ ATTRIBUTES  DLLEXPORT :: RINDE
-
-c     Ausgabe der Rindenst?rken ..................
-c     Hsg=1,2,3 ...nach Heilbronner Sortierung ...
-c                  Hsg gibt Funktions-Nr an (min.Aush-L?nge=1,max.Kl-L?nge=2
-c                                         max.Draufholz=3)
-c                  Baumart mu? stimmen (Fi,Ta,Dgl)  sonst Hsg=0 !
-c                  Zo=1 Rindenfunktion für Zopfdurchmesser
-c                  Zo=0    "            "  Mittendurchmesser
-c     Hsg=0 ..."normale Rindenfunktion"
-c               Algorithmus für Hoehenlagenbest.
-c
-c
+!     Ausgabe der Rindenst?rken ..................
+!     Hsg=1,2,3 ...nach Heilbronner Sortierung ...
+!                  Hsg gibt Funktions-Nr an (min.Aush-L?nge=1,max.Kl-L?nge=2
+!                                         max.Draufholz=3)
+!                  Baumart mu? stimmen (Fi,Ta,Dgl)  sonst Hsg=0 !
+!                  Zo=1 Rindenfunktion für Zopfdurchmesser
+!                  Zo=0    "            "  Mittendurchmesser
+!     Hsg=0 ..."normale Rindenfunktion"
+!               Algorithmus für Hoehenlagenbest.
+!
+!
       implicit logical (a-z)
         INTEGER Hsg,Zo,hsga
         INTEGER Ba,Iba,Ban(36,7)
@@ -5494,16 +5417,16 @@ c
         COMMON /Rind/Rin,Rinh
         INTEGER Bi,I
         hsg=hsga
-c
+!
         IF(zo.gt.0.and.ban(iba,1).gt.3) hsg=0
-c
+!
         IF (Hsg.eq.0) THEN
 
-c ...<<17.10.01>> :...........................................................................
+! ...<<17.10.01>> :...........................................................................
 
-c          I=3-INT((.8999-hhrel)/.3)
-c          IF(I.eq.0) I=1
-c          IF(I.gt.3) I=3
+!          I=3-INT((.8999-hhrel)/.3)
+!          IF(I.eq.0) I=1
+!          IF(I.gt.3) I=3
 
        if (hhrel<=0.4) then
         i=3
@@ -5513,7 +5436,7 @@ c          IF(I.gt.3) I=3
         i=1
        end if
 
-c ...<<17.10.01>> :...........................................................................
+! ...<<17.10.01>> :...........................................................................
 
           Bi=Ban(Iba,2)
           Ri=(Rin(Bi,i,1)+Rin(Bi,i,2)*Kw+Rin(Bi,i,3)*Kw*Kw)*.1
@@ -5533,9 +5456,9 @@ c ...<<17.10.01>> :.............................................................
       END SUBroutine
 
 
-c     ###################################################################
+!     ###################################################################
       REAL FUNCTION Rund(kw)
-c     ###################################################################
+!     ###################################################################
 
       REAL Kw
       IF (Kw.ge.20) THEN
@@ -5544,13 +5467,13 @@ c     ###################################################################
          Rund=Kw-0.5
       END IF
       RETURN
-c     debug subchk
+!     debug subchk
       END FUNCTION
 
 
-c     ###################################################################
+!     ###################################################################
       SUBroutine Sorthl
-c     ###################################################################
+!     ###################################################################
 
       implicit logical (a-z)
       REAL D095,D07,Du,Do,Dnorm,H,Hu,
@@ -5558,14 +5481,14 @@ c     ###################################################################
       REAL Azop,Dgrenz,Hazop,Hdgren,Hstzop,Habzop,PI,Zost,Zoab,Hbr
       REAL Vol,Volx,Vols,Vola,Voli,Volu,Volr,Volsu
       REAL sthh,Stxu,Hakt,Rund,Lxu,Ri,Met
-c add integer litmp variable for DO CONTINUE, 10.6.2018 cv
+! add integer litmp variable for DO CONTINUE, 10.6.2018 cv
       INTEGER Rif,Ikl,Lind,Sokz, Litmp
       REAL Hhrel,Kw,Li,Hsth,Lsth,Zdrh,Hdrh,Labsch,Luv
       REAL Dhs(1:6),Hhs(1:6)
       INTEGER Kl,Ukl,Klx,Uklx,Kla,Ukla
         REAL glLSort(1:5), glDSort(1:5) ! christian vonderach, 24.07.2018
 
-c ...<<18.09.03>> : Aenderung :.......................................................
+! ...<<18.09.03>> : Aenderung :.......................................................
 
       REAL   HStockEnde
       REAL   HStHAnfang
@@ -5577,52 +5500,52 @@ c ...<<18.09.03>> : Aenderung :.................................................
      1     , HBDATGes
       COMMON /glLDSort/ glLSort, glDSort ! christian vonderach, 24.07.2018
 
-c ...<<18.09.03>> : Aenderung :.......................................................
-c
+! ...<<18.09.03>> : Aenderung :.......................................................
+!
       COMMON /Klasse/ Kl,Ukl,Klx,Uklx,Kla,Ukla
       COMMON /Baum1/ D095,D07,Du,Do,Dnorm,H,Hu,Hurel,Ho,Horel
       COMMON/It/Azop,Dgrenz,Hazop,Hdgren,Hstzop,Habzop,PI,Zost,Zoab,Hbr
       COMMON /Volum/ Vol,Volx,Vols,Vola,Voli,Volu,Volr,Volsu
       COMMON /Wert1/ sthh,Sokz,Stxu
 
-c     Erlaeuterung der lokalen Variablen :
-c
-c        Hakt     R.... Hoehe der aktuellen Sortierungsstelle
-c        Met      R.... Rundungsdivisor
-c        Lxu      R.... Laenge X-Holz
-c        Dhs(6)   R.....Durchmesser der H-Sortierklassen
-c        Hhs(6)   R.....Hoehe der H-Sortierklassen
-c        Rif      I.....Rindenfunktion Nr
-c        Lind     I.....Laenge Industrie-Holz
-c        Ikl      I.....Klasse
-c
-c        Hsthh    R.....Hoehe Stammholz
-c        Lsthh    R.....Laenge    "
-c        Zdrh     R.....Zaehler Draufholz (Meterschritte)
-c        Hdrh     R.....Hoehe       "
-c        Hstzop   R.....Hoehe Stammholzzopf
-c        Habzop   R.....Hoehe Abschnittzopf
-c        Luv      R.....Laenge unverwertetes Derbholz
-c
-c
-c
-c
-c..................Durchm. HS:
+!     Erlaeuterung der lokalen Variablen :
+!
+!        Hakt     R.... Hoehe der aktuellen Sortierungsstelle
+!        Met      R.... Rundungsdivisor
+!        Lxu      R.... Laenge X-Holz
+!        Dhs(6)   R.....Durchmesser der H-Sortierklassen
+!        Hhs(6)   R.....Hoehe der H-Sortierklassen
+!        Rif      I.....Rindenfunktion Nr
+!        Lind     I.....Laenge Industrie-Holz
+!        Ikl      I.....Klasse
+!
+!        Hsthh    R.....Hoehe Stammholz
+!        Lsthh    R.....Laenge    "
+!        Zdrh     R.....Zaehler Draufholz (Meterschritte)
+!        Hdrh     R.....Hoehe       "
+!        Hstzop   R.....Hoehe Stammholzzopf
+!        Habzop   R.....Hoehe Abschnittzopf
+!        Luv      R.....Laenge unverwertetes Derbholz
+!
+!
+!
+!
+!..................Durchm. HS:
       DATA Dhs/10.,12.,14.,17.,22.,30./
-c..................L?ngen HS:
+!..................L?ngen HS:
       DATA Hhs/8.,10.,14.,16.,18.,18./
-c       Klasse 1   2   3   4   5   6
-c
-c ........... Met  1= Sortierung auf 0.10 m
-c                10      "         1 m
-c
+!       Klasse 1   2   3   4   5   6
+!
+! ........... Met  1= Sortierung auf 0.10 m
+!                10      "         1 m
+!
       Met=1
       IF(Sokz.eq.4)Met=10
-c
-c
+!
+!
       sthh=hazop
-c
-c................................Klasse u Vol.des X-Holzes-unten
+!
+!................................Klasse u Vol.des X-Holzes-unten
 
       Hakt=Stxu+H*.01
       Lxu=Stxu
@@ -5644,9 +5567,9 @@ c................................Klasse u Vol.des X-Holzes-unten
         glLSort(1)=0 ! christian vonderach 24.07.2018
         glDSort(1)=0 ! christian vonderach 24.07.2018
       END IF
-c     write(10,*)'Hl-  volx,kw,lxu,hakt',volx,kw,lxu,hakt
+!     write(10,*)'Hl-  volx,kw,lxu,hakt',volx,kw,lxu,hakt
 
-c...................................... H - Sortierung
+!...................................... H - Sortierung
 
       DO 100 Ikl=6 ,1,-1
        if(sthh.ge.hhs(ikl)+hakt)then
@@ -5655,8 +5578,8 @@ c...................................... H - Sortierung
           CALL Kuwert(Hhrel,Kw)
           CALL Rinde(Hhrel,Kw,Ri,5,1)
           kw=rund(kw)
-c     write(10,*)'kw,dhs(ikl),hhs(ikl),ikl,sthh,hhrel'
-c     write(10,*)kw,dhs(ikl),hhs(ikl),ikl,sthh,hhrel
+!     write(10,*)'kw,dhs(ikl),hhs(ikl),ikl,sthh,hhrel'
+!     write(10,*)kw,dhs(ikl),hhs(ikl),ikl,sthh,hhrel
           if(Kw.ge.Dhs(Ikl))then
             Kl=Ikl
             GOTO 180
@@ -5664,12 +5587,12 @@ c     write(10,*)kw,dhs(ikl),hhs(ikl),ikl,sthh,hhrel
         END IF
        END IF
  100  CONTINUE
-c..............<<< Holz zu schwach ... kein Stammholz
+!..............<<< Holz zu schwach ... kein Stammholz
       GOTO 250
-c     ......max. Klassenlaenge
+!     ......max. Klassenlaenge
  180  CONTINUE
-c ** DO-CONTINUE mit ganzzahligem Ausdruck Litmp implementiert. 10.06.2018 cv
-c      DO 120 Li=Hhs(Kl)+hakt+1,sthh,1
+! ** DO-CONTINUE mit ganzzahligem Ausdruck Litmp implementiert. 10.06.2018 cv
+!      DO 120 Li=Hhs(Kl)+hakt+1,sthh,1
       Li=INT(Hhs(Kl)+hakt+1)
       DO 120 Litmp=INT(Hhs(Kl)+hakt+1),INT(sthh),1
         Li=Litmp
@@ -5683,8 +5606,8 @@ c      DO 120 Li=Hhs(Kl)+hakt+1,sthh,1
       Hsth=Li-1
       IF(Hsth.gt.Hhs(kl)+Hakt+.1)Rif=2
       IF(Sokz.eq.4)THEN
-c ** DO-CONTINUE mit ganzzahligem Ausdruck Litmp implementiert. 10.06.2018 cv
-c         DO 121 Li=Hsth+.1, sthh,.1
+! ** DO-CONTINUE mit ganzzahligem Ausdruck Litmp implementiert. 10.06.2018 cv
+!         DO 121 Li=Hsth+.1, sthh,.1
          DO 121 Litmp=INT((Hsth+.1)*10), INT(sthh*10),1
            Li=Litmp/10
            Hhrel=1.-Li/H
@@ -5695,10 +5618,10 @@ c         DO 121 Li=Hsth+.1, sthh,.1
  121     CONTINUE
  191     hsth=li-.1
       END IF
-c.......................................max.Draufholz
+!.......................................max.Draufholz
       Zdrh=0
       IF(Kl.gt.1)THEN
-c ** DO-CONTINUE mit ganzzahligem Ausdruck Litmp implementiert. 10.06.2018 cv
+! ** DO-CONTINUE mit ganzzahligem Ausdruck Litmp implementiert. 10.06.2018 cv
         DO 130 Litmp=INT(Hsth+1) , INT(sthh), 1
           Li=Litmp
           Hhrel=1.-Li/H
@@ -5715,8 +5638,8 @@ c ** DO-CONTINUE mit ganzzahligem Ausdruck Litmp implementiert. 10.06.2018 cv
            Hdrh=Hsth+4
         ELSE
            IF(Sokz.eq.4)THEN
-c ** DO-CONTINUE mit ganzzahligem Ausdruck Litmp implementiert. 10.06.2018 cv
-c              DO 131 Li=Hdrh+.1,sthh,.1
+! ** DO-CONTINUE mit ganzzahligem Ausdruck Litmp implementiert. 10.06.2018 cv
+!              DO 131 Li=Hdrh+.1,sthh,.1
               DO 131 Litmp=INT((Hdrh+.1)*10) , INT(sthh*10),1
                 Li=Litmp/10
                 Hhrel=1.-Li/H
@@ -5733,23 +5656,23 @@ c              DO 131 Li=Hdrh+.1,sthh,.1
       END IF
       Lsth=Hdrh-hakt
 
-c ...<<18.09.03>> : Aenderung :.......................................................
+! ...<<18.09.03>> : Aenderung :.......................................................
 
       LngStH = LStH
       HStHAnfang = Hakt
 
-c ...<<18.09.03>> : Aenderung :.......................................................
+! ...<<18.09.03>> : Aenderung :.......................................................
 
-c
-c     write(10,*)'hakt lsth',hakt,lsth
-c....................... Stammholzvolumen:
+!
+!     write(10,*)'hakt lsth',hakt,lsth
+!....................... Stammholzvolumen:
       if(lsth.gt.0)then
         Hhrel=1.-(hakt+Lsth*.5)/H
         CALL Kuwert(Hhrel,Kw)
         CALL Rinde(Hhrel,Kw,Ri,Rif,1)
-c       write(10,*) 'rif' ,rif ,kw
+!       write(10,*) 'rif' ,rif ,kw
         Kw=Rund(Kw)
-c       write (10,*) kw
+!       write (10,*) kw
         Hakt=Hakt+Lsth*1.01
         IF(Sokz.eq.4)THEN
           Kl=INT(Kw*.1)
@@ -5758,28 +5681,28 @@ c       write (10,*) kw
         Vols=Kw*Kw*Lsth*PI
        glLSort(2)=Lsth ! christian vonderach 24.07.2018
        glDSort(2)=Kw ! christian vonderach 24.07.2018
-c     write(10,*)'Hl-  vols,kw,lsth,hakt',vols,kw,lsth,hakt
-c     write(10,*)'hhrel,ri',hhrel,ri,rif
+!     write(10,*)'Hl-  vols,kw,lsth,hakt',vols,kw,lsth,hakt
+!     write(10,*)'hhrel,ri',hhrel,ri,rif
         else
           glLSort(2)=0 ! christian vonderach 24.07.2018
        glDSort(2)=0 ! christian vonderach 24.07.2018
       end if
-c
-c     ...................zus?tzlich Kronenst?ck nach Mittenst?rkens.:
+!
+!     ...................zus?tzlich Kronenst?ck nach Mittenst?rkens.:
  250  continue
 
-c ...<<18.09.03>> : Aenderung :.......................................................
+! ...<<18.09.03>> : Aenderung :.......................................................
 
       HStHLzEnde = MIN(HAkt,Hbr)
 
-c ...<<16.06.05> : Aenderung :------------------------------------------------------------
+! ...<<16.06.05> : Aenderung :------------------------------------------------------------
 
       if (sthh.gt.0) then
        HStHLzEnde = MIN(HStHLzEnde,sthh)
       else
       end if
 
-c ...<<18.09.03>> : Aenderung :.......................................................
+! ...<<18.09.03>> : Aenderung :.......................................................
 
       Labsch=INT((habzop+.0001-Hakt)*Met)/Met
       IF(Labsch.ge.3) THEN
@@ -5790,19 +5713,19 @@ c ...<<18.09.03>> : Aenderung :.................................................
         Kla=INT(Kw*.1)
         Ukla=INT((Kw-Kla*10)*.2)
 
-c       Volumenabsch.
+!       Volumenabsch.
 
         Vola=Labsch*Kw*Kw*PI
        glLSort(3)=Labsch ! christian vonderach 24.07.2018
        glDSort(3)=Kw ! christian vonderach 24.07.2018
         Hakt=Hakt+Labsch*1.01
-c       write(10,*)'Hl-  vola,kw,labsch,hakt',vola,kw,labsch,hakt
-c       write (10,*)'ri hhrel',ri,hhrel
+!       write(10,*)'Hl-  vola,kw,labsch,hakt',vola,kw,labsch,hakt
+!       write (10,*)'ri hhrel',ri,hhrel
         ELSE
           glLSort(3)=0 ! christian vonderach 24.07.2018
        glDSort(3)=0 ! christian vonderach 24.07.2018
       END IF
-c..................................Industrieholz:
+!..................................Industrieholz:
       Voli=0
       IF(Hazop.gt.Hakt+.999)THEN
         Lind=int(Hazop+.0001-Hakt)
@@ -5814,12 +5737,12 @@ c..................................Industrieholz:
        glLSort(4)=Lind ! christian vonderach 24.07.2018
        glDSort(4)=Kw ! christian vonderach 24.07.2018
         Hakt=Lind+Hakt
-c     write(10,*)'Hl-  voli,kw,lind,hakt',voli,kw,lind,hakt
+!     write(10,*)'Hl-  voli,kw,lind,hakt',voli,kw,lind,hakt
         ELSE
           glLSort(4)=0 ! christian vonderach 24.07.2018
        glDSort(4)=0 ! christian vonderach 24.07.2018
       END IF
-c..................................... UVDerbholz:
+!..................................... UVDerbholz:
       Luv=Hdgren-Hakt
       IF(Luv.gt.0)THEN
         Hhrel=1.-(Hakt+Luv*.5)/H
@@ -5829,19 +5752,19 @@ c..................................... UVDerbholz:
         Volu=Luv*Kw*Kw*PI
        glLSort(5)=Luv ! christian vonderach 24.07.2018
        glDSort(5)=Kw ! christian vonderach 24.07.2018
-c     write(10,*)'Hl-  volu,kw,luv,hakt',volu,kw,luv,hakt
+!     write(10,*)'Hl-  volu,kw,luv,hakt',volu,kw,luv,hakt
         ELSE
           glLSort(5)=0 ! christian vonderach 24.07.2018
        glDSort(5)=0 ! christian vonderach 24.07.2018
       END IF
       RETURN
-c     debug subchk
+!     debug subchk
       END SUBroutine
 
 
-c     ###################################################################
+!     ###################################################################
       SUBroutine Sortmi
-c     ###################################################################
+!     ###################################################################
 
       implicit logical (a-z)
       REAL D095,D07,Du,Do,Dnorm,H,
@@ -5854,7 +5777,7 @@ c     ###################################################################
       INTEGER Kl,Ukl,Klx,Uklx,Kla,Ukla
         REAL glLSort(1:5), glDSort(1:5) ! christian vonderach, 24.07.2018
 
-c ...<<18.09.03>> : Aenderung :.......................................................
+! ...<<18.09.03>> : Aenderung :.......................................................
 
       REAL   HStockEnde
       REAL   HStHAnfang
@@ -5866,39 +5789,39 @@ c ...<<18.09.03>> : Aenderung :.................................................
      1     , HBDATGes
       COMMON /glLDSort/ glLSort, glDSort ! christian vonderach, 24.07.2018
 
-c ...<<18.09.03>> : Aenderung :.......................................................
+! ...<<18.09.03>> : Aenderung :.......................................................
 
       COMMON /Klasse/ Kl,Ukl,Klx,Uklx,Kla,Ukla
-c
+!
       COMMON /Baum1/ D095,D07,Du,Do,Dnorm,H,Hu,Hurel,Ho,Horel
       COMMON/It/Azop,Dgrenz,Hazop,Hdgren,Hstzop,Habzop,PI,Zost,Zoab,Hbr
       COMMON /Volum/ Vol,Volx,Vols,Vola,Voli,Volu,Volr,Volsu
       COMMON /Wert1/ sthh,Sokz,Stxu
       COMMON /Baum/ Ba,Iba,Ban
-c
+!
 
-c       Erlaeuterung der lokalen Variablen :
-c
-c        Hakt     R.... Hoehe der aktuellen Sortierungsstelle
-c        Met      R.... Rundungsdivisor
-c        Lxu      R.... L?nge X-Holz
-c        Rif      I.....Rindenfunktion Nr
-c        Lind     I.....L?nge Industrie-Holz
-c        Ikl      I.....Klasse
-c
-c        Hsthh    R.....Hoehe Stammholz
-c        Lsthh    R.....L?nge    "
-c        Hdrh     R.....Hoehe       "
-c        Hstzop   R.....Hoehe Stammholzzopf
-c        Habzop   R.....Hoehe Abschnittzopf
-c        Labsch   R.....L?nge Abschnitt
-c        Luv      R.....L?nge unverwertetes Derbholz
-c
-c
-c
-c     .....Rundung auf 10cm
+!       Erlaeuterung der lokalen Variablen :
+!
+!        Hakt     R.... Hoehe der aktuellen Sortierungsstelle
+!        Met      R.... Rundungsdivisor
+!        Lxu      R.... L?nge X-Holz
+!        Rif      I.....Rindenfunktion Nr
+!        Lind     I.....L?nge Industrie-Holz
+!        Ikl      I.....Klasse
+!
+!        Hsthh    R.....Hoehe Stammholz
+!        Lsthh    R.....L?nge    "
+!        Hdrh     R.....Hoehe       "
+!        Hstzop   R.....Hoehe Stammholzzopf
+!        Habzop   R.....Hoehe Abschnittzopf
+!        Labsch   R.....L?nge Abschnitt
+!        Luv      R.....L?nge unverwertetes Derbholz
+!
+!
+!
+!     .....Rundung auf 10cm
       Met=10
-c................................Klasse u Vol.des X-Holzes-unten
+!................................Klasse u Vol.des X-Holzes-unten
       Hakt=Stxu+H*.01
       Lxu=Stxu
       IF(Lxu.gt.3) Lxu=int(Lxu*10.0001)*.1
@@ -5917,16 +5840,16 @@ c................................Klasse u Vol.des X-Holzes-unten
         glLSort(1)=0 ! christian vonderach 24.07.2018
         glDSort(1)=0 ! christian vonderach 24.07.2018
       END IF
-c     write(10,*)'Mi-  volx,kw,lxu,hakt',volx,kw,lxu,hakt
-c ....Stammholz.................................................
+!     write(10,*)'Mi-  volx,kw,lxu,hakt',volx,kw,lxu,hakt
+! ....Stammholz.................................................
 
 
 
       Lsth=INT((hstzop+.0001-Hakt)*Met)/Met
 
-c Aenderung <<16.06.04>> :------------------------------------------------------------------
+! Aenderung <<16.06.04>> :------------------------------------------------------------------
 
-c (Trennschnitt 20m )
+! (Trennschnitt 20m )
 
       if (Lsth>20) then
        Lsth=20
@@ -5934,12 +5857,12 @@ c (Trennschnitt 20m )
 
       Hstzop=Lsth+hakt
 
-c ...<<18.09.03>> : Aenderung :.......................................................
+! ...<<18.09.03>> : Aenderung :.......................................................
 
       LngStH = LStH
       HStHAnfang = Hakt
 
-c ...<<18.09.03>> : Aenderung :.......................................................
+! ...<<18.09.03>> : Aenderung :.......................................................
 
 
       IF(Lsth.ge.3)THEN
@@ -5950,38 +5873,38 @@ c ...<<18.09.03>> : Aenderung :.................................................
         Kl=INT(Kw*.1)
         Ukl=INT((Kw-Kl*10)*.2)
         Hakt=Hakt+Lsth*1.01
-c Stammholzvolumen
+! Stammholzvolumen
         Vols=Lsth*Kw*Kw*PI
        glLSort(2)=Lsth ! christian vonderach 24.07.2018
        glDSort(2)=Kw ! christian vonderach 24.07.2018
-c     write(10,*)'Mi-  vols,kw,lsth,hakt',vols,kw,lsth,hakt
+!     write(10,*)'Mi-  vols,kw,lsth,hakt',vols,kw,lsth,hakt
         ELSE
           glLSort(2)=0 ! christian vonderach 24.07.2018
        glDSort(2)=0 ! christian vonderach 24.07.2018
       END IF
 
-c ...<<18.09.03>> : Aenderung :.......................................................
+! ...<<18.09.03>> : Aenderung :.......................................................
 
       HStHLzEnde = MIN(HAkt,Hbr)
 
-c ...<<16.06.05> : Aenderung :------------------------------------------------------------
+! ...<<16.06.05> : Aenderung :------------------------------------------------------------
 
       if (sthh.gt.0) then
        HStHLzEnde = MIN(HStHLzEnde,sthh)
       else
       end if
 
-c ...<<18.09.03>> : Aenderung :.......................................................
+! ...<<18.09.03>> : Aenderung :.......................................................
 
-c zus?tzliches  Kronenstammholzst?ck :
-c Abschnitte:.................................................
+! zus?tzliches  Kronenstammholzst?ck :
+! Abschnitte:.................................................
 
 
       Labsch=INT((Habzop+.0001-Hakt)*Met)/Met
 
-c Aenderung <<16.06.04>> :------------------------------------------------------------------
+! Aenderung <<16.06.04>> :------------------------------------------------------------------
 
-c (Trennschnitt 20 m)
+! (Trennschnitt 20 m)
 
       if (Labsch>20) then
        Labsch=20
@@ -5995,17 +5918,17 @@ c (Trennschnitt 20 m)
         Kw=Rund(Kw)
         Kla=INT(Kw*.1)
         Ukla=INT((Kw-Kla*10)*.2)
-c   Volumenabsch:
+!   Volumenabsch:
         Vola=Labsch*Kw*Kw*PI
         Hakt=Habzop+Labsch*.01
        glLSort(3)=Labsch ! christian vonderach 24.07.2018
        glDSort(3)=Kw ! christian vonderach 24.07.2018
-c     write(10,*)'Mi-  vola,kw,labsch,hakt',vola,kw,labsch,hakt
+!     write(10,*)'Mi-  vola,kw,labsch,hakt',vola,kw,labsch,hakt
         ELSE
           glLSort(3)=0 ! christian vonderach 24.07.2018
        glDSort(3)=0 ! christian vonderach 24.07.2018
       END IF
-c Industrieholz ...........................................
+! Industrieholz ...........................................
       Voli=0
       Lind=INT(Hazop+.0001-Hakt)
       IF(Lind.gt.0.999)THEN
@@ -6017,12 +5940,12 @@ c Industrieholz ...........................................
         Hakt=Hakt+Lind
        glLSort(4)=Lind ! christian vonderach 24.07.2018
        glDSort(4)=Kw ! christian vonderach 24.07.2018
-c     write(10,*)'Mi-  voli,kw,lind,hakt',voli,kw,lind,hakt
+!     write(10,*)'Mi-  voli,kw,lind,hakt',voli,kw,lind,hakt
         ELSE
           glLSort(4)=0 ! christian vonderach 24.07.2018
        glDSort(4)=0 ! christian vonderach 24.07.2018
       END IF
-c Unverwertbares Derbholz .................................
+! Unverwertbares Derbholz .................................
       Volu=0
       IF(Hakt.lt.Hdgren) THEN
         Luvd=Hdgren-Hakt
@@ -6033,19 +5956,19 @@ c Unverwertbares Derbholz .................................
         Volu=(Hdgren-Hakt)*Kw*Kw*PI
        glLSort(5)=Luvd ! christian vonderach 24.07.2018
        glDSort(5)=Kw ! christian vonderach 24.07.2018
-c     write(10,*)'Mi-  volu,kw,hdgren-hakt',volu,kw,hdgren-hakt
+!     write(10,*)'Mi-  volu,kw,hdgren-hakt',volu,kw,hdgren-hakt
         ELSE
           glLSort(5)=0 ! christian vonderach 24.07.2018
        glDSort(5)=0 ! christian vonderach 24.07.2018
       END IF
       RETURN
-c     debug subchk
+!     debug subchk
       END SUBroutine
 
 
-c     ###################################################################
+!     ###################################################################
       SUBroutine Iter
-c     ###################################################################
+!     ###################################################################
 
       implicit logical (a-z)
       REAL D095,D07,Du,Do,Dnorm,H,
@@ -6058,35 +5981,35 @@ c     ###################################################################
       INTEGER I,J,Sokz,Vorz,Anzit,anfit
       REAL Wit(1:4),Hwit(1:4),Dis,Po,rund,bis
       INTEGER Ix
-c
+!
       COMMON /Baum1/ D095,D07,Du,Do,Dnorm,H,Hu,Hurel,Ho,Horel
       COMMON/It/Azop,Dgrenz,Hazop,Hdgren,Hstzop,Habzop,PI,Zost,Zoab,Hbr
       COMMON /Wert1/ sthh,Sokz,Stxu
       COMMON /Volum/ Vol,Volx,Vols,Vola,Voli,Volu,Volr,Volsu
       COMMON /Baum/ Ba,Iba,Ban
 
-c
-c       Erlaeuterung der lokalen Variablen :
-c         Hwit(4)       R.....Hoehe des iterierten Durchmessers
-c                            1 Hoehe der Derbholzgrenze
-c                            2  "       Aufarbeitungszopfs
-c                            3  "       Abschnittszopfs
-c                            4  "       Stammholzzopfs
-c         Wit (4)       R     entsprechende Durchmesser
-c         Anfit         I     Anfangsindex der Iteration
-c         anzit         I     Anzahl der Interationen (step=1)
-c         Po            R     aktuelle IterationsHoehe (Position)
-c         Dis           R     Iterationsschrittweite
-c         Vorz          I     (Vorzeichen) Iterationsrichtung
-c         Rest          R     Hilfsgroesse
-c         Stx           R     Hilfsgroesse für Stx+H*0.01(=Stock)
-c
+!
+!       Erlaeuterung der lokalen Variablen :
+!         Hwit(4)       R.....Hoehe des iterierten Durchmessers
+!                            1 Hoehe der Derbholzgrenze
+!                            2  "       Aufarbeitungszopfs
+!                            3  "       Abschnittszopfs
+!                            4  "       Stammholzzopfs
+!         Wit (4)       R     entsprechende Durchmesser
+!         Anfit         I     Anfangsindex der Iteration
+!         anzit         I     Anzahl der Interationen (step=1)
+!         Po            R     aktuelle IterationsHoehe (Position)
+!         Dis           R     Iterationsschrittweite
+!         Vorz          I     (Vorzeichen) Iterationsrichtung
+!         Rest          R     Hilfsgroesse
+!         Stx           R     Hilfsgroesse für Stx+H*0.01(=Stock)
+!
 
       do 1 i=1,4
          hwit(i)=0
   1   continue
-c
-c..BHD - Zopfklasse
+!
+!..BHD - Zopfklasse
       IF(Sokz.eq.0) then
          anfit=1
          anzit=1
@@ -6097,10 +6020,10 @@ c..BHD - Zopfklasse
 
          anfit=1
 
-c ...<<17.09.03>> : Aenderung :............................................................
+! ...<<17.09.03>> : Aenderung :............................................................
 
          anzit=4
-c        anzit=2
+!        anzit=2
 
       end if
       IF(Sokz.eq.1) then
@@ -6118,16 +6041,16 @@ c        anzit=2
       else
         Wit(3)=Zoab
       end if
-c Stammholzzopf
+! Stammholzzopf
       Wit(4)=Zost
-c
+!
       DO 160 J=anfit,Anzit
         DO 140 I=INT(Hbr) ,1, -1
           Hhrel=1.-I/H
           CALL Kuwert(Hhrel,Kw)
           IF(j.gt.2) then
 
-c  Durchmesser ohne Rinde forstlich gerundet :...................................
+!  Durchmesser ohne Rinde forstlich gerundet :...................................
 
             CALL Rinde(Hhrel,Kw,Ri,0,0)
             kw=rund(kw)
@@ -6136,7 +6059,7 @@ c  Durchmesser ohne Rinde forstlich gerundet :..................................
  140    CONTINUE
         Hwit(J)=1
  220    CONTINUE
-c
+!
         IF(Hwit(J).lt.1) THEN
           Po=I+.5
           Dis=.5
@@ -6159,16 +6082,16 @@ c
        else
          Hwit(j)=po
        END IF
-c
+!
       END IF
 
-c     write (10,*)'hwit(j),wit(j),azop,j'
-c     write (10,*) hwit(j),wit(j),azop,j
+!     write (10,*)'hwit(j),wit(j),azop,j'
+!     write (10,*) hwit(j),wit(j),azop,j
 
  160  CONTINUE
-c
-c     write (10,*)'hdgren,hazop,habzop,hstzop'
-c     write (10,*) hdgren,hazop,habzop,hstzop
+!
+!     write (10,*)'hdgren,hazop,habzop,hstzop'
+!     write (10,*) hdgren,hazop,habzop,hstzop
 
       if(hazop.le.0.or.hazop.gt.hwit(2)) Hazop=Hwit(2)
       Hdgren=Hwit(1)
@@ -6177,18 +6100,18 @@ c     write (10,*) hdgren,hazop,habzop,hstzop
       if(hstzop.le.0.or.hstzop.gt.hwit(4))Hstzop=Hwit(4)
       if(hstzop.le.0.or.hstzop.gt.sthh)hstzop=sthh
       IF(hstzop.gt.hazop)hstzop=hazop
-c........................................AbschnittzopfHoehe (1.2.94)
+!........................................AbschnittzopfHoehe (1.2.94)
       if(habzop.le.0.or.habzop.gt.sthh)habzop=sthh
       if(habzop.le.0)habzop=hstzop
       IF(Hbr.lt.Hdgren)Hdgren=Hbr
       IF((stxu+h*.01).gt.hazop)stxu=hazop-h*.01
 
-c     write (10,*)'hdgren,hazop,habzop,hstzop,stxu'
-c     write (10,*) hdgren,hazop,habzop,hstzop,stxu
-c
+!     write (10,*)'hdgren,hazop,habzop,hstzop,stxu'
+!     write (10,*) hdgren,hazop,habzop,hstzop,stxu
+!
       Volr=0
       Vol=0
-c..............................Volumenberechnung:   Vol Vfm.m.R.
+!..............................Volumenberechnung:   Vol Vfm.m.R.
       if (hdgren.le.2)then
         Hhrel=1.-Hdgren*.5/H
         CALL Kuwert(Hhrel,Kw)
@@ -6199,8 +6122,8 @@ c..............................Volumenberechnung:   Vol Vfm.m.R.
           CALL Kuwert(Hhrel,Kw)
           Volr=Volr+Kw*Kw*PI*2
 
-c         write (10,*)'volr,kw,hhrel'
-c         write (10,*) volr,kw,hhrel
+!         write (10,*)'volr,kw,hhrel'
+!         write (10,*) volr,kw,hhrel
 
  240    CONTINUE
         rest=hdgren-(ix-1)
@@ -6208,7 +6131,7 @@ c         write (10,*) volr,kw,hhrel
         CALL Kuwert(Hhrel,Kw)
         Volr=Volr+Kw*Kw*PI*rest
       END IF
-c
+!
       IF(Iba.gt.14)THEN
           stx=stxu+h*.01
           bis=stx
@@ -6220,7 +6143,7 @@ c
           END IF
           vol=0
 
-c          write(10,*)'hstzop,hazop ',hstzop,hazop
+!          write(10,*)'hstzop,hazop ',hstzop,hazop
 
           DO 250 Ix=1, INT(bis)-1 , 2
             Hhrel=1.-Ix/H
@@ -6229,8 +6152,8 @@ c          write(10,*)'hstzop,hazop ',hstzop,hazop
  250      CONTINUE
           rest=bis-(ix-1)
 
-c  write(10,*)'bis,rest,ix'
-c  write(10,*) bis,rest,ix
+!  write(10,*)'bis,rest,ix'
+!  write(10,*) bis,rest,ix
 
           Hhrel=1.-(bis-rest*.5)/H
 
@@ -6238,24 +6161,24 @@ c  write(10,*) bis,rest,ix
 
           Vol=Vol+Kw*Kw*Pi*rest
 
-c  Aenderungen: <<01.07.02>> :--------------------------------------------------------------
-c
-c  SUBroutine Iter: IF(H.lt.22) Volr=Volr*.98
-c         IF(H.lt.22)Volr=Volr*.98
+!  Aenderungen: <<01.07.02>> :--------------------------------------------------------------
+!
+!  SUBroutine Iter: IF(H.lt.22) Volr=Volr*.98
+!         IF(H.lt.22)Volr=Volr*.98
 
       END IF
 
-c     write(10,*)'bis,rest,kw,vol'
-c     write(10,*) bis,rest,kw,vol
-c     debug subchk
+!     write(10,*)'bis,rest,kw,vol'
+!     write(10,*) bis,rest,kw,vol
+!     debug subchk
 
 
       END SUBroutine
 
 
-c     ###################################################################
+!     ###################################################################
       SUBroutine Sortlb
-c     ###################################################################
+!     ###################################################################
 
       implicit logical (a-z)
 
@@ -6267,22 +6190,22 @@ c     ###################################################################
            REAL  Volrer,Volur
           REAL glLSort(1:5), glDSort(1:5) ! christian vonderach, 24.07.2018
 
-c <<1>> ################################### 01.04.04 #################################
-c REAL Volrer,Volur
-c ######################################### 01.04.04 #################################
+! <<1>> ################################### 01.04.04 #################################
+! REAL Volrer,Volur
+! ######################################### 01.04.04 #################################
 
            REAL  sthh,Stxu,Hhrel,Lxu,Kw,Hakt,Lsth,W1,W0,Vl
-c ####cv: function Rund returns REAL NOT double precision==double precision ############
+! ####cv: function Rund returns REAL NOT double precision==double precision ############
       REAL Rund
 
-c     INTEGER Ba,Iba,Ban(36,7),Ib,Ia,Sokz,ix
+!     INTEGER Ba,Iba,Ban(36,7),Ib,Ia,Sokz,ix
 
       INTEGER Ba,Iba,Ban(36,7),Ib,Ia,Sokz
            REAL   Unvd(2,27,33),Unvpr,Ddur,Riproz,Ri,Dduru,Dduri
            REAL  D1,fakt
       INTEGER Kl,Ukl,Klx,Uklx,Kla,Ukla
 
-c ...<<18.09.03>> : Aenderung :.......................................................
+! ...<<18.09.03>> : Aenderung :.......................................................
 
       REAL   HStockEnde
       REAL   HStHAnfang
@@ -6294,10 +6217,10 @@ c ...<<18.09.03>> : Aenderung :.................................................
      1     , HBDATGes
       COMMON /glLDSort/ glLSort, glDSort ! christian vonderach, 24.07.2018
 
-c ...<<18.09.03>> : Aenderung :.......................................................
+! ...<<18.09.03>> : Aenderung :.......................................................
 
       COMMON /Klasse/ Kl,Ukl,Klx,Uklx,Kla,Ukla
-c
+!
       COMMON /Baum1/ D095,D07,Du,Do,Dnorm,H,Hu,Hurel,Ho,Horel
       COMMON/It/Azop,Dgrenz,Hazop,Hdgren,Hstzop,Habzop,PI,Zost,Zoab,Hbr
       COMMON /Volum/ Vol,Volx,Vols,Vola,Voli,Volu,Volr,Volsu
@@ -6305,24 +6228,24 @@ c
       COMMON /Baum/ Ba,Iba,Ban
       COMMON /Uvd/ Unvd
 
-c ---------------------------------------------
-c
-c       Erlaeuterung der lokalen Variablen :
-c
-c        Hakt     R.... Hoehe der aktuellen Sortierungsstelle
-c        Lxu      R.... Laenge X-Holz
-c        Lind     I.....Laenge Industrie-Holz
-c        Ikl      I.....Klasse
-c
-c        Hsthh    R.....Hoehe Stammholz
-c        Lsthh    R.....L?nge    "
-c        Zdrh     R.....Z?hler Draufholz (Meterschritte)
-c        Hdrh     R.....Hoehe       "
-c        Hstzop   R.....Hoehe Stammholzzopf
-c        Luv      R.....L?nge unverwertetes Derbholz
+! ---------------------------------------------
+!
+!       Erlaeuterung der lokalen Variablen :
+!
+!        Hakt     R.... Hoehe der aktuellen Sortierungsstelle
+!        Lxu      R.... Laenge X-Holz
+!        Lind     I.....Laenge Industrie-Holz
+!        Ikl      I.....Klasse
+!
+!        Hsthh    R.....Hoehe Stammholz
+!        Lsthh    R.....L?nge    "
+!        Zdrh     R.....Z?hler Draufholz (Meterschritte)
+!        Hdrh     R.....Hoehe       "
+!        Hstzop   R.....Hoehe Stammholzzopf
+!        Luv      R.....L?nge unverwertetes Derbholz
 
-c
-c...................................Klasse u Vol.des X-Holzes-unten:
+!
+!...................................Klasse u Vol.des X-Holzes-unten:
 
       VolRer=0
       VoluR=0
@@ -6349,16 +6272,16 @@ c...................................Klasse u Vol.des X-Holzes-unten:
         glDSort(1)=0 ! christian vonderach 24.07.2018
       END IF
 
-c ...<<18.09.03>> : Aenderung :.......................................................
+! ...<<18.09.03>> : Aenderung :.......................................................
 
       HStHAnfang = Hakt
 
-c ...<<18.09.03>> : Aenderung :.......................................................
+! ...<<18.09.03>> : Aenderung :.......................................................
 
-c     write(10,*)'b- volr,hazop,hstzop',volr,hazop,hstzop
-c     write(10,*)'Lb-  volx,kw,lxu,hakt',volx,kw,lxu,hakt
+!     write(10,*)'b- volr,hazop,hstzop',volr,hazop,hstzop
+!     write(10,*)'Lb-  volx,kw,lxu,hakt',volx,kw,lxu,hakt
 
-c.............................................Stammholz:
+!.............................................Stammholz:
 
       if(hstzop.le.0) hstzop=stxu+h*.01
       Vols=0
@@ -6367,7 +6290,7 @@ c.............................................Stammholz:
 
          lsth=int((hstzop+.0001-hakt)*10)*.1
 
-c Aenderung <<16.06.04>> :------------------------------------------------------------------
+! Aenderung <<16.06.04>> :------------------------------------------------------------------
 
        if (Lsth>20) then
         Lsth=20
@@ -6384,13 +6307,13 @@ c Aenderung <<16.06.04>> :------------------------------------------------------
             Kl=INT(Kw*.1)
             Ukl=INT((Kw-Kl*10)*.2)
 
-c......................... Stammholzvolumen
+!......................... Stammholzvolumen
 
             Vols=Lsth*Kw*Kw*PI
         glLSort(2)=Lsth ! christian vonderach 24.07.2018
         glDSort(2)=Kw ! christian vonderach 24.07.2018
 
-c............Stammholzzopf....................................Aenderung 1.2.94
+!............Stammholzzopf....................................Aenderung 1.2.94
 
             Hstzop=hakt+Lsth
             Hakt=Hakt+Lsth*1.01
@@ -6403,52 +6326,52 @@ c............Stammholzzopf....................................Aenderung 1.2.94
         LngStH = LStH
       END IF
 
-c     write(10,*)'Lb-  vols,kw,lsth,hakt',vols,kw,lsth,hakt
+!     write(10,*)'Lb-  vols,kw,lsth,hakt',vols,kw,lsth,hakt
       Vola=0
 
-c ...<<18.09.03>> : Aenderung :.......................................................
+! ...<<18.09.03>> : Aenderung :.......................................................
 
       HStHLzEnde = MIN(HAkt,Hbr)
 
-c ...<<16.06.05> : Aenderung :------------------------------------------------------------
+! ...<<16.06.05> : Aenderung :------------------------------------------------------------
 
       if (sthh.gt.0) then
        HStHLzEnde = MIN(HStHLzEnde,sthh)
       else
       end if
 
-c ...<<18.09.03>> : Aenderung :.......................................................
+! ...<<18.09.03>> : Aenderung :.......................................................
 
-c.............................. Industrieholz:
+!.............................. Industrieholz:
 
-c Rest-Holz:
+! Rest-Holz:
 
-c ---------------------------------------------
-c   write (*,*)
-c write (*,*) " BDAT ! SORTLB Block3 "
-c  write (*,*) " BDAT ! SORTLB VOL   : ", VOL
-c write (*,*) " BDAT ! SORTLB VOLx  : ", VOLx
-c write (*,*) " BDAT ! SORTLB VOLs  : ", VOLs
-c write (*,*) " BDAT ! SORTLB VOLa  : ", VOLa
-c write (*,*) " BDAT ! SORTLB VOLi  : ", VOLi
-c write (*,*) " BDAT ! SORTLB VOLu  : ", VOLu
-c write (*,*) " BDAT ! SORTLB VOLr  : ", VOLr
-c write (*,*) " BDAT ! SORTLB VOLuR : ", VOLuR
-c write (*,*) " BDAT ! SORTLB VOLsu : ", VOLsu
-c write (*,*) " BDAT ! SORTLB VOLrer: ", VOLrer
-c   write (*,*)
-c ---------------------------------------------
+! ---------------------------------------------
+!   write (*,*)
+! write (*,*) " BDAT ! SORTLB Block3 "
+!  write (*,*) " BDAT ! SORTLB VOL   : ", VOL
+! write (*,*) " BDAT ! SORTLB VOLx  : ", VOLx
+! write (*,*) " BDAT ! SORTLB VOLs  : ", VOLs
+! write (*,*) " BDAT ! SORTLB VOLa  : ", VOLa
+! write (*,*) " BDAT ! SORTLB VOLi  : ", VOLi
+! write (*,*) " BDAT ! SORTLB VOLu  : ", VOLu
+! write (*,*) " BDAT ! SORTLB VOLr  : ", VOLr
+! write (*,*) " BDAT ! SORTLB VOLuR : ", VOLuR
+! write (*,*) " BDAT ! SORTLB VOLsu : ", VOLsu
+! write (*,*) " BDAT ! SORTLB VOLrer: ", VOLrer
+!   write (*,*)
+! ---------------------------------------------
 
       volrer=volr-vol
 
-c ---------------------------------------------
+! ---------------------------------------------
 
-c <<2>> #################################### 01.04.04 ################################
-c   write (*,*)
-c ######################################### 01.04.04 #################################
+! <<2>> #################################### 01.04.04 ################################
+!   write (*,*)
+! ######################################### 01.04.04 #################################
 
-c     write(10,*)'Lb- volr,vol,volrer',volr,vol,volrer
-c Unverwertbares Derbholz mit Rinde
+!     write(10,*)'Lb- volr,vol,volrer',volr,vol,volrer
+! Unverwertbares Derbholz mit Rinde
 
       volu=0
       volur=0
@@ -6458,7 +6381,7 @@ c Unverwertbares Derbholz mit Rinde
         Zopf=azop
         if(zopf.gt.40)zopf=40
 
-c  geschaetzt aus  Aufarbeitungsgrenze und BHD
+!  geschaetzt aus  Aufarbeitungsgrenze und BHD
 
         Hhrel=1.-1.3/H
         CALL Kuwert(Hhrel,Kw)
@@ -6476,8 +6399,8 @@ c  geschaetzt aus  Aufarbeitungsgrenze und BHD
 
         Unvpr=(W1-W0)*(2-D1)/2+W0
 
-c       write(10,*)'Unvpr=(W1-W0)*(2-D1)/2+W0,ib,ia,ba'
-c       write(10,*)Unvpr,W1,W0,2,D1,2,W0,ib,ia,ba
+!       write(10,*)'Unvpr=(W1-W0)*(2-D1)/2+W0,ib,ia,ba'
+!       write(10,*)Unvpr,W1,W0,2,D1,2,W0,ib,ia,ba
 
         fakt=volr/volrer*unvpr*.01
 
@@ -6485,15 +6408,15 @@ c       write(10,*)Unvpr,W1,W0,2,D1,2,W0,ib,ia,ba
 
         volur=volrer*fakt
 
-c ######################################### 01.04.04 #################################
-c     volur=volrer
-c ######################################### 01.04.04 #################################
+! ######################################### 01.04.04 #################################
+!     volur=volrer
+! ######################################### 01.04.04 #################################
 
-c  write(10,*)'Lb-  volu,volr,unvpr',volu,volr,unvpr,
+!  write(10,*)'Lb-  volu,volr,unvpr',volu,volr,unvpr,
 
       END IF
 
-c     Mittlere ?stedurchmesser mit Rinde
+!     Mittlere ?stedurchmesser mit Rinde
 
       vl=hstzop
       if(vl.lt.h*.1)vl=h*.15
@@ -6503,14 +6426,14 @@ c     Mittlere ?stedurchmesser mit Rinde
         Ddur=6.473-.119*vl+.1578*Du+1.4236*H/vl
       END IF
 
-c.....Industrieholz Volumen mit/ohne Rinde.....................Aenderung 1.2.94
+!.....Industrieholz Volumen mit/ohne Rinde.....................Aenderung 1.2.94
 
       voli=0
       volir=0
 
-c ######################################### 01.04.04 #################################
-c    volur=volrer
-c ######################################### 01.04.04 #################################
+! ######################################### 01.04.04 #################################
+!    volur=volrer
+! ######################################### 01.04.04 #################################
 
       volir=volrer-volur
       Zopf=0
@@ -6519,13 +6442,13 @@ c ######################################### 01.04.04 ###########################
       CALL kuwert(hhrel,zopf)
 
 
-c Aenderung <<01.04.04>> :-------------------------------------------------------------
+! Aenderung <<01.04.04>> :-------------------------------------------------------------
 
       IF(ABS(volir).gt.1e-8) THEN
 
-c #################### 01.04.04 ############## FALSE bei <<1>> oder <<2>> ############
-c   IF(volir.gt.0) THEN
-c ######################################### 01.04.04 #################################
+! #################### 01.04.04 ############## FALSE bei <<1>> oder <<2>> ############
+!   IF(volir.gt.0) THEN
+! ######################################### 01.04.04 #################################
 
         IF(hazop.lt.hdgren) THEN
           dduri=ddur+((volrer-volir)/volrer)*(zopf-ddur)
@@ -6539,25 +6462,25 @@ c ######################################### 01.04.04 ###########################
 
         Voli=Volir*Riproz
 
-c ######################################### 01.04.04 #################################
-c    Voli=-99999
-c ######################################### 01.04.04 #################################
-c
+! ######################################### 01.04.04 #################################
+!    Voli=-99999
+! ######################################### 01.04.04 #################################
+!
       END IF
 
-c   write (*,*)
-c     write (*,*) '========================='
-c   write (*,*) 'BDAT!SortLb:'c
-c  write (*,*) 'voli   = ',voli
-c  write (*,*) 'volir  = ',volir
-c  write (*,*) 'riproz = ', riproz
-c  write (*,*) '========================='
-c  write (*,*)
+!   write (*,*)
+!     write (*,*) '========================='
+!   write (*,*) 'BDAT!SortLb:'c
+!  write (*,*) 'voli   = ',voli
+!  write (*,*) 'volir  = ',volir
+!  write (*,*) 'riproz = ', riproz
+!  write (*,*) '========================='
+!  write (*,*)
 
-c
+!
       Hakt=Hazop
 
-c Unverwertbares Derbholz ohne Rinde...........................Aenderung 1.2.94
+! Unverwertbares Derbholz ohne Rinde...........................Aenderung 1.2.94
 
       Volu=0
       IF(hazop.lt.hdgren) THEN
@@ -6565,15 +6488,15 @@ c Unverwertbares Derbholz ohne Rinde...........................Aenderung 1.2.94
          CALL Rinde(Hhrel,Dduru,Ri,0,0)
          Riproz=Dduru**2/(Dduru+ri)**2
          Volu=Volur*Riproz
-c        write(10,*)'Lb-  volu,volur,riproz',volu,volur,riproz
+!        write(10,*)'Lb-  volu,volur,riproz',volu,volur,riproz
       END IF
-c
+!
       RETURN
 
       END SUBroutine
 
-c***********************************************************************
-c  von Bernhard boesch, ergaenzt durch christian vonderach am 09.06.2018
+!***********************************************************************
+!  von Bernhard boesch, ergaenzt durch christian vonderach am 09.06.2018
       real FUNCTION ANORDF( x )
           ! This function evaluates the standard normal (Gaussian) cumulative distribution function.
           ! -> http://www.roguewave.com/Portals/0/products/imsl-numerical-libraries/fortran-library/docs/6.0/stat/default.htm?turl=anorin.htm
@@ -6656,12 +6579,12 @@ c  von Bernhard boesch, ergaenzt durch christian vonderach am 09.06.2018
       ERFCInv = ERFInv(1. - x)
       END FUNCTION ERFCInv
 
-c
-c######################################################################
-c
-c
+!
+!######################################################################
+!
+!
       real function dinvnorm(pi)
-c      normal inverse translate from a routine written by john herrero
+!      normal inverse translate from a routine written by john herrero
       real pi
       double precision p,p_low,p_high
       double precision a1,a2,a3,a4,a5,a6
@@ -6715,16 +6638,16 @@ c      normal inverse translate from a routine written by john herrero
 204   dinvnorm=real(z)
       return
       end
-c
+!
 
 
-c**********************************************************************
-c*** FILE: BDAT_C.FOR *** Tabellen BLOCK DATA *** STAND: 13.12.90   ***
-c**********************************************************************
+!**********************************************************************
+!*** FILE: BDAT_C.FOR *** Tabellen BLOCK DATA *** STAND: 13.12.90   ***
+!**********************************************************************
 
       BLOCK DATA
 
-c======================================================================
+!======================================================================
       REAL Rin(1:28,1:4,1:3)
       REAL Rinh(1:3,1:5,1:3)
       REAL a95(1:24,1:8),b95(1:24,1:8)
@@ -6754,7 +6677,7 @@ c======================================================================
       DATA    HStHLzEnde /0/
       REAL   HBDATGes
       DATA    HBDATGes /0/
-c
+!
       COMMON /XtrComPar/ HStockEnde, HStHAnfang, LngStH, HStHLzEnde
      1     , HBDATGes
       COMMON /D07/ Add07,Md07,Snxkn7,Sxk07,Sd07
@@ -6768,14 +6691,14 @@ c
       COMMON /d95/nxk95a,nxk95b,xk95a,xk95b,a95,b95
       COMMON /Schaft/  Nnp,Np,Nxk,B,Xk
       COMMON /Sk/ Yy,Durel
-c
-c.....Splinekoeffizienten für die Schaftkurven..........................
-c
+!
+!.....Splinekoeffizienten für die Schaftkurven..........................
+!
         DATA NP/ 80/
         DATA  NXK/6/,XK/0.,.3,.5,.7,.9,1./ , NnP/20/
-c
-c.....Fichte............................................................
-c
+!
+!.....Fichte............................................................
+!
       data (B(i,1),i=1,80) /
      *-.663092E-01,-.503199E-01, .663092E-01,-.221933E-01,-.626495E-01,
      *-.125967    ,-.986368E-02, .247511E-01,-.125967    ,-.407789E-01,
@@ -6793,9 +6716,9 @@ c
      * 1.00653    ,-.116772E-01,-.401196E-01, 1.00653    , 1.06069    ,
      *-.401196E-01,-.606896E-01, 1.06069    , .750715    ,-.606896E-01,
      *-.207830    , .594842    ,-.277629E-01,-.519576E-01,-2.21636/
-c
-c.....Tanne....................................................................
-c
+!
+!.....Tanne....................................................................
+!
       data (B(i,2),i=1,80) /
      *-.272913    ,-.535819E-01, .272913    ,-.554505E-01,-.843877E-01,
      *-.123002    ,-.246447E-01, .150921E-01,-.123002    ,-.710641E-01,
@@ -6813,9 +6736,9 @@ c
      * .991621    , .923447E-02,-.312238E-01, .991621    , 1.09252    ,
      *-.312238E-01,-.925185E-01, 1.09252    , .638305    ,-.925185E-01,
      *-.229105    , .466476    ,-.276117    ,-.572764E-01,-.704160/
-c
-c.....Douglasie.........................................................
-c
+!
+!.....Douglasie.........................................................
+!
       data (B(i,3),i=1,80) /
      * .916011E-01, .267276E-01,-.916011E-01,-.245526E-01, .130873E-01,
      *-.112004    ,-.109123E-01, .248836E-01,-.112004    ,-.877935E-01,
@@ -6833,9 +6756,9 @@ c
      * .985003    ,-.604687E-02,-.529516E-01, .985003    , 1.11231    ,
      *-.529516E-01,-.112306    , 1.11231    , .565774    ,-.112306    ,
      *-.183433    , .428199    ,-.257790    ,-.458582E-01,-.635779/
-c
-c....Kiefer.............................................................
-c
+!
+!....Kiefer.............................................................
+!
       data (B(i,4),i=1,80) /
      *-.104056    , .278676E-01, .104056    ,-.561985E-01,-.335377E-02,
      *-.102733    ,-.249771E-01, .271358E-01,-.102733    ,-.392980E-01,
@@ -6853,9 +6776,9 @@ c
      * .998091    , .193494E-03,-.454820E-01, .998091    , 1.04986    ,
      *-.454820E-01,-.498577E-01, 1.04986    , .802479    ,-.498577E-01,
      *-.320644    , .561996    ,-.283143    ,-.801610E-01,-1.03525/
-c
-c.....L?rche............................................................
-c
+!
+!.....L?rche............................................................
+!
       data (B(i,5),i=1,80) /
      *-.142477    , .130680    , .142477    ,-.994457E-01, .754323E-01,
      *-.739485E-01,-.441981E-01, .272001E-01,-.739485E-01,-.601290E-01,
@@ -6873,9 +6796,9 @@ c
      * .938037    , .289308E-01,-.445546E-01, .938037    , 1.08149    ,
      *-.445546E-01,-.814898E-01, 1.08149    , .736004    ,-.814898E-01,
      *-.258429    , .542182    ,-.212027    ,-.646074E-01,-1.25601/
-c
-c.....Buche.............................................................
-c
+!
+!.....Buche.............................................................
+!
       data (B(i,6),i=1,80) /
      *-.188531    ,-.574869E-01, .188531    ,-.221598E-01,-.697980E-01,
      *-.563012E-01,-.984882E-02,-.811468E-02,-.563012E-01,-.914926E-01,
@@ -6893,9 +6816,9 @@ c
      * .893818    , .278694E-03,-.752490E-02, .893818    , 1.12427    ,
      *-.752490E-02,-.124270    , 1.12427    , .609103    ,-.124270    ,
      *-.220643    , .443621    ,-.310410    ,-.551609E-01,-.477682/
-c
-c.....Eiche.............................................................
-c
+!
+!.....Eiche.............................................................
+!
       data (B(i,7),i=1,80) /
      *-.172467    ,-.510311E-02, .172467    ,-.372934E-01,-.258217E-01,
      *-.385571E-01,-.165749E-01,-.715138E-02,-.385571E-01,-.942007E-01,
@@ -6913,9 +6836,9 @@ c
      * .891263    , .546049E-02,-.995866E-02, .891263    , 1.12337    ,
      *-.995866E-02,-.123367    , 1.12337    , .615269    ,-.123367    ,
      *-.233533    , .440120    ,-.339378    ,-.583832E-01,-.344582/
-c
-c.....Roteiche..........................................................
-c
+!
+!.....Roteiche..........................................................
+!
       data (B(i,8),i=1,80) /
      *-.129150    , .260865E-02, .129150    ,-.317103E-01,-.150082E-01,
      *-.328701E-01,-.140935E-01,-.977679E-02,-.328701E-01,-.109393    ,
@@ -6933,12 +6856,12 @@ c
      * .893223    ,-.286576E-02,-.363381E-02, .893223    , 1.13626    ,
      *-.363381E-02,-.136261    , 1.13626    , .561734    ,-.136261    ,
      *-.191540    , .418080    ,-.300148    ,-.478849E-01,-.423841/
-c
-c....Regressionskoeffizienten fuer die D0.95- / d0.7-Schätzung:.....
-c
+!
+!....Regressionskoeffizienten fuer die D0.95- / d0.7-Schätzung:.....
+!
       data nxk95a/5,5,2,2,5,6,2,5/
       data nxk95b/5,5,5,5,5,5,5,5/
-c
+!
       data xk95a/
      *0.0000, 10.0000, 25.0000, 40.0000, 60.0000,     0. ,     0. ,
      *0.0000, 10.0000, 25.0000, 40.0000, 60.0000,     0. ,     0. ,
@@ -6948,7 +6871,7 @@ c
      *0.0000, 10.0000, 15.0000, 25.0000, 40.0000, 60.0000,     0. ,
      *0.0000, 60.0000,     0. ,     0. ,     0. ,     0. ,     0. ,
      *0.0000, 10.0000, 25.0000, 40.0000, 60.0000,     0. ,     0. /
-c
+!
       data xk95b/
      *0.0000, 10.0000, 25.0000, 40.0000, 60.0000,     0. ,     0. ,
      *0.0000, 10.0000, 25.0000, 40.0000, 60.0000,     0. ,     0. ,
@@ -6958,133 +6881,133 @@ c
      *0.0000, 10.0000, 25.0000, 40.0000, 60.0000,     0. ,     0. ,
      *0.0000, 10.0000, 25.0000, 40.0000, 60.0000,     0. ,     0. ,
      *0.0000, 10.0000, 25.0000, 40.0000, 60.0000,     0. ,     0. /
-c
-c....D0.95 = a(H) + b(H)*D1.3 m / a(H)=Spline(H)........................
-c
-c.....FICHTE
-c
+!
+!....D0.95 = a(H) + b(H)*D1.3 m / a(H)=Spline(H)........................
+!
+!.....FICHTE
+!
       data (a95(i,1),i=1,16)/
      *    -.2500 ,  -.2500 ,  0.0000 ,  0.0000 ,
      *    -.2500 ,  -.2500 ,  0.0000 ,   .2989 ,
      *    -.2500 ,  1.5432 ,   .2989 ,  2.2087 ,
      *    -.1747 , 22.8312 ,  3.9267 ,  0.0000 /
-c
-c.....TANNE
-c
+!
+!.....TANNE
+!
       data (a95(i,2),i=1,16)/
      *     .1056 ,  -.1785 ,  0.0000 ,  0.0000 ,
      *    -.1785 ,  -.6047 ,  0.0000 ,   .5564 ,
      *    -.6047 ,  2.3076 ,   .5564 ,  0.0000 ,
      *    2.3076 ,  6.1906 ,  0.0000 ,  0.0000 /
-c
-c.....DOUGLASIE
-c
+!
+!.....DOUGLASIE
+!
       data (a95(i,3),i=1,4)/
      *    -.4938 ,   .9066 ,  0.0000 ,  0.0000 /
-c
-c.....KIEFER
-c
+!
+!.....KIEFER
+!
       data (a95(i,4),i=1,4)/
      *    -.6966 ,  1.3798 ,  0.0000 ,  0.0000 /
-c
-c.....L?RCHE
-c
+!
+!.....L?RCHE
+!
       data (a95(i,5),i=1,16)/
      *    -.5000 ,  -.5000 ,  0.0000 ,  0.0000 ,
      *    -.5000 ,  -.5000 ,  0.0000 ,   .5225 ,
      *    -.5000 ,  2.6350 ,   .5225 ,  0.0000 ,
      *    2.6350 ,  6.8149 ,  0.0000 ,  0.0000 /
-c
-c.....BUCHE
-c
+!
+!.....BUCHE
+!
       data (a95(i,6),i=1,20)/
      *    -.1097 ,  -.0903 ,  0.0000 , 0.0000    ,
      *    -.0903 ,  -.0806 ,  0.0000 ,-4.8637E-3 ,
      *    -.0660 ,  -.1342 ,  -.0195 ,  .1207    ,
      *    -.2851 ,   .9706 ,   .2716 , 0.0000    ,
      *     .9706 ,  2.6450 ,  0.0000 , 0.0000    /
-c
-c.....EICHE
-c
+!
+!.....EICHE
+!
       data (a95(i,7),i=1,4)/
      *    -.2299 ,   .4612 ,  0.0000 ,  0.0000 /
-c
-c.....ROTEICHE
-c
+!
+!.....ROTEICHE
+!
       data (a95(i,8),i=1,16)/
      *    -.4213 ,  -.3170 ,  0.0000 ,  0.0000 ,
      *    -.3170 ,  -.1605 ,  0.0000 ,   .2115 ,
      *    -.1605 ,  1.2647 ,   .2115 ,  0.0000 ,
      *    1.2647 ,  3.1650 ,  0.0000 ,  0.0000 /
-c
-c.....D0.95 = a(H) + b(H)*D1.3 m / b(H)=Spline(H)
-c
-c.....FICHTE
-c
+!
+!.....D0.95 = a(H) + b(H)*D1.3 m / b(H)=Spline(H)
+!
+!.....FICHTE
+!
       data (b95(i,1),i=1,16)/
      *    1.0967 ,  1.0666 ,  0.0000 ,  0.0000 ,
      *    1.0666 ,  1.0215 ,  0.0000 ,  -.0187 ,
      *    1.0215 ,   .8644 ,  -.0187 ,  0.0000 ,
      *     .8644 ,   .6550 ,  0.0000 ,  0.0000 /
-c
-c.....TANNE
-c
+!
+!.....TANNE
+!
       data (b95(i,2),i=1,16)/
      *    1.0806 ,  1.0569 ,  0.0000 ,  0.0000 ,
      *    1.0569 ,  1.0213 ,  0.0000 ,  -.0163 ,
      *    1.0213 ,   .8879 ,  -.0163 ,  0.0000 ,
      *     .8879 ,   .7101 ,  0.0000 ,  0.0000 /
-c
-c.....DOUGLASIE
-c
+!
+!.....DOUGLASIE
+!
       data (b95(i,3),i=1,16)/
      *    1.1958 ,  1.1105 ,  0.0000 ,  0.0000 ,
      *    1.1105 ,   .9826 ,  0.0000 ,   .0160 ,
      *     .9826 ,   .9509 ,   .0160 ,  0.0000 ,
      *     .9509 ,   .9087 ,  0.0000 ,  0.0000 /
-c
-c.....KIEFER
-c
+!
+!.....KIEFER
+!
       data (b95(i,4),i=1,16)/
      *    1.2743 ,  1.1536 ,  0.0000 ,  0.0000 ,
      *    1.1536 ,   .9122 ,  0.0000 ,   .0533 ,
      *     .9522 ,   .9515 ,   .0133 ,  0.0000 ,
      *     .9515 ,   .9500 ,  0.0000 ,  0.0000 /
-c
-c.....L?RCHE
-c
+!
+!.....L?RCHE
+!
       data (b95(i,5),i=1,16)/
      *    1.1716 ,  1.1086 ,  0.0000    ,  0.0000    ,
      *    1.1086 ,  1.0141 ,  0.0000    , -9.5323E-3 ,
      *    1.0141 ,   .8624 , -9.5323E-3 ,  0.0000    ,
      *     .8624 ,   .6601 ,  0.0000    ,  0.0000    /
-c
-c.....BUCHE
-c
+!
+!.....BUCHE
+!
       data (b95(i,6),i=1,16)/
      *    1.1185 ,  1.0708 ,  0.0000    ,  0.0000    ,
      *    1.0708 ,   .9992 ,  0.0000    ,  3.32990E-3,
      *     .9992 ,   .9476 ,  3.32990E-3,  0.0000    ,
      *     .9476 ,   .8788 ,  0.0000    ,  0.0000    /
-c
-c.....EICHE
-c
+!
+!.....EICHE
+!
       data (b95(i,7),i=1,16)/
      *    1.1246 ,  1.0723 ,  0.0000    ,  0.0000    ,
      *    1.0723 ,   .9940 ,  0.0000    ,  6.22952E-3,
      *     .9940 ,   .9530 ,  6.22952E-3,  0.0000    ,
      *     .9530 ,   .8984 ,  0.0000    ,  0.0000    /
-c
-c.....ROTEICHE
-c
+!
+!.....ROTEICHE
+!
       data (b95(i,8),i=1,16)/
      *    1.1860 ,  1.1065 ,  0.0000 ,  0.0000 ,
      *    1.1065 ,   .9872 ,  0.0000 ,   .0122 ,
      *     .9872 ,   .9414 ,   .0122 ,  0.0000 ,
      *     .9414 ,   .8803 ,  0.0000 ,  0.0000 /
-c
-c.....Schätzung des d0.70 = a(H) / a(H)=Spline(H).......................
-c
+!
+!.....Schätzung des d0.70 = a(H) / a(H)=Spline(H).......................
+!
 
       Data Snxkn7/5,5,5,5,5,5,5,5/
 
@@ -7142,7 +7065,7 @@ c
      *     .7938,     .7807,-9.6160E-4,1.98990E-3,
      *     .7792,     .7804,3.53761E-3,-4.0580E-4/
 
-c......Rindenabz?ge.....................................................
+!......Rindenabz?ge.....................................................
 
        data ((Rin(1,j,i),i=1,3),j=1,4)/
      * 1.55540 ,  .55475 ,  -0.00255   ,
@@ -7150,7 +7073,7 @@ c......Rindenabz?ge.....................................................
      *  .17440 ,  .67905 ,  -0.00247   ,
      *  .85149 ,  .60934 ,  -0.00228   /
 
-c      Ba(2)/'Tanne Mittenst.S.'/
+!      Ba(2)/'Tanne Mittenst.S.'/
 
        data ((Rin(2,j,i),i=1,3),j=1,4)/
      * 1.67703 , .56074 ,    0.     ,
@@ -7158,7 +7081,7 @@ c      Ba(2)/'Tanne Mittenst.S.'/
      *  .67058 , .68492 ,    0.     ,
      * 1.76896 , .59175 ,    0.     /
 
-c      Ba(3)/'Douglasie Mittenst.S. BRD'/
+!      Ba(3)/'Douglasie Mittenst.S. BRD'/
 
        data ((Rin(3,j,i),i=1,3),j=1,4)/
      *   .26442, .84153, -.00233       ,
@@ -7166,7 +7089,7 @@ c      Ba(3)/'Douglasie Mittenst.S. BRD'/
      * -1.28853, .82882, -.00354       ,
      * -2.13785, .91597, -.00375       /
 
-c      Ba(4)/'Kiefer'/
+!      Ba(4)/'Kiefer'/
 
        data ((Rin(4,j,i),i=1,3),j=1,4) /
      * 5.43367 ,  .62571 ,   0.     ,
@@ -7174,7 +7097,7 @@ c      Ba(4)/'Kiefer'/
      * 4.17891 ,  .22292 ,   0.     ,
      * 1.59099 ,  .50146 ,   0.     /
 
-c      Ba(5)/'Sitka-Fichte'/
+!      Ba(5)/'Sitka-Fichte'/
 
        data ((Rin(5,j,i),i=1,3),j=1,4) /
      * 1.63833 , .79330 , -.01024      ,
@@ -7182,7 +7105,7 @@ c      Ba(5)/'Sitka-Fichte'/
      *-3.23264 , .99143 , -.01183      ,
      * 0.05167 , .81782 , -.00968      /
 
-c      Ba(6)/'Europ.-L?rche'/
+!      Ba(6)/'Europ.-L?rche'/
 
        data ((Rin(6,j,i),i=1,3),j=1,4) /
      * 4.17426 ,  .99857 ,   0.     ,
@@ -7190,7 +7113,7 @@ c      Ba(6)/'Europ.-L?rche'/
      * 1.24887 , 1.20858 ,   0.     ,
      * 3.58012 , 1.03147 ,   0.     /
 
-c      Ba(7)/'Jap.L?rche'/
+!      Ba(7)/'Jap.L?rche'/
 
        data ((Rin(7,j,i),i=1,3),j=1,4) /
      * -8.04088 , 1.38585 ,   0.    ,
@@ -7198,7 +7121,7 @@ c      Ba(7)/'Jap.L?rche'/
      * -15.26157, 1.94338 ,   0.    ,
      * -3.77073 , 1.29960 ,   0.    /
 
-c      Ba(8)/'Schwarzkiefer'/
+!      Ba(8)/'Schwarzkiefer'/
 
        data ((Rin(8,j,i),i=1,3),j=1,4) /
      * 10.72482 , 1.02208 ,   0.    ,
@@ -7206,7 +7129,7 @@ c      Ba(8)/'Schwarzkiefer'/
      * 10.30825 ,  .72255 ,   0.    ,
      *  5.27169 , 1.12602 ,   0.    /
 
-c      Ba(9)/'Weymouthskiefer'/
+!      Ba(9)/'Weymouthskiefer'/
 
        data ((Rin(9,j,i),i=1,3),j=1,4) /
      *  4.67218 ,  .52074 ,   0.    ,
@@ -7214,7 +7137,7 @@ c      Ba(9)/'Weymouthskiefer'/
      *  4.06786 ,  .46533 ,   0.    ,
      *  3.63666 ,  .50782 ,   0.    /
 
-c      Ba(10)/'Buche'/
+!      Ba(10)/'Buche'/
 
        data ((Rin(10,j,i),i=1,3),j=1,4) /
      * 1.97733 ,  .28119 ,   0.     ,
@@ -7222,7 +7145,7 @@ c      Ba(10)/'Buche'/
      * 2.69794 ,  .31096 ,   0.     ,
      * 2.61029 ,  .28522 ,   0.     /
 
-c      Ba(11)/'Stiel-Eiche'/
+!      Ba(11)/'Stiel-Eiche'/
 
        data ((Rin(11,j,i),i=1,3),j=1,4) /
      *  9.10974 ,  .66266 , 0.      ,
@@ -7230,7 +7153,7 @@ c      Ba(11)/'Stiel-Eiche'/
      *  9.88377 ,  .75877 , 0.      ,
      * 10.18342 ,  .68997 , 0.      /
 
-c      Ba(12)/'Trauben-Eiche (Bauland)'/
+!      Ba(12)/'Trauben-Eiche (Bauland)'/
 
        data ((Rin(12,j,i),i=1,3),j=1,4) /
      *  11.90259 ,  .74264 , 0.     ,
@@ -7238,7 +7161,7 @@ c      Ba(12)/'Trauben-Eiche (Bauland)'/
      *  13.54592 ,  .78294 , 0.     ,
      *  14.31589 ,  .72699 , 0.     /
 
-c      Ba(13)/'Trauben-Eiche (Vorbergzone)'/
+!      Ba(13)/'Trauben-Eiche (Vorbergzone)'/
 
        data ((Rin(13,j,i),i=1,3),j=1,4) /
      *   6.53655 ,  .58931 , 0.     ,
@@ -7246,7 +7169,7 @@ c      Ba(13)/'Trauben-Eiche (Vorbergzone)'/
      *   9.30269 ,  .64363 , 0.     ,
      *   9.88855 ,  .56734 , 0.     /
 
-c      Ba(14)/'Rot-Eiche'/
+!      Ba(14)/'Rot-Eiche'/
 
        data ((Rin(14,j,i),i=1,3),j=1,4) /
      *  -1.84576 ,  .86920 , -.00523   ,
@@ -7254,7 +7177,7 @@ c      Ba(14)/'Rot-Eiche'/
      *  -3.44335 ,  .97132 , -.00630   ,
      *  -3.19581 ,  .93891 , -.00596   /
 
-c      Ba(15)/'Bergahorn'/
+!      Ba(15)/'Bergahorn'/
 
        data ((Rin(15,j,i),i=1,3),j=1,4) /
      *  -0.60951 ,  .64014 , -.00329   ,
@@ -7262,7 +7185,7 @@ c      Ba(15)/'Bergahorn'/
      *  -4.57300 , 1.06506 , -.00929   ,
      *  -0.62466 ,  .73312 , -.00482   /
 
-c      Ba(16)/'Linde'/
+!      Ba(16)/'Linde'/
 
        data ((Rin(16,j,i),i=1,3),j=1,4) /
      *   2.26031 ,  .60113 ,    0.  ,
@@ -7270,7 +7193,7 @@ c      Ba(16)/'Linde'/
      *    .32491 ,  .72416 ,    0.  ,
      *   1.39565 ,  .65024 ,    0.  /
 
-c      Ba(17)/'Esche'/
+!      Ba(17)/'Esche'/
 
        data ((Rin(17,j,i),i=1,3),j=1,4) /
      * -1.14181 ,  .96466 , -.00432    ,
@@ -7278,7 +7201,7 @@ c      Ba(17)/'Esche'/
      * -3.62803 , 1.21051 , -.00777    ,
      * -7.97623 , 1.40182 , -.01011    /
 
-c      Ba(18)/'Hainbuche'/
+!      Ba(18)/'Hainbuche'/
 
        data ((Rin(18,j,i),i=1,3),j=1,4) /
      *  5.03406 ,  .28277 ,   0.    ,
@@ -7286,7 +7209,7 @@ c      Ba(18)/'Hainbuche'/
      *  6.96653 ,  .24105 ,   0.    ,
      *  7.47159 ,  .20957 ,   0.    /
 
-c      Ba(19)/'Robinie'/
+!      Ba(19)/'Robinie'/
 
        data ((Rin(19,j,i),i=1,3),j=1,4) /
      *  -0.27505 , 1.58820 , 0.     ,
@@ -7294,7 +7217,7 @@ c      Ba(19)/'Robinie'/
      *  -3.85748 , 1.81024 , 0.     ,
      *  -2.57381 , 1.69622 , 0.     /
 
-c      Ba(20)/'Bergulme'/
+!      Ba(20)/'Bergulme'/
 
        data ((Rin(20,j,i),i=1,3),j=1,4) /
      *   8.18895 ,  .84696 , 0.     ,
@@ -7302,7 +7225,7 @@ c      Ba(20)/'Bergulme'/
      *   5.61794 , 1.06130 , 0.     ,
      *   8.26574 ,  .89505 , 0.     /
 
-c      Ba(21)/'Birke'/
+!      Ba(21)/'Birke'/
 
        data ((Rin(21,j,i),i=1,3),j=1,4) /
      *  -2.11471 , 0.94927 , 0.     ,
@@ -7310,7 +7233,7 @@ c      Ba(21)/'Birke'/
      *   3.77295 ,  .69716 , 0.     ,
      *   1.63138 ,  .78958 , 0.     /
 
-c      Ba(22)/'Maril.Pappel'/
+!      Ba(22)/'Maril.Pappel'/
 
        data ((Rin(22,j,i),i=1,3),j=1,4) /
      *  14.26657 ,  .77462 , 0.     ,
@@ -7318,7 +7241,7 @@ c      Ba(22)/'Maril.Pappel'/
      *   8.66612 ,  .90762 , 0.     ,
      *  12.74678 ,  .79624 , 0.     /
 
-c      Ba(23)/'Robusta-Pappel'/
+!      Ba(23)/'Robusta-Pappel'/
 
        data ((Rin(23,j,i),i=1,3),j=1,4) /
      *    .59848 , 1.20446 , -.00622   ,
@@ -7326,7 +7249,7 @@ c      Ba(23)/'Robusta-Pappel'/
      *  -5.09109 , 1.35474 , -.00771   ,
      *  -1.26961 , 1.21661 , -.00624   /
 
-c      Ba(24)/'Neupotz-Pappel'/
+!      Ba(24)/'Neupotz-Pappel'/
 
        data ((Rin(24,j,i),i=1,3),j=1,4) /
      *  -3.63150 ,  1.20021  , -0.00481,
@@ -7334,7 +7257,7 @@ c      Ba(24)/'Neupotz-Pappel'/
      *  -8.28526 ,  1.42238  , -0.00720,
      *  -3.68200 ,  1.21090  , -0.00514/
 
-c      Ba(25)/'Regenerata-Pappel'/
+!      Ba(25)/'Regenerata-Pappel'/
 
        data ((Rin(25,j,i),i=1,3),j=1,4) /
      *  10.09257 ,  0.65481  ,       0.,
@@ -7342,7 +7265,7 @@ c      Ba(25)/'Regenerata-Pappel'/
      *   3.63461 ,  0.72700  ,       0.,
      *   7.20165 ,  0.67110  ,       0./
 
-c      Ba(26)/'Kirsche'/
+!      Ba(26)/'Kirsche'/
 
        data ((Rin(26,j,i),i=1,3),j=1,4) /
      *   4.54768 ,  0.52967  ,       0.,
@@ -7350,7 +7273,7 @@ c      Ba(26)/'Kirsche'/
      *   1.54289 ,  0.73426  ,       0.,
      *   4.05603 ,  0.58080  ,       0./
 
-c      Ba(27)/'Spitzahorn'/
+!      Ba(27)/'Spitzahorn'/
 
        data ((Rin(27,j,i),i=1,3),j=1,4) /
      *   6.68053 ,  0.42792  ,       0.,
@@ -7358,7 +7281,7 @@ c      Ba(27)/'Spitzahorn'/
      *   6.39906 ,  0.50162  ,       0.,
      *   7.43957 ,  0.43244  ,       0./
 
-c      Ba(28)/'Roterle'/
+!      Ba(28)/'Roterle'/
 
        data ((Rin(28,j,i),i=1,3),j=1,4) /
      *  7.33868 ,  .82437 ,   0.    ,
@@ -7366,7 +7289,7 @@ c      Ba(28)/'Roterle'/
      *  8.35663 ,  .90946 ,   0.    ,
      *  8.05239 ,  .84910 ,   0.    /
 
-c      Ba(1)/'Fichte  HS'/
+!      Ba(1)/'Fichte  HS'/
 
        data ((Rinh(1,j,i),i=1,3),j=1,5) /
      *  .44837 , .62253 , -.00288      ,
@@ -7375,7 +7298,7 @@ c      Ba(1)/'Fichte  HS'/
      *  .10719 , .64706 , -.00299      ,
      *-2.78642 ,1.03228 , -.00928      /
 
-c      Ba(2)/'Tanne'/
+!      Ba(2)/'Tanne'/
 
        data ((Rinh(2,j,i),i=1,3),j=1,5) /
      * 1.19602 , .5998  ,    0.     ,
@@ -7384,15 +7307,15 @@ c      Ba(2)/'Tanne'/
      * -.00716 , .68394 , -.00098   ,
      *-1.80354 , .98094 , -.00553   /
 
-c  Douglasie *******  Ba-Wue ******************************
+!  Douglasie *******  Ba-Wue ******************************
 
-c    * 2.80936 , .61135 ,    0.     ,
-c    * 2.73074 , .59815 ,    0.     ,
-c    * 2.77691 , .58918 ,    0.     ,
-c    * 2.72169 , .60313 ,    0.     ,
-c    * 1.12142 , .65961 , -.00103   /
+!    * 2.80936 , .61135 ,    0.     ,
+!    * 2.73074 , .59815 ,    0.     ,
+!    * 2.77691 , .58918 ,    0.     ,
+!    * 2.72169 , .60313 ,    0.     ,
+!    * 1.12142 , .65961 , -.00103   /
 
-c      Ba(3)/'Douglasie BRD'/
+!      Ba(3)/'Douglasie BRD'/
 
        data ((Rinh(3,j,i),i=1,3),j=1,5) /
      *  .15897 , .75493 , -.00175      ,
@@ -7401,97 +7324,97 @@ c      Ba(3)/'Douglasie BRD'/
      *  .30396 , .73153 , -.00154      ,
      *-1.78499 , .84379 , -.00377      /
 
-c      Ba(4)/'Sitka-Fichte'/
+!      Ba(4)/'Sitka-Fichte'/
 
-c       data ((Rinh(4,j,i),i=1,3),j=1,5) /
-c     * 1.53580 , .71693 , -.00877      ,
-c     * 1.53580 , .71693 , -.00877      ,
-c     * 1.53580 , .71693 , -.00877      ,
-c     * 1.53580 , .71693 , -.00877      ,
-c     *-3.00126 ,1.10681 , -.01385      /
+!       data ((Rinh(4,j,i),i=1,3),j=1,5) /
+!     * 1.53580 , .71693 , -.00877      ,
+!     * 1.53580 , .71693 , -.00877      ,
+!     * 1.53580 , .71693 , -.00877      ,
+!     * 1.53580 , .71693 , -.00877      ,
+!     *-3.00126 ,1.10681 , -.01385      /
 
 
-c......Zuordnungstabelle................................................
+!......Zuordnungstabelle................................................
 
 
       data Ban /
 
-c 1 Schaftform
+! 1 Schaftform
 
      * 1, 1, 2, 2, 4, 4, 4, 3, 5, 5, 5, 1, 1, 1, 6, 6, 7, 8, 8, 8, 6,
      * 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 7, 6, 6, 6,
 
-c 2 Rinde
+! 2 Rinde
 
      * 1, 1, 2, 2, 4, 8, 9, 3, 6, 6, 7, 1, 1, 2,10,18,11,14,25,25,17,
      *15,15,15,21,21,16,28,26,20,19,23,11,12,12,26,
 
-c 3 Duchschni. Aufarbeitungsgrenze (EST)
+! 3 Duchschni. Aufarbeitungsgrenze (EST)
 
      * 1, 1, 3, 3, 4, 4, 4, 1, 5, 5, 5, 1, 1, 1, 6, 6, 7, 7, 6, 6, 6,
      * 6, 6, 6, 6, 6, 6, 6, 6, 6, 7, 6, 6, 6, 6, 7,
 
-c 4 Unverwb. Derbholz.
+! 4 Unverwb. Derbholz.
 
      * 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 2, 2, 2, 2,
      * 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2,
 
-c 5 durchschn. Astdurchmesser
+! 5 durchschn. Astdurchmesser
 
      * 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 2, 2, 2, 2,
      * 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1,
 
-c 6 Massentarife nach Krenn fuer schwache B?ume
+! 6 Massentarife nach Krenn fuer schwache B?ume
 
      * 1, 1, 2, 2, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1, 4, 4, 5, 6, 6, 6, 6,
      * 6, 4, 4, 4, 6, 4, 6, 5, 6, 5, 4, 5, 6, 6, 4,
 
-c 7 Massentafeln
+! 7 Massentafeln
 
      * 1, 1, 2, 2, 4, 4, 5, 3, 6, 6, 7, 1, 1, 1, 8,13, 9,10,14,14,11,
      *11,11,11, 9,13, 8,12, 9,11,13, 9, 9,11,11, 9/
-c
-c      1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21
-c     Fi SF Ta KT Ki SK WK DG La EL JL Th Ts SN Bu HB Ei RE Pa BP Es
-c     22 23 24 25 26 27 28 29 30 31 32 33 34 35 36
-c     Ah BA SA FA Bi Li Er Ki Ul Ro El Ka We LB VB
-c
-c     'FICHTE  S?ddeutschland'
+!
+!      1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21
+!     Fi SF Ta KT Ki SK WK DG La EL JL Th Ts SN Bu HB Ei RE Pa BP Es
+!     22 23 24 25 26 27 28 29 30 31 32 33 34 35 36
+!     Ah BA SA FA Bi Li Er Ki Ul Ro El Ka We LB VB
+!
+!     'FICHTE  S?ddeutschland'
 
       DATA (Azo(1,j),j=0,3)/
      *    .639936E+0   ,.663158E+0 ,-.380240E-1  , 0./
 
-c     'FICHTE  Norddeutschland'
+!     'FICHTE  Norddeutschland'
 
       DATA (Azo(2,j),j=0,3)/
      *   -.162417E+1   ,.230909E+1 ,-.349112E+0  , .913825E-002/
 
-c     'TANNE'
+!     'TANNE'
       DATA (Azo(3,j),j=0,3)/
      *    .923207E+0   ,.615834E+0 ,-.688764E-1  , .781537E-2/
 
-c     'KIEFER'
+!     'KIEFER'
 
       DATA (Azo(4,j),j=0,3)/
      *   -.170313E+1   ,.238869E+1 ,-.396125     ,.241501E-1/
 
-c     'L?RCHE'
+!     'L?RCHE'
 
       DATA (Azo(5,j),j=0,3)/
      *    .113353E+1   ,.167188    , .113906     ,-.161586E-1/
 
-c     'BUCHE'
+!     'BUCHE'
 
       DATA (Azo(6,j),j=0,3)/
      *    .241433E+1  ,-.330161E+0 , .129946E+0  ,-.112017E-1/
 
-c     'EICHE'
+!     'EICHE'
 
       DATA (Azo(7,j),j=0,3)/
      *   -.358315E+0   ,.113226E+1 ,-.208216E-1  ,-.150484E-1/
-c
-c      BUCHE
-c    ==========
+!
+!      BUCHE
+!    ==========
 
       DATA (unvd(1,1,i),i=1,33)/
      *   36.00, 80.50,100.00,100.00,100.00,
@@ -7708,9 +7631,9 @@ c    ==========
      *   12.51, 13.52, 14.54, 15.5, 15.97, 17.56,
      *  18.33, 19., 19.82, 21.22, 21.59, 22.57,
      *   23.23, 24., 24.4, 25.28, 27.15/
-c
-c  EICHE
-c===========
+!
+!  EICHE
+!===========
       DATA (unvd(2, 1,i),i=1,33)/
      *   25.00, 47.00,100.00,100.00,100.00,
      * 100.00,100.00,100.00,100.00,100.00,100.00,
@@ -7929,156 +7852,156 @@ c===========
 
       DATA PI/7.8539816E-5/
 
-c     Hoehenrahmen FICHTE
+!     Hoehenrahmen FICHTE
 
       data (hoehr(1,i),i=1,6)/
      *6.5,7.5,8.5,8.,9.,10./
 
-c     Hoehenrahmen TANNE
+!     Hoehenrahmen TANNE
 
       data (hoehr(2,i),i=1,6)/
      *7.,7.5,8.5,8.,9.,10./
 
-c     Hoehenrahmen KIEFER
+!     Hoehenrahmen KIEFER
 
       data (hoehr(3,i),i=1,6)/
      *7.,8.,9.,9.,10.,11./
 
-c     Hoehenrahmen BUCHE
+!     Hoehenrahmen BUCHE
 
       data (hoehr(4,i),i=1,6)/
      *9.,10.,11.,10.5,12.,13./
 
-c     Hoehenrahmen EICHE
+!     Hoehenrahmen EICHE
 
       data (hoehr(5,i),i=1,6)/
      *8.,9.,10.,9.5,10.5,11.5/
 
-c     Hoehenrahmen ESCHE
+!     Hoehenrahmen ESCHE
 
       data (hoehr(6,i),i=1,6)/
      *9.5,10.5,11.5,11.,12.,13./
 
-c    * FICHTE-U
+!    * FICHTE-U
 
       data (Volk(1,I,1),i=1,30)/
      *110,114,118,121,125,129,133,137,140,144,
      *148,155,161,168,174,181,188,194,201,207,
      *214,224,235,245,256,266,276,287,297,308/
 
-c    * FICHTE-M
+!    * FICHTE-M
 
       data (Volk(1,I,2),i=1,30)/
      *125,129,134,138,143,147,151,155,159,164,
      *168,176,183,191,198,206,213,221,228,236,
      *243,255,267,278,290,302,314,326,337,349/
 
-c    * FICHTE-O
+!    * FICHTE-O
 
       data (Volk(1,I,3),i=1,30)/
      *140,145,150,154,159,164,169,174,178,183,
      *188,196,205,213,222,230,238,247,255,264,
      *272,285,298,312,325,338,351,364,378,391/
 
-c    * TANNE-U
+!    * TANNE-U
 
       data (Volk(2,I,1),i=1,30)/
      * 95,101,106,112,118,124,129,135,141,146,
      *152,160,167,175,182,190,198,205,213,220,
      *228,238,247,257,267,277,286,296,306,315/
 
-c    * TANNE-M
+!    * TANNE-M
 
       data (Volk(2,I,2),i=1,30)/
      *108,115,121,128,134,141,147,154,160,167,
      *173,182,190,199,207,216,225,233,242,250,
      *259,270,281,292,303,314,325,336,347,358/
 
-c    * TANNE-O
+!    * TANNE-O
 
       data (Volk(2,I,3),i=1,30)/
      *121,128,136,143,150,158,165,172,179,187,
      *194,204,213,223,232,242,252,261,271,280,
      *290,302,315,327,339,352,364,376,388,401/
 
-c    * KIEFER-U
+!    * KIEFER-U
 
       data (Volk(3,I,1),i=1,30)/
      * 91, 96,101,106,111,116,121,126,131,136,
      *141,148,154,161,167,174,181,187,194,200,
      *207,215,224,232,240,249,257,265,273,282/
 
-c    * KIEFER-M
+!    * KIEFER-M
 
       data (Volk(3,I,2),i=1,30)/
      *104,110,115,121,126,132,138,143,149,154,
      *160,168,175,183,190,198,205,213,220,228,
      *235,245,254,264,273,283,292,302,311,321/
 
-c    * KIEFER-O
+!    * KIEFER-O
 
       data (Volk(3,I,3),i=1,30)/
      *116,122,129,135,141,148,154,160,166,173,
      *179,187,196,204,213,221,229,238,246,255,
      *263,274,284,295,306,317,327,338,349,359/
 
-c    *Buche-U
+!    *Buche-U
 
       data (Volk(4,I,1),i=1,30)/
      *34, 40, 45, 51, 56, 62, 67, 73, 78, 84,
      *89, 98,107,115,124,133,142,151,159,168,
      *177,187,196,206,216,226,235,245,255,264/
 
-c    * BUCHE-M
+!    * BUCHE-M
 
       data (Volk(4,I,2),i=1,30)/
      *39, 45, 51, 58, 64, 70, 76, 82, 87, 94,
      *101,111,121,131,141,151,161,171,181,191,
      *201,212,223,234,245,256,267,278,289,300/
 
-c    * BUCHE-O
+!    * BUCHE-O
 
       data (Volk(4,I,3),i=1,30)/
      *44, 51, 58, 65, 72, 79, 85, 92, 99,106,
      *113,124,135,147,158,169,180,191,203,214,
      *225,237,250,262,274,287,299,311,323,336/
 
-c    * EICHE-U
+!    * EICHE-U
 
       data (Volk(5,I,1),i=1,30)/
      *123,129,135,142,148,154,160,166,173,179,
      *185,192,198,205,211,218,225,231,238,244,
      *251,260,270,279,289,298,307,317,326,336/
 
-c    * EICHE-M
+!    * EICHE-M
 
       data (Volk(5,I,2),i=1,30)/
      *140,147,154,161,168,175,182,189,196,203,
      *210,218,225,233,240,248,255,263,270,278,
      *285,296,306,317,328,339,349,360,371,381/
 
-c    * EICHE-O
+!    * EICHE-O
 
       data (Volk(5,I,3),i=1,30)/
      *157,164,173,180,188,196,202,212,219,227,
      *235,243,252,260,269,277,285,294,302,311,
      *319,331,343,355,367,379,391,403,415,427/
 
-c    * ESCHE-U
+!    * ESCHE-U
 
       data (Volk(6,I,1),i=1,30)/
      *26, 34, 42, 50, 58, 67, 75, 83, 91, 99,
      *107,117,126,136,145,155,164,174,183,193,
      *202,213,223,234,244,255,266,276,287,297/
 
-c    *Esche-M
+!    *Esche-M
 
       data (Volk(6,I,2),i=1,30)/
      * 29, 38, 47, 57, 66, 75, 84, 93,103,112,
      *121,132,143,153,164,175,186,197,207,218,
      *229,241,253,265,277,290,302,314,326,338/
 
-c    * ESCHE-O
+!    * ESCHE-O
 
       data (Volk(6,I,3),i=1,30)/
      *33, 43, 54, 64, 74, 85, 95,105,115,126,
@@ -8086,10 +8009,10 @@ c    * ESCHE-O
      *257,271,284,298,311,325,338,352,365,379/
 
 
-c.....Massentafelaequivalente d07-Werte..................................
+!.....Massentafelaequivalente d07-Werte..................................
 
 
-c     Fichte............................................................
+!     Fichte............................................................
 
       DATA (Md07(i),i=1,9) /580,576,557,522,473,457,456,411,416/
       DATA (Md07(i),i=10,20) /720,671,656,628,595,581,605,592,572,
@@ -8265,26 +8188,26 @@ c     Fichte............................................................
      *819,818,817,816,815,814,813,811,810,809,808,807,806,805,804,
      *803,802,801,800,799,801,796,795,794/
 
-c.....Startadresse für Hoehenstufen 5 - 45 m:......................
+!.....Startadresse für Hoehenstufen 5 - 45 m:......................
 
       DATA (Add07( 1,i,1),i=5,45) /0,0,1,10,21,36,53,71,92,116,142,
      *168,198,231,266,302,339,379,422,469,527,613,699,784,868,951,
      *1033,1114,1194,1273,1351,1428,1503,1577,1649,1719,1786,1852,
      *1914,1973,2027/
 
-c.....Unterer Durchmesser einer Hoehenstufe:.......................
+!.....Unterer Durchmesser einer Hoehenstufe:.......................
 
       DATA (Add07( 1,i,2),i=5,45) /0,0,9,9,7,7,8,8,8,8,8,8,8,8,9,10,
      *11,12,12,13,14,15,16,17,18,19,20,21,22,23,24,26,27,29,31,34,
      *35,39,42,47,54/
 
-c.....Oberer  Durchmesser einer Hoehenstufe:.......................
+!.....Oberer  Durchmesser einer Hoehenstufe:.......................
 
       DATA (Add07( 1,i,3),i=5,45) /0,0,17,19,21,23,25,28,31,33,33,
      *37,40,42,44,46,50,54,58,70,99,100,100,100,100,100,100,100,100,
      *100,100,100,100,100,100,100,100,100,100,100,100/
 
-c     Tanne..................................(Aenderung: 11.12.90 Kublin)
+!     Tanne..................................(Aenderung: 11.12.90 Kublin)
 
       DATA (Md07(i),i=2074,2084) /634,511,470,430,400,400,400,400,
      *400,400,400/
@@ -8493,7 +8416,7 @@ c     Tanne..................................(Aenderung: 11.12.90 Kublin)
      *37,40,44,47,50,61,70,88,120,120,120,120,120,120,120,120,120,
      *120,120,120,120,120,120,120,120,120,120,120,120,120/
 
-c     Douglasie..............................(Aenderung: 11.12.90 Kublin)
+!     Douglasie..............................(Aenderung: 11.12.90 Kublin)
 
       DATA (Md07(i),i=4421,4426) /451,487,480,446,401,400/
       DATA (Md07(i),i=4427,4435) /638,632,602,597,580,557,528,513,
@@ -8676,7 +8599,7 @@ c     Douglasie..............................(Aenderung: 11.12.90 Kublin)
      *42,44,46,48,50,52,54,56,58,62,64,66,70,72,100,100,100,100,100,
      *100,100,100,100,100,100,100,100,100,100,100/
 
-c     Kiefer..................................(Aenderung: 11.12.90 Kublin)
+!     Kiefer..................................(Aenderung: 11.12.90 Kublin)
 
       DATA (Md07(i),i=6409,6420) /660,620,580,540,500,460,420,400,
      *400,400,400,400/
@@ -8870,7 +8793,7 @@ c     Kiefer..................................(Aenderung: 11.12.90 Kublin)
      *53,56,58,61,64,67,69,74,100,100,100,100,100,100,100,100,100,
      *100,100,100,100,100,100,100,100,100,100,100,100,100/
 
-c     Weymouthskiefer.........................(Aenderung 11.12.90 Kublin)
+!     Weymouthskiefer.........................(Aenderung 11.12.90 Kublin)
 
       DATA (Md07(i),i=8513,8521) /809,760,730,710,690,670,650,630,
      *610/
@@ -8975,7 +8898,7 @@ c     Weymouthskiefer.........................(Aenderung 11.12.90 Kublin)
      *30,50,50,50,60,60,60,65,65,65,70,70,70,70,70,70,70,70,70,70,
      *70,0,0,0,0,0,0,0,0,0/
 
-c     L?rche..................................(Aenderung: 11.12.90 Kublin)
+!     L?rche..................................(Aenderung: 11.12.90 Kublin)
 
       DATA (Md07(i),i=9388,9400) /758,710,670,630,590,550,510,490,
      *460,430,400,400,400/
@@ -9132,7 +9055,7 @@ c     L?rche..................................(Aenderung: 11.12.90 Kublin)
      *38,40,43,45,48,50,52,54,56,60,62,64,66,68,72,74,76,78,80,84,
      *86,88,88,90,96,96,96,96,96,96/
 
-c     Jap.L?rche..............................(Aenderung: 11.12.90 Kublin)
+!     Jap.L?rche..............................(Aenderung: 11.12.90 Kublin)
 
       DATA (Md07(i),i=10989,10995) /854,810,770,730,690,650,630/
       DATA (Md07(i),i=10996,10999) /450,445,410,400/
@@ -9225,7 +9148,7 @@ c     Jap.L?rche..............................(Aenderung: 11.12.90 Kublin)
      *30,30,30,30,43,43,43,43,53,53,56,56,56,56,56,56,56,56,56,56,
      *56,0,0,0,0,0,0,0,0,0/
 
-c     Buche...................................(Aenderung: 11.12.90 Kublin)
+!     Buche...................................(Aenderung: 11.12.90 Kublin)
 
       DATA (Md07(i),i=11726,11732) /455,460,430,400,400,400,400/
       DATA (Md07(i),i=11733,11742) /669,596,588,569,536,526,552,511,
@@ -9420,7 +9343,7 @@ c     Buche...................................(Aenderung: 11.12.90 Kublin)
      *42,47,53,56,104,104,104,104,104,104,104,104,104,104,104,104,
      *104,104,104,104,104,104,104,104,104,104,104,0,0,0/
 
-c     Eiche.............................................................
+!     Eiche.............................................................
 
       DATA (Md07(i),i=13917,13917) /437/
       DATA (Md07(i),i=13918,13926) /416,522,604,632,663,673,667,665,
@@ -9613,7 +9536,7 @@ c     Eiche.............................................................
      *72,77,82,85,89,93,96,100,100,100,100,100,100,100,100,100,100,
      *100,100,100,100,100,100,100,100,0,0,0,0,0/
 
-c     Roteiche...............................(Aenderung: 11.12.90 Kublin)
+!     Roteiche...............................(Aenderung: 11.12.90 Kublin)
 
       DATA (Md07(i),i=16071,16074) /659,620,580,540/
       DATA (Md07(i),i=16075,16078) /527,490,460,430/
@@ -9695,7 +9618,7 @@ c     Roteiche...............................(Aenderung: 11.12.90 Kublin)
      *25,26,28,34,34,38,45,46,46,53,53,61,65,65,68,68,68,68,0,0,0,
      *0,0,0,0,0,0,0,0,0/
 
-c     Esche.............................................................
+!     Esche.............................................................
 
       DATA (Md07(i),i=16705,16706) /560,599/
       DATA (Md07(i),i=16707,16711) /613,632,649,661,634/
@@ -9786,7 +9709,7 @@ c     Esche.............................................................
      *22,24,26,26,28,30,32,34,36,38,40,42,43,45,47,49,51,53,55,56,
      *58,60,62,63,0,0,0,0,0/
 
-c     Erle....................................(Aenderung: 11.12.90 Kublin)
+!     Erle....................................(Aenderung: 11.12.90 Kublin)
 
       DATA (Md07(i),i=17370,17372) /981,940,900/
       DATA (Md07(i),i=17373,17376) /596,784,692,624/
@@ -9853,7 +9776,7 @@ c     Erle....................................(Aenderung: 11.12.90 Kublin)
      *32,34,36,36,37,37,39,40,41,42,43,45,45,45,0,0,0,0,0,0,0,0,0,
      *0,0,0,0,0,0/
 
-c     Birke...................................(Aenderung: 11.12.90 Kublin)
+!     Birke...................................(Aenderung: 11.12.90 Kublin)
 
       DATA (Md07(i),i=17790,17791) /431,400/
       DATA (Md07(i),i=17792,17795) /402,400,400,400/
@@ -9927,7 +9850,7 @@ c     Birke...................................(Aenderung: 11.12.90 Kublin)
      *45,45,45,45,45,45,45,45,45,45,45,45,45,45,0,0,0,0,0,0,0,0,0,
      *0,0,0,0,0,0/
 
-c     Pappel..................................(Aenderung: 11.12.90 Kublin)
+!     Pappel..................................(Aenderung: 11.12.90 Kublin)
 
       DATA (Md07(i),i=18373,18381) /911,870,830,790,750,710,670,630,
      *590/

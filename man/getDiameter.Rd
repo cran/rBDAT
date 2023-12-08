@@ -50,15 +50,15 @@ generated between both
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{data.frame}: transforming \code{data.frame} before calling
+\item \code{getDiameter(data.frame)}: transforming \code{data.frame} before calling
 \code{getDiameter} using \code{buildTree}
 
-\item \code{list}: transforming \code{list} before calling
+\item \code{getDiameter(list)}: transforming \code{list} before calling
 \code{getDiameter} using \code{buildTree}
 
-\item \code{datBDAT}: class method for class \code{datBDAT}
+\item \code{getDiameter(datBDAT)}: class method for class \code{datBDAT}
+
 }}
-
 \examples{
 tree <- data.frame(spp = c(1, 1), D1 = c(30, 30), H = c(25, 25), Hx = c(1.3, 22.248))
 getDiameter(tree, bark = TRUE)

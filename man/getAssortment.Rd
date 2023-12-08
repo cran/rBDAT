@@ -76,15 +76,15 @@ The standard assortment names are:
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{data.frame}: transforming \code{data.frame} before calling
+\item \code{getAssortment(data.frame)}: transforming \code{data.frame} before calling
 \code{getAssortment} using \code{buildTree}
 
-\item \code{list}: transforming \code{list} before calling
+\item \code{getAssortment(list)}: transforming \code{list} before calling
 \code{getAssortment} using \code{buildTree}
 
-\item \code{datBDAT}: class method for class \code{datBDAT}
+\item \code{getAssortment(datBDAT)}: class method for class \code{datBDAT}
+
 }}
-
 \examples{
 tree <- data.frame(spp = 1, D1 = 30, H = 25)
 sort <- list(Az = 7, Sokz = 1)
