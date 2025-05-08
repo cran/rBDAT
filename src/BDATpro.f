@@ -6666,6 +6666,7 @@
       REAL hoehr(6,6)
       REAL Sxk07(7,8),Sd07(24,8)
       INTEGER Snxkn7(8)
+      INTEGER i, j ! christian vonderach, 08.05.2025
       REAL glLSort(1:5), glDSort(1:5) ! christian vonderach, 23.07.2018
       REAL   HStockEnde
       DATA    HStockEnde /0/
@@ -6691,6 +6692,7 @@
       COMMON /d95/nxk95a,nxk95b,xk95a,xk95b,a95,b95
       COMMON /Schaft/  Nnp,Np,Nxk,B,Xk
       COMMON /Sk/ Yy,Durel
+      COMMON /itr/ i, j ! christian vonderach, 08.05.2025
 !
 !.....Splinekoeffizienten für die Schaftkurven..........................
 !

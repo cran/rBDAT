@@ -390,7 +390,7 @@ buildTree <- function(tree, check = NULL, vars = NULL, mapping = NULL) {
       "fixZ", "fixL", "fixA", "fixR"
     )
     for (v in nv) {
-      # v <- "X"
+      # v <- "lX"
       if (!(v %in% colnames(tree))) {
         ## default values
         if (identical(v, "Sokz")) {
@@ -408,7 +408,10 @@ buildTree <- function(tree, check = NULL, vars = NULL, mapping = NULL) {
           if (!all(tree$Skz %in% 0:5)) stop("Skz must be in as.integer(0:5)!")
         }
         else if (identical(v, "Sokz")) {
-          if (!all(tree$Sokz %in% 0:2)) stop("Skz must be 0, 1 or 2!")
+          if (!all(tree$Sokz %in% 0:2)) stop("Sokz must be 0, 1 or 2!")
+        }
+        else if (identical(v, "lX")) {
+          if (!all(tree$lX < 0.8*tree$H)) stop("lX [m] must be below 80% of tree height H!")
         }
         else {
           if (any(tree[, v] < 0)) stop(paste0(v, " must be numeric and >=0!"))
