@@ -1,3 +1,11 @@
+# rBDAT 1.1.0
+
+* updated English species names in getSpeciesCode() to match to the names in 
+  German NFI; the old version can still be accessed.
+* bug fix in assortment function for cases where lX (length of unusable wood at 
+  stem food) was larger than height of minimum cutting diameter
+* adjusted check on lX in buildTree()
+
 # rBDAT 1.0.1
 
 * removing significant warning in r-devel-linux-x86_64-fedora-gcc when compiling

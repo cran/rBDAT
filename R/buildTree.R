@@ -410,9 +410,9 @@ buildTree <- function(tree, check = NULL, vars = NULL, mapping = NULL) {
         else if (identical(v, "Sokz")) {
           if (!all(tree$Sokz %in% 0:2)) stop("Sokz must be 0, 1 or 2!")
         }
-        else if (identical(v, "lX")) {
-          if (!all(tree$lX < 0.8*tree$H)) stop("lX [m] must be below 80% of tree height H!")
-        }
+        # else if (identical(v, "lX")) {
+        #   if (!all(tree$lX <= tree$H)) stop("lX [m] must be below tree height H!")
+        # }
         else {
           if (any(tree[, v] < 0)) stop(paste0(v, " must be numeric and >=0!"))
         }
